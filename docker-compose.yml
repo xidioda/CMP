@@ -1,0 +1,13 @@
+services:
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_USER: cmp
+      POSTGRES_PASSWORD: cmp
+      POSTGRES_DB: cmp
+    ports:
+      - "5432:5432"
+    volumes:
+      - cmp-pg:/var/lib/postgresql/data
+volumes:
+  cmp-pg:

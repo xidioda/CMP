@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMP Dashboard</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; margin: 2rem; }
+    .container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    header { margin-bottom: 1rem; }
+    section { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; }
+    h2 { margin-top: 0; }
+    .msg { background: #ecfdf5; border: 1px solid #10b981; padding: .5rem .75rem; border-radius: 6px; margin-bottom: 1rem; }
+    input, textarea { width: 100%; padding: .5rem; margin: .25rem 0 .75rem; border: 1px solid #d1d5db; border-radius: 6px; }
+    button { background: #111827; color: white; padding: .5rem .75rem; border: none; border-radius: 6px; cursor: pointer; }
+    ul { padding-left: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Company Management Platform (CMP)</h1>
+  </header>
+
+  {% if message %}
+  <div class="msg">{{ message }}</div>
+  {% endif %}
+
+  <div class="container">
+    <section>
+      <h2>Real-World Bridge</h2>
+      <form method="post" action="/dashboard/realworld">
+        <label>Description</label>
+        <textarea name="description" placeholder="e.g., Deposited AED 50,000 as capital injection" required></textarea>
+        <label>Amount (AED)</label>
+        <input type="number" name="amount" step="0.01" placeholder="50000" />
+        <label>Actor</label>
+        <input type="text" name="actor" value="Human:orchestrator" />
+        <button type="submit">Record</button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Approval Queue</h2>
+      {% if approvals and approvals|length > 0 %}
+        <ul>
+          {% for item in approvals %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No pending approvals.</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <h2>Exception Handling Log</h2>
+      {% if exceptions and exceptions|length > 0 %}
+        <ul>
+          {% for item in exceptions %}
+            <li>{{ item }}</li>
+          {% endfor %}
+        </ul>
+      {% else %}
+        <p>No exceptions.</p>
+      {% endif %}
+    </section>
+
+    <section>
+      <h2>System</h2>
+      <p><a href="/healthz">Health check</a></p>
+    </section>
+  </div>
+</body>
+</html>
