@@ -40,6 +40,26 @@
     </section>
 
     <section>
+      <h2>Invoice Upload & OCR</h2>
+      <form method="post" action="/dashboard/upload-invoice" enctype="multipart/form-data">
+        <label>Upload Invoice/Receipt</label>
+        <input type="file" name="file" accept=".jpg,.jpeg,.png,.pdf,.tiff,.bmp" required />
+        <button type="submit">Process with OCR</button>
+      </form>
+      
+      {% if ocr_data %}
+      <div style="margin-top: 1rem; padding: 1rem; background: #f3f4f6; border-radius: 6px;">
+        <h3>OCR Results</h3>
+        <p><strong>Invoice #:</strong> {{ ocr_data.invoice_number or 'Not found' }}</p>
+        <p><strong>Vendor:</strong> {{ ocr_data.vendor or 'Not found' }}</p>
+        <p><strong>Amount:</strong> {{ ocr_data.amount or 'Not found' }} {{ ocr_data.currency }}</p>
+        <p><strong>Date:</strong> {{ ocr_data.date or 'Not found' }}</p>
+        <p><strong>Confidence:</strong> {{ (ocr_data.confidence * 100)|round(1) }}%</p>
+      </div>
+      {% endif %}
+    </section>
+
+    <section>
       <h2>Approval Queue</h2>
       {% if approvals and approvals|length > 0 %}
         <ul>
@@ -66,8 +86,30 @@
     </section>
 
     <section>
+      <h2>Recent Ledger Entries</h2>
+      {% if recent_entries and recent_entries|length > 0 %}
+        <div style="max-height: 300px; overflow-y: auto;">
+          {% for entry in recent_entries %}
+            <div style="border-bottom: 1px solid #e5e7eb; padding: 0.5rem 0;">
+              <strong>{{ entry.actor }}</strong> - {{ entry.action }}
+              <br>
+              <small>{{ entry.timestamp.strftime('%Y-%m-%d %H:%M:%S') }}</small>
+              {% if entry.data %}
+                <br>
+                <small style="color: #6b7280;">{{ entry.data }}</small>
+              {% endif %}
+            </div>
+          {% endfor %}
+        </div>
+      {% else %}
+        <p>No recent entries.</p>
+      {% endif %}
+    </section>
+
+    <section>
       <h2>System</h2>
       <p><a href="/healthz">Health check</a></p>
+      <p><a href="/dashboard/agent-status">AI Agent Status</a></p>
     </section>
   </div>
 </body>

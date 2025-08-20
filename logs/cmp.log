@@ -1,0 +1,15 @@
+2025-08-20 18:53:00,010 - cmp.main - INFO - CMP application starting up...
+2025-08-20 18:53:00,021 - cmp.main - INFO - Database initialized successfully
+2025-08-20 18:59:51,947 - cmp.main - INFO - CMP application starting up...
+2025-08-20 18:59:51,949 - cmp.main - INFO - Database initialized successfully
+2025-08-20 19:00:06,679 - cmp.integrations.invoices - INFO - Zoho Books connector initialized (stub)
+2025-08-20 19:00:06,679 - cmp.integrations.invoices - INFO - Wio Bank connector initialized (stub)
+2025-08-20 19:00:06,679 - cmp.agents.accountant - INFO - AI:Accountant initialized with enhanced capabilities
+2025-08-20 19:52:47,208 - cmp.main - INFO - CMP application starting up...
+2025-08-20 19:52:47,211 - cmp.main - INFO - Database initialized successfully
+2025-08-20 19:53:01,811 - cmp.integrations.invoices - INFO - Zoho Books connector initialized (stub)
+2025-08-20 19:53:01,811 - cmp.integrations.invoices - INFO - Wio Bank connector initialized (stub)
+2025-08-20 19:53:01,811 - cmp.agents.accountant - INFO - AI:Accountant initialized with enhanced capabilities
+2025-08-20 19:53:01,813 - cmp.agents.controller - INFO - AI:Controller initialized
+2025-08-20 19:53:01,814 - cmp.agents.director - INFO - AI:Director initialized
+2025-08-20 19:53:01,815 - cmp.agents.cfo - INFO - AI:CFO initialized

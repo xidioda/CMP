@@ -5,6 +5,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from .db import init_db
 from .routers import health, dashboard
+from .logging_config import setup_logging, get_logger
+
+logger = get_logger("main")
 
 
 def create_app() -> FastAPI:
@@ -24,7 +27,10 @@ def create_app() -> FastAPI:
 
     @app.on_event("startup")
     def _startup():
+        setup_logging()
+        logger.info("CMP application starting up...")
         init_db()
+        logger.info("Database initialized successfully")
 
     return app
 
