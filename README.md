@@ -1,5 +1,8 @@
 # Company Management Platform (CMP)
 
+**🔗 Repository:** https://github.com/xidioda/CMP  
+**📋 Project Board:** https://github.com/users/xidioda/projects/1
+
 AI-first, modular platform to automate core business operations. Phase 1 delivers the Core Platform and Module 1: AI Finance Department.
 
 ## Quick start
