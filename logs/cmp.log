@@ -134,3 +134,88 @@
 2025-09-08 00:15:50,137 - cmp.main - INFO - CMP application starting up...
 2025-09-08 00:15:50,137 - cmp.main - INFO - Database initialized successfully
 2025-09-08 00:15:58,915 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:17:49,417 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:18:03,025 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:18:03,843 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-08 00:18:03,843 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-08 00:18:03,904 - cmp.integrations.invoices - WARNING - Zoho Books connector running in stub mode - missing credentials
+2025-09-08 00:18:03,904 - cmp.integrations.invoices - WARNING - Emirates NBD connector running in stub mode - missing credentials
+2025-09-08 00:18:03,904 - cmp.integrations.invoices - INFO - Bank file importer initialized - supports CSV, Excel, QIF, OFX formats
+2025-09-08 00:18:03,904 - cmp.agents.accountant - INFO - AI:Accountant initialized with AI/ML capabilities
+2025-09-08 00:18:03,904 - cmp.agents.accountant - INFO - - Intelligent transaction categorization (ML)
+2025-09-08 00:18:03,904 - cmp.agents.accountant - INFO - - Smart document analysis and OCR
+2025-09-08 00:18:03,904 - cmp.agents.accountant - INFO - - Business insights and anomaly detection
+2025-09-08 00:18:03,904 - cmp.agents.accountant - INFO - - Multi-bank integration (Emirates NBD, File Import)
+2025-09-08 00:18:03,908 - cmp.agents.controller - INFO - AI:Controller initialized with AI-powered financial controls
+2025-09-08 00:18:03,909 - cmp.agents.director - INFO - AI:Director initialized with AI-powered strategic financial management
+2025-09-08 00:18:03,909 - cmp.agents.cfo - INFO - AI:CFO initialized with AI-powered strategic financial leadership
+2025-09-08 00:21:45,978 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:22:45,163 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-08 00:22:45,164 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_header_value with data[63:92]
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_part_data with data[96:157]
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_header_field with data[201:220]
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_header_value with data[222:246]
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_part_data with data[250:255]
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-08 00:22:45,165 - multipart.multipart - DEBUG - Calling on_header_field with data[299:318]
+2025-09-08 00:22:45,166 - multipart.multipart - DEBUG - Calling on_header_value with data[320:343]
+2025-09-08 00:22:45,166 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-08 00:22:45,166 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-08 00:22:45,166 - multipart.multipart - DEBUG - Calling on_part_data with data[347:365]
+2025-09-08 00:22:45,166 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-08 00:22:45,166 - multipart.multipart - DEBUG - Calling on_end with no data
+2025-09-08 00:22:45,166 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:22:45,179 - cmp.dashboard - INFO - Real-world event recorded by admin@cmp.com: Deposited 50000 cash via atm, which we received from a client (50000.0 AED)
+2025-09-08 00:22:48,109 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:23:27,039 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:23:37,970 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:28:29,441 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:28:29,442 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:28:55,342 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:28:55,342 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:31:07,112 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:31:07,115 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:31:36,771 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:31:36,772 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:31:50,769 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:31:50,769 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:32:12,424 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:32:12,425 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:33:09,544 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:33:09,545 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:33:36,332 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:33:36,333 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:37:13,972 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:37:13,973 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:37:41,288 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:37:41,330 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:37:42,180 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-08 00:37:42,180 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-08 00:37:42,247 - cmp.integrations.invoices - WARNING - Zoho Books connector running in stub mode - missing credentials
+2025-09-08 00:37:42,247 - cmp.integrations.invoices - WARNING - Emirates NBD connector running in stub mode - missing credentials
+2025-09-08 00:37:42,247 - cmp.integrations.invoices - INFO - Bank file importer initialized - supports CSV, Excel, QIF, OFX formats
+2025-09-08 00:37:42,247 - cmp.agents.accountant - INFO - AI:Accountant initialized with AI/ML capabilities
+2025-09-08 00:37:42,248 - cmp.agents.accountant - INFO - - Intelligent transaction categorization (ML)
+2025-09-08 00:37:42,248 - cmp.agents.accountant - INFO - - Smart document analysis and OCR
+2025-09-08 00:37:42,248 - cmp.agents.accountant - INFO - - Business insights and anomaly detection
+2025-09-08 00:37:42,248 - cmp.agents.accountant - INFO - - Multi-bank integration (Emirates NBD, File Import)
+2025-09-08 00:37:42,252 - cmp.agents.controller - INFO - AI:Controller initialized with AI-powered financial controls
+2025-09-08 00:37:42,252 - cmp.agents.director - INFO - AI:Director initialized with AI-powered strategic financial management
+2025-09-08 00:37:42,252 - cmp.agents.cfo - INFO - AI:CFO initialized with AI-powered strategic financial leadership
+2025-09-08 00:38:12,266 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:38:12,283 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:38:15,642 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:38:42,264 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:38:42,281 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:39:12,265 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:39:12,282 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:39:16,265 - cmp.main - INFO - CMP application starting up...
+2025-09-08 00:39:16,266 - cmp.main - INFO - Database initialized successfully

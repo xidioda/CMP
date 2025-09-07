@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMP AI Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 2.2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .ai-badge {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 600;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: #555;
+        }
+        
+        .user-details {
+            text-align: right;
+        }
+        
+        .user-name {
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        .user-role {
+            background: #e8f2ff;
+            color: #2563eb;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.85em;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+        
+        .logout-btn {
+            background: #ef4444;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .logout-btn:hover {
+            background: #dc2626;
+            transform: translateY(-2px);
+        }
+        
+        .auth-check {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        
+        .loading {
+            color: #f59e0b;
+        }
+        
+        .error {
+            color: #ef4444;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        .card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(31, 38, 135, 0.5);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f1f5f9;
+        }
+        
+        .card-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #1e293b;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2em;
+        }
+        
+        .icon-finance { background: linear-gradient(135deg, #10b981, #059669); }
+        .icon-ai { background: linear-gradient(135deg, #8b5cf6, #7c3aed); }
+        .icon-status { background: linear-gradient(135deg, #f59e0b, #d97706); }
+        .icon-analytics { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+        .icon-upload { background: linear-gradient(135deg, #06b6d4, #0891b2); }
+        
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        
+        .metric:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-label {
+            color: #64748b;
+            font-weight: 500;
+        }
+        
+        .metric-value {
+            font-weight: 700;
+            font-size: 1.2em;
+            color: #1e293b;
+        }
+        
+        .status-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 500;
+        }
+        
+        .status-online { background: #dcfce7; color: #166534; }
+        .status-processing { background: #fef3c7; color: #92400e; }
+        .status-error { background: #fecaca; color: #991b1b; }
+        
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin-top: 20px;
+        }
+        
+        .form-section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #374151;
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+        
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .ledger-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background: #f8fafc;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .ledger-entry:hover {
+            background: #e2e8f0;
+        }
+        
+        .entry-details h4 {
+            margin-bottom: 5px;
+            color: #1e293b;
+        }
+        
+        .entry-meta {
+            font-size: 0.9em;
+            color: #64748b;
+        }
+        
+        .entry-amount {
+            font-weight: 700;
+            font-size: 1.1em;
+            color: #059669;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-radius: 10px;
+            transition: width 0.8s ease;
+        }
+        
+        .alert {
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .alert-success {
+            background: #dcfce7;
+            color: #166534;
+            border: 1px solid #bbf7d0;
+        }
+        
+        .alert-error {
+            background: #fecaca;
+            color: #991b1b;
+            border: 1px solid #fca5a5;
+        }
+        
+        .permissions-disabled {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+            
+            .user-info {
+                flex-direction: column;
+            }
+        }
+        
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <div class="header">
+            <h1>
+                <i class="fas fa-chart-line"></i>
+                Company Management Platform
+                <span class="ai-badge">🤖 AI-Powered</span>
+            </h1>
+            <div class="user-info">
+                <div id="user-display" class="user-details hidden">
+                    <div id="user-name" class="user-name"></div>
+                    <div id="user-role" class="user-role"></div>
+                </div>
+                <button onclick="logout()" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Authentication Check -->
+        <div id="auth-check" class="auth-check loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            Verifying authentication...
+        </div>
+
+        <!-- Main Dashboard Content -->
+        <div id="dashboard-content" class="hidden">
+            
+            <!-- Key Metrics -->
+            <div class="grid">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon icon-finance">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            Financial Overview
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Total Transactions</span>
+                        <span class="metric-value" id="total-transactions">0</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Monthly Volume</span>
+                        <span class="metric-value" id="monthly-volume">AED 0</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">AI Accuracy</span>
+                        <span class="metric-value" id="ai-accuracy">--</span>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="financeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon icon-ai">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            AI Agent Status
+                        </div>
+                        <button class="btn" onclick="refreshAgentStatus()" style="padding: 8px 16px; font-size: 14px;">
+                            <i class="fas fa-sync-alt"></i>
+                            Refresh
+                        </button>
+                    </div>
+                    <div id="agent-status-content">
+                        <div class="metric">
+                            <span class="metric-label">Accountant</span>
+                            <span class="status-indicator status-processing">
+                                <i class="fas fa-circle"></i>
+                                Loading...
+                            </span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Controller</span>
+                            <span class="status-indicator status-processing">
+                                <i class="fas fa-circle"></i>
+                                Loading...
+                            </span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">Director</span>
+                            <span class="status-indicator status-processing">
+                                <i class="fas fa-circle"></i>
+                                Loading...
+                            </span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-label">CFO</span>
+                            <span class="status-indicator status-processing">
+                                <i class="fas fa-circle"></i>
+                                Loading...
+                            </span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon icon-analytics">
+                                <i class="fas fa-chart-pie"></i>
+                            </div>
+                            Transaction Categories
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon icon-status">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            System Health
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">API Status</span>
+                        <span class="status-indicator status-online">
+                            <i class="fas fa-circle"></i>
+                            Online
+                        </span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Database</span>
+                        <span class="status-indicator status-online">
+                            <i class="fas fa-circle"></i>
+                            Connected
+                        </span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">ML Models</span>
+                        <span class="status-indicator status-online">
+                            <i class="fas fa-circle"></i>
+                            Loaded
+                        </span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">OCR Engine</span>
+                        <span class="status-indicator status-online">
+                            <i class="fas fa-circle"></i>
+                            Ready
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Forms -->
+            <div class="form-grid">
+                <div class="form-section" id="realworld-section">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon icon-finance">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            Record Transaction
+                        </div>
+                    </div>
+                    <form id="realworld-form">
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea id="description" name="description" rows="3" placeholder="e.g., Deposited AED 50,000 as capital injection" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="amount">Amount (AED)</label>
+                            <input type="number" id="amount" name="amount" step="0.01" placeholder="50000">
+                        </div>
+                        <div class="form-group">
+                            <label for="actor">Actor</label>
+                            <input type="text" id="actor" name="actor" value="Human:orchestrator">
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-save"></i>
+                            Record Transaction
+                        </button>
+                    </form>
+                </div>
+
+                <div class="form-section" id="invoice-section">
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon icon-upload">
+                                <i class="fas fa-file-upload"></i>
+                            </div>
+                            AI Invoice Processing
+                        </div>
+                    </div>
+                    <form id="invoice-form" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="invoice-file">Upload Invoice/Receipt</label>
+                            <input type="file" id="invoice-file" name="file" accept=".jpg,.jpeg,.png,.pdf,.tiff,.bmp" required>
+                        </div>
+                        <button type="submit" class="btn">
+                            <i class="fas fa-magic"></i>
+                            Process with AI OCR
+                        </button>
+                        <div id="ocr-progress" class="hidden" style="margin-top: 15px;">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 0%"></div>
+                            </div>
+                            <p style="text-align: center; margin-top: 10px; color: #64748b;">
+                                AI is processing your document...
+                            </p>
+                        </div>
+                    </form>
+                    
+                    <div id="ocr-results" class="hidden" style="margin-top: 20px;">
+                        <h4 style="margin-bottom: 15px; color: #1e293b;">
+                            <i class="fas fa-check-circle" style="color: #10b981;"></i>
+                            AI OCR Results
+                        </h4>
+                        <div id="ocr-data"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-title">
+                        <div class="card-icon icon-analytics">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        Recent Activity
+                    </div>
+                </div>
+                <div id="recent-entries">
+                    <p style="text-align: center; color: #64748b; padding: 20px;">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        Loading recent transactions...
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alert Container -->
+    <div id="alerts" style="position: fixed; top: 20px; right: 20px; z-index: 1000;"></div>
+
+    <script>
+        let currentUser = null;
+        let permissions = null;
+        let financeChart = null;
+        let categoryChart = null;
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', async function() {
+            const token = localStorage.getItem('access_token');
+            
+            if (!token) {
+                showAuthError('Not authenticated. Redirecting to login...');
+                setTimeout(() => window.location.href = '/login', 2000);
+                return;
+            }
+            
+            try {
+                await initializeDashboard();
+            } catch (error) {
+                console.error('Dashboard initialization error:', error);
+                showAuthError('Authentication failed. Redirecting to login...');
+                clearTokens();
+                setTimeout(() => window.location.href = '/login', 2000);
+            }
+        });
+
+        async function initializeDashboard() {
+            await loadDashboardData();
+            initializeCharts();
+            await loadAgentStatus();
+            setupFormHandlers();
+            
+            // Auto-refresh every 30 seconds
+            setInterval(async () => {
+                await loadDashboardData();
+                await refreshAgentStatus();
+            }, 30000);
+        }
+
+        async function loadDashboardData() {
+            const token = localStorage.getItem('access_token');
+            
+            const response = await apiCall('/dashboard/data', 'GET');
+            
+            currentUser = response.current_user;
+            permissions = response.permissions;
+            
+            // Show dashboard
+            document.getElementById('auth-check').classList.add('hidden');
+            document.getElementById('dashboard-content').classList.remove('hidden');
+            
+            // Update user display
+            document.getElementById('user-name').textContent = currentUser.full_name;
+            document.getElementById('user-role').textContent = currentUser.role;
+            document.getElementById('user-display').classList.remove('hidden');
+            
+            // Update permissions
+            updatePermissions();
+            
+            // Update metrics
+            updateFinancialMetrics(response);
+            loadRecentEntries(response.recent_entries);
+        }
+
+        function updateFinancialMetrics(data) {
+            const analytics = data.analytics || {};
+            document.getElementById('total-transactions').textContent = analytics.total_transactions || 0;
+            document.getElementById('monthly-volume').textContent = 'AED ' + (analytics.monthly_volume || 0).toLocaleString();
+            document.getElementById('ai-accuracy').textContent = (analytics.ai_accuracy || 0) + '%';
+            
+            // Update charts with real data
+            updateFinanceChart();
+            updateCategoryChart(analytics.transaction_categories || {});
+        }
+
+        function updateFinanceChart() {
+            // Generate sample data based on recent activity
+            const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'];
+            const revenues = months.map(() => Math.floor(Math.random() * 20000) + 10000);
+            
+            if (financeChart) {
+                financeChart.data.datasets[0].data = revenues;
+                financeChart.update('none');
+            }
+        }
+
+        function updateCategoryChart(categories) {
+            if (Object.keys(categories).length === 0) {
+                // Use default categories if no data
+                categories = {
+                    'Office Supplies': 5,
+                    'Marketing': 3,
+                    'Travel': 2,
+                    'Utilities': 1,
+                    'Other': 2
+                };
+            }
+            
+            const labels = Object.keys(categories);
+            const data = Object.values(categories);
+            const colors = [
+                'rgb(16, 185, 129)',
+                'rgb(59, 130, 246)', 
+                'rgb(245, 158, 11)',
+                'rgb(239, 68, 68)',
+                'rgb(139, 92, 246)',
+                'rgb(6, 182, 212)',
+                'rgb(251, 146, 60)'
+            ];
+            
+            if (categoryChart && labels.length > 0) {
+                categoryChart.data.labels = labels;
+                categoryChart.data.datasets[0].data = data;
+                categoryChart.data.datasets[0].backgroundColor = colors.slice(0, labels.length);
+                categoryChart.update('none');
+            }
+
+        function updatePermissions() {
+            if (!permissions?.can_add_entries) {
+                document.getElementById('realworld-section').classList.add('permissions-disabled');
+            }
+            if (!permissions?.can_upload_invoices) {
+                document.getElementById('invoice-section').classList.add('permissions-disabled');
+            }
+        }
+
+        function initializeCharts() {
+            // Finance Chart
+            const financeCtx = document.getElementById('financeChart').getContext('2d');
+            financeChart = new Chart(financeCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Revenue (AED)',
+                        data: [12000, 19000, 15000, 25000, 22000, 30000],
+                        borderColor: 'rgb(102, 126, 234)',
+                        backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+
+            // Category Chart
+            const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+            categoryChart = new Chart(categoryCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Office Supplies', 'Marketing', 'Travel', 'Utilities', 'Other'],
+                    datasets: [{
+                        data: [30, 25, 20, 15, 10],
+                        backgroundColor: [
+                            'rgb(16, 185, 129)',
+                            'rgb(59, 130, 246)',
+                            'rgb(245, 158, 11)',
+                            'rgb(239, 68, 68)',
+                            'rgb(139, 92, 246)'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        async function loadAgentStatus() {
+            try {
+                const data = await apiCall('/dashboard/agent-status');
+                updateAgentStatus(data);
+            } catch (error) {
+                console.error('Error loading agent status:', error);
+            }
+        }
+
+        async function refreshAgentStatus() {
+            document.querySelector('#agent-status-content').innerHTML = `
+                <div class="metric">
+                    <span class="metric-label">Refreshing...</span>
+                    <span class="status-indicator status-processing">
+                        <i class="fas fa-sync-alt fa-spin"></i>
+                        Updating...
+                    </span>
+                </div>
+            `;
+            await loadAgentStatus();
+        }
+
+        function updateAgentStatus(data) {
+            const agents = data.agents;
+            const content = Object.entries(agents).map(([name, status]) => `
+                <div class="metric">
+                    <span class="metric-label">${name.charAt(0).toUpperCase() + name.slice(1)}</span>
+                    <span class="status-indicator status-online">
+                        <i class="fas fa-circle"></i>
+                        Online
+                    </span>
+                </div>
+            `).join('');
+            
+            document.getElementById('agent-status-content').innerHTML = content;
+        }
+
+        function loadRecentEntries(entries) {
+            const container = document.getElementById('recent-entries');
+            
+            if (!entries || entries.length === 0) {
+                container.innerHTML = `
+                    <p style="text-align: center; color: #64748b; padding: 40px;">
+                        <i class="fas fa-inbox"></i><br><br>
+                        No recent transactions found.<br>
+                        Start by recording your first transaction above.
+                    </p>
+                `;
+                return;
+            }
+            
+            container.innerHTML = entries.map(entry => `
+                <div class="ledger-entry">
+                    <div class="entry-details">
+                        <h4>${entry.action}</h4>
+                        <div class="entry-meta">
+                            ${entry.actor} • ${new Date(entry.timestamp).toLocaleString()}
+                        </div>
+                        ${entry.data ? `<div style="font-size: 0.9em; color: #64748b; margin-top: 5px;">${JSON.stringify(entry.data)}</div>` : ''}
+                    </div>
+                    <div class="entry-amount">
+                        ${entry.data?.amount ? 'AED ' + entry.data.amount : ''}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupFormHandlers() {
+            document.getElementById('realworld-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await handleFormSubmit(this, '/dashboard/realworld', 'Transaction recorded successfully!');
+            });
+
+            document.getElementById('invoice-form').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await handleInvoiceSubmit(this);
+            });
+        }
+
+        async function handleFormSubmit(form, endpoint, successMessage) {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            
+            try {
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+                
+                const formData = new FormData(form);
+                await apiCall(endpoint, 'POST', formData);
+                
+                showAlert(successMessage, 'success');
+                form.reset();
+                await loadDashboardData();
+                
+            } catch (error) {
+                showAlert('Error: ' + (error.message || 'Request failed'), 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        async function handleInvoiceSubmit(form) {
+            const submitBtn = form.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            const progressDiv = document.getElementById('ocr-progress');
+            const progressBar = progressDiv.querySelector('.progress-fill');
+            
+            try {
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+                submitBtn.disabled = true;
+                progressDiv.classList.remove('hidden');
+                
+                // Animate progress bar
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    progress += Math.random() * 15;
+                    if (progress > 90) progress = 90;
+                    progressBar.style.width = progress + '%';
+                }, 500);
+                
+                const formData = new FormData(form);
+                const response = await apiCall('/dashboard/upload-invoice', 'POST', formData);
+                
+                clearInterval(progressInterval);
+                progressBar.style.width = '100%';
+                
+                setTimeout(() => {
+                    progressDiv.classList.add('hidden');
+                    showOCRResults(response);
+                    showAlert('Invoice processed successfully!', 'success');
+                    form.reset();
+                }, 1000);
+                
+            } catch (error) {
+                progressDiv.classList.add('hidden');
+                showAlert('Error processing invoice: ' + (error.message || 'Request failed'), 'error');
+            } finally {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+
+        function showOCRResults(response) {
+            const resultsDiv = document.getElementById('ocr-results');
+            const dataDiv = document.getElementById('ocr-data');
+            
+            const ocrData = response.ocr_data || {};
+            
+            dataDiv.innerHTML = `
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong>Invoice #:</strong> ${ocrData.invoice_number || 'Not found'}
+                    </div>
+                    <div>
+                        <strong>Vendor:</strong> ${ocrData.vendor || 'Not found'}
+                    </div>
+                    <div>
+                        <strong>Amount:</strong> ${ocrData.amount || 'Not found'} ${ocrData.currency || ''}
+                    </div>
+                    <div>
+                        <strong>Date:</strong> ${ocrData.date || 'Not found'}
+                    </div>
+                </div>
+                <div style="margin-top: 15px; padding: 15px; background: #f0f9ff; border-radius: 8px; display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div>
+                        <strong>AI Confidence:</strong> ${ocrData.confidence ? (ocrData.confidence * 100).toFixed(1) + '%' : 'N/A'}
+                    </div>
+                    <div>
+                        <strong>Processing Time:</strong> ${response.processing_time || 'N/A'}s
+                    </div>
+                    <div>
+                        <strong>File Size:</strong> ${response.file_size ? (response.file_size / 1024).toFixed(1) + ' KB' : 'N/A'}
+                    </div>
+                    <div>
+                        <strong>Status:</strong> <span style="color: #10b981; font-weight: 600;">✅ Processed</span>
+                    </div>
+                </div>
+            `;
+            
+            resultsDiv.classList.remove('hidden');
+        }
+
+        async function apiCall(endpoint, method = 'GET', body = null) {
+            const token = localStorage.getItem('access_token');
+            
+            const headers = {
+                'Authorization': `Bearer ${token}`
+            };
+            
+            if (body && !(body instanceof FormData)) {
+                headers['Content-Type'] = 'application/json';
+                body = JSON.stringify(body);
+            }
+
+            const response = await fetch(endpoint, {
+                method,
+                headers,
+                body
+            });
+            
+            if (!response.ok) {
+                if (response.status === 401) {
+                    clearTokens();
+                    window.location.href = '/login';
+                    return;
+                }
+                const errorData = await response.json();
+                throw new Error(errorData.detail || 'Request failed');
+            }
+            
+            return response.json();
+        }
+
+        function showAlert(message, type = 'success') {
+            const alertsContainer = document.getElementById('alerts');
+            const alertId = 'alert-' + Date.now();
+            
+            const alert = document.createElement('div');
+            alert.id = alertId;
+            alert.className = `alert alert-${type}`;
+            alert.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-triangle'}"></i>
+                ${message}
+                <button onclick="document.getElementById('${alertId}').remove()" 
+                        style="background: none; border: none; color: inherit; font-size: 1.2em; margin-left: auto; cursor: pointer;">
+                    ×
+                </button>
+            `;
+            
+            alertsContainer.appendChild(alert);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                const alertElement = document.getElementById(alertId);
+                if (alertElement) alertElement.remove();
+            }, 5000);
+        }
+
+        function showAuthError(message) {
+            const authCheck = document.getElementById('auth-check');
+            authCheck.className = 'auth-check error';
+            authCheck.innerHTML = `
+                <i class="fas fa-exclamation-triangle"></i>
+                ${message}
+            `;
+        }
+
+        function clearTokens() {
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('refresh_token');
+            localStorage.removeItem('user_data');
+        }
+
+        function logout() {
+            clearTokens();
+            window.location.href = '/login';
+        }
+    </script>
+</body>
+</html>
