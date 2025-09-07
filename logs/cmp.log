@@ -219,3 +219,72 @@
 2025-09-08 00:39:12,282 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
 2025-09-08 00:39:16,265 - cmp.main - INFO - CMP application starting up...
 2025-09-08 00:39:16,266 - cmp.main - INFO - Database initialized successfully
+2025-09-08 00:39:33,392 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2025-09-08 00:39:33,392 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-09-08 00:39:33,611 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-08 00:39:33,611 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:39:33,613 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:39:33,613 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-08 00:39:35,345 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:39:35,364 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:39:36,175 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-08 00:39:36,175 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-08 00:39:36,239 - cmp.integrations.invoices - WARNING - Zoho Books connector running in stub mode - missing credentials
+2025-09-08 00:39:36,239 - cmp.integrations.invoices - WARNING - Emirates NBD connector running in stub mode - missing credentials
+2025-09-08 00:39:36,239 - cmp.integrations.invoices - INFO - Bank file importer initialized - supports CSV, Excel, QIF, OFX formats
+2025-09-08 00:39:36,239 - cmp.agents.accountant - INFO - AI:Accountant initialized with AI/ML capabilities
+2025-09-08 00:39:36,239 - cmp.agents.accountant - INFO - - Intelligent transaction categorization (ML)
+2025-09-08 00:39:36,239 - cmp.agents.accountant - INFO - - Smart document analysis and OCR
+2025-09-08 00:39:36,239 - cmp.agents.accountant - INFO - - Business insights and anomaly detection
+2025-09-08 00:39:36,239 - cmp.agents.accountant - INFO - - Multi-bank integration (Emirates NBD, File Import)
+2025-09-08 00:39:36,242 - cmp.agents.controller - INFO - AI:Controller initialized with AI-powered financial controls
+2025-09-08 00:39:36,243 - cmp.agents.director - INFO - AI:Director initialized with AI-powered strategic financial management
+2025-09-08 00:39:36,243 - cmp.agents.cfo - INFO - AI:CFO initialized with AI-powered strategic financial leadership
+2025-09-08 00:39:42,265 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:39:42,279 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:40:06,246 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:40:06,249 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:40:12,263 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:40:12,270 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:40:36,249 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:40:36,260 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:40:42,267 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:40:42,268 - cmp.auth - WARNING - JWT verification failed: Signature has expired.
+2025-09-08 00:41:06,250 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:41:06,262 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:41:36,248 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:41:36,257 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:42:06,248 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:42:06,256 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:42:36,247 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:42:36,256 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:43:06,245 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:43:06,252 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:43:36,247 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:43:36,255 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:44:06,256 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:44:06,266 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:44:36,256 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:44:36,261 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:45:06,259 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:45:06,269 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:45:36,259 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:45:36,270 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:46:06,258 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:46:06,269 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:46:36,256 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:46:36,266 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:47:06,259 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:47:06,270 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:47:36,257 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:47:36,267 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:48:06,263 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:48:06,281 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:48:36,266 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:48:36,283 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:49:06,256 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:49:06,266 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:49:36,254 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:49:36,265 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:50:06,258 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 00:50:06,270 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
