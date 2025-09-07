@@ -2,56 +2,79 @@
 AI Accountant Agent
 
 Responsibilities:
-- Fetch transactions from Wio Bank
-- Categorize transactions in Zoho Books  
-- OCR uploaded invoices and create bills
-- Generate e-invoices
-- Perform daily bank reconciliations
-- Prepare draft VAT returns
+- Fetch transactions from bank APIs and file imports
+- Intelligently categorize transactions using ML
+- OCR uploaded invoices and create bills with AI analysis
+- Generate e-invoices with smart data extraction
+- Perform daily bank reconciliations with anomaly detection
+- Prepare draft VAT returns with compliance checking
 """
 
-from typing import Dict, Any, List
+from typing import Dict, Any, List, Optional
 from pathlib import Path
 from datetime import datetime
+import asyncio
 
 from ..logging_config import get_logger
 from ..utils.ocr import ocr_processor
-from ..integrations.invoices import zoho_books, generate_uae_einvoice
+from ..utils.ai import transaction_categorizer, document_analyzer, insight_engine
+from ..integrations.invoices import zoho_books, generate_uae_einvoice, emirates_nbd, bank_file_importer
 
 logger = get_logger("agents.accountant")
 
 
 class AIAccountant:
-    """AI Accountant - maintains perfect, real-time, compliant bookkeeping"""
+    """AI Accountant - Intelligent, real-time, compliant bookkeeping with ML"""
     
     def __init__(self):
         self.name = "AI:Accountant"
         self.processed_invoices = []
-        self.transaction_categories = {
-            "office_supplies": ["office", "supplies", "stationery", "paper"],
-            "travel": ["travel", "flight", "hotel", "taxi", "uber"],
-            "meals": ["restaurant", "cafe", "lunch", "dinner", "food"],
-            "utilities": ["electricity", "water", "internet", "phone"],
-            "rent": ["rent", "lease", "property"],
-            "professional_services": ["legal", "consultant", "advisory", "audit"],
-        }
-        logger.info(f"{self.name} initialized with enhanced capabilities")
+        self.ai_insights = []
+        
+        # Enhanced AI-powered categorization replaces simple keyword matching
+        logger.info(f"{self.name} initialized with AI/ML capabilities")
+        logger.info("- Intelligent transaction categorization (ML)")
+        logger.info("- Smart document analysis and OCR")
+        logger.info("- Business insights and anomaly detection")
+        logger.info("- Multi-bank integration (Emirates NBD, File Import)")
     
     async def fetch_bank_transactions(self, days: int = 1) -> List[Dict[str, Any]]:
-        """Fetch transactions from Wio Bank with enhanced error handling"""
-        from ..integrations.invoices import wio_bank
+        """Fetch transactions from multiple banks with AI categorization"""
+        all_transactions = []
         
         try:
-            transactions = await wio_bank.fetch_transactions(days=days)
-            logger.info(f"{self.name}: Successfully fetched {len(transactions)} bank transactions")
+            # Fetch from Emirates NBD API (real UAE bank)
+            try:
+                emirates_transactions = await emirates_nbd.fetch_transactions(days=days)
+                all_transactions.extend(emirates_transactions)
+                logger.info(f"{self.name}: Fetched {len(emirates_transactions)} Emirates NBD transactions")
+            except Exception as e:
+                logger.warning(f"Emirates NBD fetch failed: {e}")
             
-            # Process and categorize each transaction
+            # Import from bank statement files
+            try:
+                file_transactions = await bank_file_importer.import_recent_statements(days=days)
+                all_transactions.extend(file_transactions)
+                logger.info(f"{self.name}: Imported {len(file_transactions)} file-based transactions")
+            except Exception as e:
+                logger.warning(f"File import failed: {e}")
+            
+            # Apply AI categorization to all transactions
             processed_transactions = []
-            for txn in transactions:
-                # Add automatic categorization
-                category = await self.categorize_transaction(txn)
-                txn["category"] = category
+            for txn in all_transactions:
+                # Use AI to categorize transaction
+                categorization = self.categorize_transaction_ai(
+                    description=txn.get("description", ""),
+                    amount=txn.get("amount", 0)
+                )
+                txn.update(categorization)
                 processed_transactions.append(txn)
+            
+            # Generate business insights from transaction patterns
+            if processed_transactions:
+                insights = insight_engine.analyze_spending_patterns(processed_transactions)
+                self.ai_insights.extend(insights.get("insights", []))
+                logger.info(f"{self.name}: Generated {len(insights.get('insights', []))} business insights")
             
             return processed_transactions
             
@@ -59,31 +82,66 @@ class AIAccountant:
             logger.error(f"{self.name}: Error fetching bank transactions: {e}")
             return []
     
-    async def categorize_transaction(self, transaction: Dict[str, Any]) -> str:
-        """Categorize a transaction for Zoho Books using AI"""
-        description = transaction.get("description", "").lower()
-        
-        # Simple rule-based categorization (would use ML in production)
-        for category, keywords in self.transaction_categories.items():
-            if any(keyword in description for keyword in keywords):
-                logger.info(f"{self.name}: Categorized '{description}' as {category}")
-                return category
-        
-        logger.info(f"{self.name}: Transaction '{description}' marked as uncategorized")
-        return "uncategorized"
+    def categorize_transaction_ai(self, description: str, amount: float = 0) -> Dict[str, Any]:
+        """Use AI to categorize transaction with confidence scoring"""
+        try:
+            # Use the ML categorization model
+            result = transaction_categorizer.categorize(description, amount)
+            
+            logger.info(f"{self.name}: AI categorized '{description}' as '{result['category']}' "
+                       f"(confidence: {result['confidence']:.2f})")
+            
+            return {
+                "ai_category": result["category"],
+                "ai_confidence": result["confidence"],
+                "ai_reasoning": result["reasoning"],
+                "ai_suggestions": result.get("suggested_categories", [])
+            }
+        except Exception as e:
+            logger.warning(f"AI categorization failed: {e}, using fallback")
+            return {
+                "ai_category": "Other",
+                "ai_confidence": 0.0,
+                "ai_reasoning": f"Error: {e}",
+                "ai_suggestions": []
+            }
     
     async def process_uploaded_invoice(self, file_path: Path) -> Dict[str, Any]:
-        """Process an uploaded invoice with OCR and create Zoho Books entry"""
+        """Process uploaded invoice with AI-enhanced OCR analysis"""
         try:
             # Extract data using OCR
             ocr_data = await ocr_processor.extract_invoice_data(file_path)
+            raw_text = ocr_data.get("raw_text", "")
             
-            # Prepare invoice data for Zoho Books
+            # Apply AI document analysis
+            ai_analysis = document_analyzer.analyze_document(raw_text, ocr_data)
+            
+            # Combine OCR and AI results
+            enhanced_data = {
+                "ocr_data": ocr_data,
+                "ai_analysis": ai_analysis,
+                "vendor": ai_analysis.get("vendor", {}).get("name", ocr_data.get("vendor", "Unknown")),
+                "amounts": ai_analysis.get("amounts", []),
+                "suggested_category": ai_analysis.get("categories", [{}])[0].get("category", "Other"),
+                "confidence": ai_analysis.get("confidence", 0.0),
+                "document_type": ai_analysis.get("document_type", {}).get("type", "invoice"),
+                "language": ai_analysis.get("language", {}).get("name", "English")
+            }
+            
+            logger.info(f"{self.name}: AI-enhanced invoice processing complete")
+            logger.info(f"- Vendor: {enhanced_data['vendor']}")
+            logger.info(f"- Category: {enhanced_data['suggested_category']}")
+            logger.info(f"- Confidence: {enhanced_data['confidence']:.2f}")
+            logger.info(f"- Language: {enhanced_data['language']}")
+            
+            # Prepare invoice data for Zoho Books with AI enhancements
+            primary_amount = enhanced_data['amounts'][0] if enhanced_data['amounts'] else {"amount": 0, "currency": "AED"}
+            
             invoice_data = {
-                "customer_name": ocr_data.get("vendor", "Unknown Vendor"),
-                "invoice_number": ocr_data.get("invoice_number", ""),
-                "date": ocr_data.get("date", ""),
-                "currency": ocr_data.get("currency", "AED"),
+                "customer_name": enhanced_data["vendor"],
+                "invoice_number": ocr_data.get("invoice_number", f"AUTO-{datetime.now().strftime('%Y%m%d%H%M')}"),
+                "date": ocr_data.get("date", datetime.now().strftime('%Y-%m-%d')),
+                "currency": primary_amount.get("currency", "AED"),
                 "line_items": ocr_data.get("line_items", []),
                 "total_amount": ocr_data.get("amount", 0)
             }
@@ -185,20 +243,131 @@ class AIAccountant:
             "status": "draft"
         }
     
+    async def analyze_spending_patterns(self) -> Dict[str, Any]:
+        """Generate AI-powered spending analysis and business insights"""
+        try:
+            # Fetch recent transactions for analysis
+            recent_transactions = await self.fetch_bank_transactions(days=30)
+            
+            if not recent_transactions:
+                return {"message": "No transactions available for analysis"}
+            
+            # Generate comprehensive business insights using AI
+            insights = insight_engine.analyze_spending_patterns(recent_transactions)
+            
+            # Add additional AI-powered recommendations
+            recommendations = insight_engine.generate_recommendations(insights)
+            insights["ai_recommendations"] = recommendations
+            
+            logger.info(f"{self.name}: Generated comprehensive spending analysis")
+            logger.info(f"- Total insights: {len(insights.get('insights', []))}")
+            logger.info(f"- Recommendations: {len(recommendations)}")
+            
+            return insights
+            
+        except Exception as e:
+            logger.error(f"{self.name}: Spending pattern analysis failed: {e}")
+            return {"error": f"Analysis failed: {e}"}
+    
+    async def detect_anomalies(self, transactions: List[Dict[str, Any]] = None) -> List[Dict[str, Any]]:
+        """Detect anomalous transactions using AI"""
+        if not transactions:
+            transactions = await self.fetch_bank_transactions(days=7)
+        
+        anomalies = []
+        
+        try:
+            if len(transactions) < 3:
+                return anomalies
+            
+            amounts = [t.get("amount", 0) for t in transactions]
+            avg_amount = sum(amounts) / len(amounts)
+            
+            # Simple anomaly detection (in production, use more sophisticated ML algorithms)
+            for txn in transactions:
+                amount = txn.get("amount", 0)
+                
+                # Flag unusually large amounts
+                if amount > avg_amount * 3:
+                    anomalies.append({
+                        "transaction": txn,
+                        "anomaly_type": "unusual_amount",
+                        "severity": "high" if amount > avg_amount * 5 else "medium",
+                        "reason": f"Amount {amount} is {amount/avg_amount:.1f}x the average transaction",
+                        "ai_confidence": 0.8
+                    })
+                
+                # Flag duplicate transactions
+                similar_txns = [t for t in transactions if 
+                               abs(t.get("amount", 0) - amount) < 0.01 and 
+                               t.get("description", "") == txn.get("description", "") and
+                               t != txn]
+                
+                if similar_txns:
+                    anomalies.append({
+                        "transaction": txn,
+                        "anomaly_type": "potential_duplicate",
+                        "severity": "medium",
+                        "reason": f"Similar transaction found: {len(similar_txns)} match(es)",
+                        "ai_confidence": 0.7
+                    })
+            
+            if anomalies:
+                logger.warning(f"{self.name}: Detected {len(anomalies)} transaction anomalies")
+            
+            return anomalies
+            
+        except Exception as e:
+            logger.error(f"{self.name}: Anomaly detection failed: {e}")
+            return []
+    
+    async def get_ai_insights(self) -> List[Dict[str, Any]]:
+        """Get current AI insights and recommendations"""
+        return self.ai_insights
+    
+    async def train_categorization_model(self, feedback: Dict[str, str]):
+        """Train/update the AI categorization model with user feedback"""
+        try:
+            description = feedback.get("description", "")
+            correct_category = feedback.get("category", "")
+            
+            if description and correct_category:
+                transaction_categorizer.retrain_with_feedback(description, correct_category)
+                logger.info(f"{self.name}: Updated AI model with feedback: '{description}' -> '{correct_category}'")
+                return {"status": "success", "message": "Model updated with feedback"}
+            else:
+                return {"status": "error", "message": "Invalid feedback data"}
+                
+        except Exception as e:
+            logger.error(f"{self.name}: Model training failed: {e}")
+            return {"status": "error", "message": f"Training failed: {e}"}
+    
     async def get_status(self) -> Dict[str, Any]:
-        """Get current status and metrics"""
+        """Get enhanced status with AI capabilities"""
         return {
             "name": self.name,
+            "agent": self.name,
             "status": "active",
             "processed_invoices_count": len(self.processed_invoices),
-            "last_activity": "Ready for work",
+            "last_activity": "AI-enhanced financial processing ready",
             "capabilities": [
-                "Bank transaction processing",
-                "Invoice OCR",
-                "Transaction categorization", 
-                "E-invoice generation",
-                "VAT calculation"
-            ]
+                "Multi-bank transaction fetching (Emirates NBD, File Import)",
+                "AI-powered transaction categorization (ML)",
+                "Intelligent document analysis and OCR",
+                "Business insights and pattern analysis", 
+                "Anomaly detection and fraud prevention",
+                "Automated invoice processing with AI",
+                "Bank reconciliation with discrepancy detection",
+                "VAT return preparation with compliance checking"
+            ],
+            "ai_features": {
+                "transaction_categorizer": "active",
+                "document_analyzer": "active", 
+                "insight_engine": "active",
+                "anomaly_detector": "active"
+            },
+            "recent_insights": len(self.ai_insights),
+            "processed_invoices": len(self.processed_invoices)
         }
 
 

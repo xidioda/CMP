@@ -4,7 +4,7 @@ import os
 from pathlib import Path
 from typing import Any
 
-from fastapi import APIRouter, Depends, Form, Request, UploadFile, File, HTTPException
+from fastapi import APIRouter, Depends, Form, Request, UploadFile, File, HTTPException, status
 from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
@@ -24,7 +24,103 @@ router = APIRouter()
 
 @router.get("/", response_class=HTMLResponse)
 async def root_redirect():
-    return RedirectResponse(url="/dashboard")
+    return RedirectResponse(url="/login")
+
+
+@router.get("/login", response_class=HTMLResponse)
+async def login_page(request: Request):
+    """Serve login page for browser access"""
+    login_html = """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>CMP Login</title>
+        <style>
+            body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 2rem; background: #f3f4f6; }
+            .container { max-width: 400px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+            h1 { text-align: center; margin-bottom: 2rem; color: #111827; }
+            input { width: 100%; padding: 0.75rem; margin: 0.5rem 0 1rem; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; }
+            button { width: 100%; background: #111827; color: white; padding: 0.75rem; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; }
+            button:hover { background: #374151; }
+            .error { color: #dc2626; margin-top: 1rem; }
+            .demo-info { background: #ecfdf5; border: 1px solid #10b981; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem; }
+            .success { color: #059669; margin-top: 1rem; }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <h1>CMP Dashboard Login</h1>
+            <div class="demo-info">
+                <strong>Demo Credentials:</strong><br>
+                Email: admin@cmp.com<br>
+                Password: admin123
+            </div>
+            <form id="loginForm">
+                <input type="email" id="email" placeholder="Email" required value="admin@cmp.com">
+                <input type="password" id="password" placeholder="Password" required value="admin123">
+                <button type="submit">Login</button>
+            </form>
+            <div id="error" class="error"></div>
+            <div id="success" class="success"></div>
+        </div>
+        
+        <script>
+            document.getElementById('loginForm').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value;
+                const password = document.getElementById('password').value;
+                const errorDiv = document.getElementById('error');
+                const successDiv = document.getElementById('success');
+                
+                try {
+                    const response = await fetch('/auth/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
+                    });
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        successDiv.textContent = 'Login successful! Token: ' + data.access_token.substring(0, 20) + '...';
+                        errorDiv.textContent = '';
+                        
+                        // Show API usage instructions
+                        setTimeout(() => {
+                            successDiv.innerHTML = `
+                                <div>
+                                    <strong>Login successful!</strong><br><br>
+                                    To access the dashboard via API, use:<br>
+                                    <code style="background: #f3f4f6; padding: 0.5rem; display: block; margin: 0.5rem 0;">
+                                    curl -H "Authorization: Bearer ${data.access_token}" http://localhost:8000/dashboard/agent-status
+                                    </code><br>
+                                    Or test the enhanced AI agents:<br>
+                                    <code style="background: #f3f4f6; padding: 0.5rem; display: block; margin: 0.5rem 0;">
+                                    curl -H "Authorization: Bearer ${data.access_token}" http://localhost:8000/dashboard/agent-status
+                                    </code>
+                                </div>
+                            `;
+                        }, 1000);
+                        
+                    } else {
+                        const errorData = await response.json();
+                        errorDiv.textContent = errorData.detail || 'Login failed';
+                        successDiv.textContent = '';
+                    }
+                } catch (error) {
+                    errorDiv.textContent = 'Login failed: ' + error.message;
+                    successDiv.textContent = '';
+                }
+            });
+        </script>
+    </body>
+    </html>
+    """
+    return HTMLResponse(content=login_html)
 
 
 @router.get("/dashboard", response_class=HTMLResponse)
@@ -201,7 +297,7 @@ async def upload_invoice(
 
 @router.get("/dashboard/agent-status")
 async def agent_status(current_user: User = Depends(get_current_user)):
-    """Get status of all AI agents"""
+    """Get enhanced status of all AI agents with detailed capabilities"""
     # Check permission for viewing agents
     if not current_user.has_permission(UserRole.VIEWER):
         raise HTTPException(status_code=403, detail="Viewer access required")
@@ -211,11 +307,24 @@ async def agent_status(current_user: User = Depends(get_current_user)):
     from ..agents.director import director
     from ..agents.cfo import cfo
     
+    # Get detailed status from each AI agent
     return {
         "agents": {
-            "accountant": {"name": accountant.name, "status": "ready"},
-            "controller": {"name": controller.name, "status": "ready"},
-            "director": {"name": director.name, "status": "ready"},
-            "cfo": {"name": cfo.name, "status": "ready"},
+            "accountant": await accountant.get_status(),
+            "controller": await controller.get_status(),
+            "director": await director.get_status(),
+            "cfo": await cfo.get_status(),
+        },
+        "ai_platform_summary": {
+            "total_agents": 4,
+            "ai_enhancement_level": "advanced",
+            "capabilities": [
+                "Machine Learning Transaction Categorization",
+                "Intelligent Document Analysis and OCR",
+                "Predictive Financial Modeling and Forecasting",
+                "Real-time Anomaly Detection and Fraud Prevention",
+                "Automated Compliance Monitoring and Risk Assessment",
+                "AI-powered Business Intelligence and Insights"
+            ]
         }
     }

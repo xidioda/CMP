@@ -35,3 +35,79 @@
 2025-09-07 16:53:30,712 - cmp.agents.controller - INFO - AI:Controller initialized
 2025-09-07 16:53:30,713 - cmp.agents.director - INFO - AI:Director initialized
 2025-09-07 16:53:30,713 - cmp.agents.cfo - INFO - AI:CFO initialized
+2025-09-07 17:01:06,688 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-07 17:01:06,689 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 17:01:06,691 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 17:01:06,691 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-07 23:36:45,877 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:36:45,878 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:45:32,527 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:45:32,528 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:46:33,857 - cmp.auth - INFO - Authentication failed: user admin@cmp.ae not found
+2025-09-07 23:47:35,283 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2025-09-07 23:47:35,284 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-09-07 23:47:35,482 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-07 23:47:35,482 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:47:35,484 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:47:35,484 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-07 23:47:46,781 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:47:47,928 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-07 23:47:47,928 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-07 23:47:47,994 - cmp.integrations.invoices - WARNING - Zoho Books connector running in stub mode - missing credentials
+2025-09-07 23:47:47,994 - cmp.integrations.invoices - WARNING - Emirates NBD connector running in stub mode - missing credentials
+2025-09-07 23:47:47,994 - cmp.integrations.invoices - INFO - Bank file importer initialized - supports CSV, Excel, QIF, OFX formats
+2025-09-07 23:47:47,994 - cmp.agents.accountant - INFO - AI:Accountant initialized with AI/ML capabilities
+2025-09-07 23:47:47,994 - cmp.agents.accountant - INFO - - Intelligent transaction categorization (ML)
+2025-09-07 23:47:47,994 - cmp.agents.accountant - INFO - - Smart document analysis and OCR
+2025-09-07 23:47:47,994 - cmp.agents.accountant - INFO - - Business insights and anomaly detection
+2025-09-07 23:47:47,994 - cmp.agents.accountant - INFO - - Multi-bank integration (Emirates NBD, File Import)
+2025-09-07 23:47:47,999 - cmp.agents.controller - INFO - AI:Controller initialized with AI-powered financial controls
+2025-09-07 23:47:47,999 - cmp.agents.director - INFO - AI:Director initialized with AI-powered strategic financial management
+2025-09-07 23:47:48,000 - cmp.agents.cfo - INFO - AI:CFO initialized with AI-powered strategic financial leadership
+2025-09-07 23:48:55,174 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:49:35,353 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:49:35,356 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:51:15,402 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:51:15,403 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:51:30,889 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:51:30,890 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:51:42,847 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:51:42,848 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:51:56,521 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:51:56,521 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:52:04,284 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:52:04,285 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:52:14,114 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:52:14,114 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:53:24,834 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:53:24,837 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:53:38,727 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:53:38,727 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:53:44,585 - cmp.main - INFO - CMP application starting up...
+2025-09-07 23:53:44,585 - cmp.main - INFO - Database initialized successfully
+2025-09-07 23:56:08,231 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2025-09-07 23:56:08,232 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-09-07 23:56:08,430 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-07 23:56:08,430 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:56:08,436 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:56:08,436 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-07 23:56:08,510 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:56:09,328 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-07 23:56:09,329 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-07 23:56:09,391 - cmp.integrations.invoices - WARNING - Zoho Books connector running in stub mode - missing credentials
+2025-09-07 23:56:09,391 - cmp.integrations.invoices - WARNING - Emirates NBD connector running in stub mode - missing credentials
+2025-09-07 23:56:09,391 - cmp.integrations.invoices - INFO - Bank file importer initialized - supports CSV, Excel, QIF, OFX formats
+2025-09-07 23:56:09,391 - cmp.agents.accountant - INFO - AI:Accountant initialized with AI/ML capabilities
+2025-09-07 23:56:09,391 - cmp.agents.accountant - INFO - - Intelligent transaction categorization (ML)
+2025-09-07 23:56:09,391 - cmp.agents.accountant - INFO - - Smart document analysis and OCR
+2025-09-07 23:56:09,392 - cmp.agents.accountant - INFO - - Business insights and anomaly detection
+2025-09-07 23:56:09,392 - cmp.agents.accountant - INFO - - Multi-bank integration (Emirates NBD, File Import)
+2025-09-07 23:56:09,396 - cmp.agents.controller - INFO - AI:Controller initialized with AI-powered financial controls
+2025-09-07 23:56:09,396 - cmp.agents.director - INFO - AI:Director initialized with AI-powered strategic financial management
+2025-09-07 23:56:09,396 - cmp.agents.cfo - INFO - AI:CFO initialized with AI-powered strategic financial leadership
+2025-09-07 23:57:06,647 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-07 23:57:06,647 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:57:06,647 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:57:06,647 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-07 23:57:15,427 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 23:57:27,108 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
