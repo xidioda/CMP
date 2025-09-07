@@ -9,9 +9,10 @@ from fastapi.responses import HTMLResponse, RedirectResponse
 from fastapi.templating import Jinja2Templates
 
 from ..db import get_db
-from ..models import append_ledger_entry
+from ..models import append_ledger_entry, User, UserRole
 from ..utils.ocr import ocr_processor
 from ..logging_config import get_logger
+from .auth import get_current_user
 
 logger = get_logger("dashboard")
 
@@ -27,7 +28,11 @@ async def root_redirect():
 
 
 @router.get("/dashboard", response_class=HTMLResponse)
-async def dashboard_page(request: Request, db=Depends(get_db)) -> Any:
+async def dashboard_page(
+    request: Request, 
+    db=Depends(get_db),
+    current_user: User = Depends(get_current_user)
+) -> Any:
     # Get recent ledger entries for display
     from sqlalchemy import select
     from ..models import LedgerEntry
@@ -35,6 +40,11 @@ async def dashboard_page(request: Request, db=Depends(get_db)) -> Any:
     recent_entries = db.execute(
         select(LedgerEntry).order_by(LedgerEntry.id.desc()).limit(5)
     ).scalars().all()
+    
+    # Check user permissions for different features
+    can_upload_invoices = current_user.has_permission(UserRole.ORCHESTRATOR)
+    can_add_entries = current_user.has_permission(UserRole.ORCHESTRATOR)
+    can_view_agents = current_user.has_permission(UserRole.VIEWER)
     
     # Placeholder lists for approvals/exceptions; will be wired later
     return templates.TemplateResponse(
@@ -44,6 +54,16 @@ async def dashboard_page(request: Request, db=Depends(get_db)) -> Any:
             "approvals": [],
             "exceptions": [],
             "recent_entries": recent_entries,
+            "current_user": {
+                "email": current_user.email,
+                "full_name": current_user.full_name,
+                "role": current_user.role.value
+            },
+            "permissions": {
+                "can_upload_invoices": can_upload_invoices,
+                "can_add_entries": can_add_entries,
+                "can_view_agents": can_view_agents
+            }
         },
     )
 
@@ -55,9 +75,14 @@ async def realworld_input(
     amount: float = Form(0.0),
     actor: str = Form("Human:orchestrator"),
     db=Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
-    append_ledger_entry(db, actor=actor, action="real_world_event", data={"description": description, "amount": amount})
-    logger.info(f"Real-world event recorded: {description} ({amount} AED)")
+    # Check permission for adding entries
+    if not current_user.has_permission(UserRole.ORCHESTRATOR):
+        raise HTTPException(status_code=403, detail="Orchestrator access required")
+    
+    append_ledger_entry(db, actor=f"User:{current_user.email}", action="real_world_event", data={"description": description, "amount": amount})
+    logger.info(f"Real-world event recorded by {current_user.email}: {description} ({amount} AED)")
     
     # Get updated recent entries
     from sqlalchemy import select
@@ -74,6 +99,16 @@ async def realworld_input(
             "approvals": [],
             "exceptions": [],
             "recent_entries": recent_entries,
+            "current_user": {
+                "email": current_user.email,
+                "full_name": current_user.full_name,
+                "role": current_user.role.value
+            },
+            "permissions": {
+                "can_upload_invoices": current_user.has_permission(UserRole.ORCHESTRATOR),
+                "can_add_entries": current_user.has_permission(UserRole.ORCHESTRATOR),
+                "can_view_agents": current_user.has_permission(UserRole.VIEWER)
+            },
             "message": "Event recorded to ledger.",
         },
     )
@@ -84,7 +119,12 @@ async def upload_invoice(
     request: Request,
     file: UploadFile = File(...),
     db=Depends(get_db),
+    current_user: User = Depends(get_current_user),
 ):
+    # Check permission for uploading invoices
+    if not current_user.has_permission(UserRole.ORCHESTRATOR):
+        raise HTTPException(status_code=403, detail="Orchestrator access required")
+    
     if not file.filename:
         raise HTTPException(status_code=400, detail="No file selected")
     
@@ -113,7 +153,7 @@ async def upload_invoice(
         # Log to audit trail
         append_ledger_entry(
             db, 
-            actor="Human:orchestrator", 
+            actor=f"User:{current_user.email}", 
             action="invoice_uploaded",
             data={
                 "filename": file.filename,
@@ -122,7 +162,7 @@ async def upload_invoice(
             }
         )
         
-        logger.info(f"Invoice uploaded and processed: {file.filename}")
+        logger.info(f"Invoice uploaded and processed by {current_user.email}: {file.filename}")
         
         # Get updated recent entries
         from sqlalchemy import select
@@ -139,6 +179,16 @@ async def upload_invoice(
                 "approvals": [],
                 "exceptions": [],
                 "recent_entries": recent_entries,
+                "current_user": {
+                    "email": current_user.email,
+                    "full_name": current_user.full_name,
+                    "role": current_user.role.value
+                },
+                "permissions": {
+                    "can_upload_invoices": current_user.has_permission(UserRole.ORCHESTRATOR),
+                    "can_add_entries": current_user.has_permission(UserRole.ORCHESTRATOR),
+                    "can_view_agents": current_user.has_permission(UserRole.VIEWER)
+                },
                 "message": f"Invoice uploaded and processed: {ocr_data.get('invoice_number', 'Unknown')}",
                 "ocr_data": ocr_data,
             },
@@ -150,8 +200,12 @@ async def upload_invoice(
 
 
 @router.get("/dashboard/agent-status")
-async def agent_status():
+async def agent_status(current_user: User = Depends(get_current_user)):
     """Get status of all AI agents"""
+    # Check permission for viewing agents
+    if not current_user.has_permission(UserRole.VIEWER):
+        raise HTTPException(status_code=403, detail="Viewer access required")
+    
     from ..agents.accountant import accountant
     from ..agents.controller import controller
     from ..agents.director import director

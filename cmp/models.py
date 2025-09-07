@@ -4,8 +4,9 @@ import datetime as dt
 import json
 import hashlib
 from typing import Any, Optional
+from enum import Enum as PyEnum
 
-from sqlalchemy import Integer, String, DateTime, JSON
+from sqlalchemy import Integer, String, DateTime, JSON, Boolean, Enum
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .db import Base
@@ -13,6 +14,38 @@ from .db import Base
 
 # Use SQLAlchemy's generic JSON type which maps to the appropriate backend type
 JSONType = JSON  # type: ignore
+
+
+class UserRole(PyEnum):
+    """User roles for access control"""
+    ADMIN = "admin"           # Full system access, user management
+    ORCHESTRATOR = "orchestrator"  # Agent control, invoice processing, financial operations
+    VIEWER = "viewer"         # Read-only access to dashboards and reports
+
+
+class User(Base):
+    __tablename__ = "users"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    email: Mapped[str] = mapped_column(String(255), unique=True, nullable=False, index=True)
+    hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
+    full_name: Mapped[str] = mapped_column(String(255), nullable=False)
+    role: Mapped[UserRole] = mapped_column(Enum(UserRole), nullable=False, default=UserRole.VIEWER)
+    is_active: Mapped[bool] = mapped_column(Boolean, default=True, nullable=False)
+    created_at: Mapped[dt.datetime] = mapped_column(DateTime(timezone=True), default=lambda: dt.datetime.now(dt.timezone.utc), nullable=False)
+    last_login: Mapped[Optional[dt.datetime]] = mapped_column(DateTime(timezone=True), nullable=True)
+
+    def __repr__(self) -> str:  # pragma: no cover - debug
+        return f"<User id={self.id} email={self.email} role={self.role.value}>"
+
+    def has_permission(self, required_role: UserRole) -> bool:
+        """Check if user has required permission level"""
+        role_hierarchy = {
+            UserRole.VIEWER: 1,
+            UserRole.ORCHESTRATOR: 2,
+            UserRole.ADMIN: 3
+        }
+        return role_hierarchy[self.role] >= role_hierarchy[required_role]
 
 
 class LedgerEntry(Base):

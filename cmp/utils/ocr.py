@@ -36,7 +36,7 @@ class OCRProcessor:
             )
     
     async def extract_text(self, file_path: Path) -> str:
-        """Extract raw text from an image file"""
+        """Extract raw text from an image file with enhanced OCR settings"""
         if not TESSERACT_AVAILABLE:
             logger.warning("OCR requested but Tesseract not available")
             return ""
@@ -48,8 +48,15 @@ class OCRProcessor:
                 if image.mode != 'RGB':
                     image = image.convert('RGB')
                 
-                # Extract text using OCR
-                text = pytesseract.image_to_string(image, lang='eng+ara')  # English + Arabic for UAE
+                # Enhanced OCR configuration for better accuracy
+                custom_config = r'--oem 3 --psm 6 -c tessedit_char_whitelist=0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz./:-# '
+                
+                # Extract text using OCR with multiple language support
+                text = pytesseract.image_to_string(
+                    image, 
+                    lang='eng+ara',  # English + Arabic for UAE
+                    config=custom_config
+                )
                 logger.info(f"OCR extracted {len(text)} characters from {file_path.name}")
                 return text.strip()
                 
@@ -58,7 +65,7 @@ class OCRProcessor:
             return ""
     
     async def extract_invoice_data(self, file_path: Path) -> Dict[str, Any]:
-        """Extract structured invoice data from an image"""
+        """Extract structured invoice data from an image with confidence scoring"""
         text = await self.extract_text(file_path)
         
         if not text:
@@ -73,35 +80,86 @@ class OCRProcessor:
                 "confidence": 0.0
             }
         
-        # Basic text parsing (this would be enhanced with ML/NLP in production)
+        # Extract structured data
+        invoice_number = self._extract_invoice_number(text)
+        date = self._extract_date(text)
+        vendor = self._extract_vendor(text)
+        amount = self._extract_amount(text)
+        currency = self._extract_currency(text)
+        line_items = self._extract_line_items(text)
+        
+        # Calculate confidence based on extracted data completeness
+        confidence = self._calculate_confidence(
+            text, invoice_number, date, vendor, amount, line_items
+        )
+        
         invoice_data = {
             "raw_text": text,
-            "invoice_number": self._extract_invoice_number(text),
-            "date": self._extract_date(text),
-            "vendor": self._extract_vendor(text),
-            "amount": self._extract_amount(text),
-            "currency": self._extract_currency(text),
-            "line_items": self._extract_line_items(text),
-            "confidence": 0.7 if TESSERACT_AVAILABLE else 0.0  # Placeholder confidence
+            "invoice_number": invoice_number,
+            "date": date,
+            "vendor": vendor,
+            "amount": amount,
+            "currency": currency,
+            "line_items": line_items,
+            "confidence": confidence
         }
         
-        logger.info(f"Extracted invoice data from {file_path.name}: {invoice_data['invoice_number']}")
+        logger.info(f"Extracted invoice data from {file_path.name}: {invoice_data['invoice_number']} (confidence: {confidence:.2f})")
         return invoice_data
     
+    def _calculate_confidence(self, text: str, invoice_number: Optional[str], 
+                            date: Optional[str], vendor: Optional[str], 
+                            amount: Optional[float], line_items: list) -> float:
+        """Calculate confidence score based on extracted data completeness"""
+        if not TESSERACT_AVAILABLE:
+            return 0.0
+        
+        score = 0.0
+        max_score = 1.0
+        
+        # Text quality (based on length and content)
+        if len(text) > 50:
+            score += 0.2
+        
+        # Key fields extraction
+        if invoice_number:
+            score += 0.2
+        if date:
+            score += 0.15
+        if vendor:
+            score += 0.15
+        if amount and amount > 0:
+            score += 0.2
+        
+        # Line items quality
+        if line_items:
+            score += 0.1
+            # Bonus for structured items
+            structured_items = sum(1 for item in line_items if item.get('quantity') is not None)
+            if structured_items > 0:
+                score += min(0.1, structured_items * 0.02)
+        
+        return min(score, max_score)
+    
     def _extract_invoice_number(self, text: str) -> Optional[str]:
-        """Extract invoice number from text using basic patterns"""
+        """Extract invoice number from text using enhanced patterns"""
         import re
         
         patterns = [
-            r'invoice\s*#?\s*([A-Z0-9\-]+)',
-            r'inv\s*#?\s*([A-Z0-9\-]+)',
-            r'bill\s*#?\s*([A-Z0-9\-]+)',
+            r'invoice\s*#?:?\s*([A-Z0-9\-]+(?:\-\d{4}\-\d{3})?)',
+            r'inv\s*#?:?\s*([A-Z0-9\-]+(?:\-\d{4}\-\d{3})?)',
+            r'bill\s*#?:?\s*([A-Z0-9\-]+(?:\-\d{4}\-\d{3})?)',
+            r'#\s*([A-Z]{2,}\-\d{4}\-\d{3})',  # Pattern like INV-2024-001
+            r'([A-Z]{2,}\-\d{4}\-\d{3})',  # Direct pattern match
         ]
         
         for pattern in patterns:
             match = re.search(pattern, text, re.IGNORECASE)
             if match:
-                return match.group(1).strip()
+                inv_num = match.group(1).strip()
+                # Filter out common false positives
+                if inv_num not in ['UAE', 'TRN', 'VAT'] and len(inv_num) >= 3:
+                    return inv_num
         return None
     
     def _extract_date(self, text: str) -> Optional[str]:
@@ -131,7 +189,7 @@ class OCRProcessor:
         return None
     
     def _extract_amount(self, text: str) -> Optional[float]:
-        """Extract total amount from text"""
+        """Extract total amount from text with enhanced patterns"""
         import re
         
         # Look for total amount patterns
@@ -139,18 +197,25 @@ class OCRProcessor:
             r'total[:\s]*([A-Z]{3})?[:\s]*(\d+(?:,\d{3})*(?:\.\d{2})?)',
             r'amount[:\s]*([A-Z]{3})?[:\s]*(\d+(?:,\d{3})*(?:\.\d{2})?)',
             r'(\d+(?:,\d{3})*(?:\.\d{2})?)\s*AED',
+            r'total:\s*(\d+(?:,\d{3})*(?:\.\d{2})?)',  # Simple total: pattern
+            r'grand\s*total[:\s]*(\d+(?:,\d{3})*(?:\.\d{2})?)',
         ]
         
+        amounts = []
         for pattern in patterns:
             matches = re.findall(pattern, text, re.IGNORECASE)
             if matches:
-                # Get the last match (usually the total)
-                amount_str = matches[-1][-1] if isinstance(matches[-1], tuple) else matches[-1]
-                try:
-                    return float(amount_str.replace(',', ''))
-                except ValueError:
-                    continue
-        return None
+                for match in matches:
+                    # Handle tuple matches (with currency group)
+                    amount_str = match[-1] if isinstance(match, tuple) else match
+                    try:
+                        amount = float(amount_str.replace(',', ''))
+                        amounts.append(amount)
+                    except ValueError:
+                        continue
+        
+        # Return the largest amount found (likely the total)
+        return max(amounts) if amounts else None
     
     def _extract_currency(self, text: str) -> str:
         """Extract currency from text, default to AED for UAE"""
@@ -163,23 +228,47 @@ class OCRProcessor:
         return "AED"  # Default for UAE
     
     def _extract_line_items(self, text: str) -> list:
-        """Extract line items from invoice (basic implementation)"""
+        """Extract line items from invoice with enhanced parsing"""
         import re
         
-        # This would be enhanced with more sophisticated parsing
         lines = text.split('\n')
         items = []
         
-        for line in lines:
-            # Look for lines that might be items (contain numbers and text)
-            if re.search(r'\d+', line) and len(line.strip()) > 10:
-                items.append({
-                    "description": line.strip(),
-                    "amount": None,  # Would extract from line
-                    "quantity": None
-                })
+        # Look for structured item lines with quantity, price, and amount
+        item_pattern = r'(.+?)\s+(\d+)\s+([\d,]+\.?\d*)\s+([\d,]+\.?\d*)'
         
-        return items[:10]  # Limit to first 10 potential items
+        for line in lines:
+            line = line.strip()
+            
+            # Skip headers and non-item lines
+            if not line or line.lower().startswith(('description', 'qty', 'price', 'amount', 'total', 'subtotal', 'vat', 'bill to', 'invoice', 'trn:', 'date:', 'payment')):
+                continue
+            
+            # Try structured pattern first
+            match = re.match(item_pattern, line)
+            if match:
+                desc, qty, price, amount = match.groups()
+                items.append({
+                    "description": desc.strip(),
+                    "quantity": int(qty),
+                    "unit_price": float(price.replace(',', '')),
+                    "amount": float(amount.replace(',', ''))
+                })
+            # Fallback for lines that look like items but don't match exact pattern
+            elif re.search(r'\d+', line) and len(line) > 10 and not re.search(r'(AED|Total|VAT)', line, re.IGNORECASE):
+                # Extract numbers from the line for potential qty/amounts
+                numbers = re.findall(r'[\d,]+\.?\d*', line)
+                if len(numbers) >= 2:
+                    # Remove numbers from description
+                    desc = re.sub(r'[\d,]+\.?\d*', '', line).strip()
+                    items.append({
+                        "description": desc,
+                        "quantity": None,
+                        "unit_price": None,
+                        "amount": None
+                    })
+        
+        return items[:10]  # Limit to first 10 items
 
 
 # Global OCR processor instance

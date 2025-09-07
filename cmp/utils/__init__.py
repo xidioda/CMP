@@ -1,1 +1,1 @@
-__all__ = ["ocr"]
+__all__ = ["ocr", "api_client"]

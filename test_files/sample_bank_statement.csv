@@ -1,0 +1,5 @@
+Date,Description,Amount,Balance,Reference
+2025-08-20,Salary Transfer - ABC Company,12000.00,25000.00,SAL20250820001
+2025-08-19,POS Transaction - Carrefour,-245.50,13000.00,POS20250819001
+2025-08-18,Online Transfer to Savings,-1000.00,13245.50,TRF20250818001
+2025-08-17,ATM Withdrawal,-500.00,14245.50,ATM20250817001

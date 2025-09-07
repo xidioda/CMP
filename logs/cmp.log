@@ -13,3 +13,25 @@
 2025-08-20 19:53:01,813 - cmp.agents.controller - INFO - AI:Controller initialized
 2025-08-20 19:53:01,814 - cmp.agents.director - INFO - AI:Director initialized
 2025-08-20 19:53:01,815 - cmp.agents.cfo - INFO - AI:CFO initialized
+2025-09-07 16:49:03,064 - cmp.main - INFO - CMP application starting up...
+2025-09-07 16:49:03,067 - cmp.main - INFO - Database initialized successfully
+2025-09-07 16:50:11,172 - cmp.main - INFO - CMP application starting up...
+2025-09-07 16:50:11,172 - cmp.main - INFO - Database initialized successfully
+2025-09-07 16:51:43,512 - cmp.main - INFO - CMP application starting up...
+2025-09-07 16:51:43,515 - cmp.main - INFO - Database initialized successfully
+2025-09-07 16:52:37,199 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2025-09-07 16:52:37,200 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-09-07 16:52:37,398 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-07 16:52:37,399 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 16:52:37,405 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 16:52:37,405 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-07 16:52:50,042 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 16:53:16,108 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 16:53:30,640 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-07 16:53:30,712 - cmp.integrations.invoices - WARNING - Zoho Books connector running in stub mode - missing credentials
+2025-09-07 16:53:30,712 - cmp.integrations.invoices - WARNING - Emirates NBD connector running in stub mode - missing credentials
+2025-09-07 16:53:30,712 - cmp.integrations.invoices - INFO - Bank file importer initialized - supports CSV, Excel, QIF, OFX formats
+2025-09-07 16:53:30,712 - cmp.agents.accountant - INFO - AI:Accountant initialized with enhanced capabilities
+2025-09-07 16:53:30,712 - cmp.agents.controller - INFO - AI:Controller initialized
+2025-09-07 16:53:30,713 - cmp.agents.director - INFO - AI:Director initialized
+2025-09-07 16:53:30,713 - cmp.agents.cfo - INFO - AI:CFO initialized
