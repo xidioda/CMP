@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings & Configuration - CMP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #2d3748;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .header h1 {
+            color: #2d3748;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #718096;
+            font-size: 1.1rem;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 600;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 1);
+            transform: translateY(-2px);
+        }
+
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .settings-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(102, 126, 234, 0.1);
+        }
+
+        .card-header h2 {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #2d3748;
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .status-badge {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-left: auto;
+        }
+
+        .status-connected {
+            background: #c6f6d5;
+            color: #2f855a;
+        }
+
+        .status-not-configured {
+            background: #fed7d7;
+            color: #c53030;
+        }
+
+        .status-file-import {
+            background: #bee3f8;
+            color: #2b6cb0;
+        }
+
+        .integration-info {
+            margin-bottom: 20px;
+        }
+
+        .integration-description {
+            color: #718096;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .credentials-list {
+            margin-bottom: 15px;
+        }
+
+        .credential-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 0;
+            color: #4a5568;
+        }
+
+        .credential-item.required {
+            color: #e53e3e;
+        }
+
+        .credential-item.optional {
+            color: #38a169;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-input.masked {
+            font-family: monospace;
+            letter-spacing: 2px;
+        }
+
+        .button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .button-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .button-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .button-secondary {
+            background: #e2e8f0;
+            color: #4a5568;
+        }
+
+        .button-secondary:hover {
+            background: #cbd5e0;
+        }
+
+        .button-success {
+            background: #48bb78;
+            color: white;
+        }
+
+        .button-danger {
+            background: #e53e3e;
+            color: white;
+        }
+
+        .test-result {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .test-result.success {
+            background: #c6f6d5;
+            color: #2f855a;
+            border: 1px solid #9ae6b4;
+        }
+
+        .test-result.error {
+            background: #fed7d7;
+            color: #c53030;
+            border: 1px solid #fbb6ce;
+        }
+
+        .test-result.loading {
+            background: #bee3f8;
+            color: #2b6cb0;
+            border: 1px solid #90cdf4;
+        }
+
+        .config-section {
+            margin-bottom: 30px;
+        }
+
+        .config-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+            color: #2d3748;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .env-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 15px;
+            background: #f7fafc;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .env-key {
+            font-family: monospace;
+            font-weight: 600;
+            color: #2d3748;
+        }
+
+        .env-value {
+            font-family: monospace;
+            color: #4a5568;
+            word-break: break-all;
+        }
+
+        .note-box {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 12px;
+            padding: 15px;
+            margin: 15px 0;
+            color: #856404;
+        }
+
+        .note-box .note-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .loading-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #e2e8f0;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .collapsible {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .collapsible-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .collapsible-header:hover {
+            background: #e9ecef;
+        }
+
+        .collapsible-content {
+            padding: 20px;
+            display: none;
+            border-top: 1px solid #e9ecef;
+            background: white;
+        }
+
+        .collapsible.active .collapsible-content {
+            display: block;
+        }
+
+        .collapsible.active .collapsible-header .fas.fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .env-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="/dashboard" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+        </a>
+
+        <div class="header">
+            <h1><i class="fas fa-cog"></i> Settings & Configuration</h1>
+            <p>Manage integrations, API credentials, and system configuration</p>
+        </div>
+
+        <div class="settings-grid">
+            <!-- Zoho Books Integration -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-book"></i>
+                        Zoho Books
+                    </h2>
+                    <span class="status-badge {% if integrations.zoho_books.configured %}status-connected{% else %}status-not-configured{% endif %}">
+                        {% if integrations.zoho_books.configured %}Connected{% else %}Not Configured{% endif %}
+                    </span>
+                </div>
+
+                <div class="integration-info">
+                    <p class="integration-description">{{ integrations.zoho_books.description }}</p>
+                    
+                    <div class="credentials-list">
+                        <div class="credential-item required">
+                            <i class="fas fa-asterisk"></i>
+                            Client ID (Required)
+                        </div>
+                        <div class="credential-item required">
+                            <i class="fas fa-asterisk"></i>
+                            Client Secret (Required)
+                        </div>
+                        <div class="credential-item required">
+                            <i class="fas fa-asterisk"></i>
+                            Organization ID (Required)
+                        </div>
+                        <div class="credential-item optional">
+                            <i class="fas fa-check"></i>
+                            Access Token (Auto-generated)
+                        </div>
+                    </div>
+                </div>
+
+                <div class="collapsible" id="zoho-config">
+                    <div class="collapsible-header" onclick="toggleCollapsible('zoho-config')">
+                        <span>Configure Zoho Books</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <form id="zoho-form" onsubmit="updateZohoSettings(event)">
+                            <div class="form-group">
+                                <label class="form-label">Client ID</label>
+                                <input type="text" name="client_id" class="form-input" placeholder="Enter Zoho Client ID" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Client Secret</label>
+                                <input type="password" name="client_secret" class="form-input" placeholder="Enter Zoho Client Secret" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Organization ID</label>
+                                <input type="text" name="organization_id" class="form-input" placeholder="Enter Organization ID" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label">Access Token (Optional)</label>
+                                <input type="password" name="access_token" class="form-input" placeholder="Leave blank for OAuth setup">
+                            </div>
+                            
+                            <div style="display: flex; gap: 10px;">
+                                <button type="submit" class="button button-primary">
+                                    <i class="fas fa-save"></i>
+                                    Save Configuration
+                                </button>
+                                <button type="button" class="button button-secondary" onclick="generateZohoOAuth()">
+                                    <i class="fas fa-link"></i>
+                                    Get OAuth Token
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <button class="button button-success" onclick="testIntegration('zoho_books')">
+                    <i class="fas fa-plug"></i>
+                    Test Connection
+                </button>
+
+                <div id="zoho-test-result" class="test-result"></div>
+            </div>
+
+            <!-- WIO Bank Integration -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-university"></i>
+                        WIO Bank
+                    </h2>
+                    <span class="status-badge status-file-import">File Import Only</span>
+                </div>
+
+                <div class="integration-info">
+                    <p class="integration-description">{{ integrations.wio_bank.description }}</p>
+                    
+                    <div class="note-box">
+                        <div class="note-title">
+                            <i class="fas fa-info-circle"></i>
+                            Important Note
+                        </div>
+                        <p>{{ integrations.wio_bank.note }}</p>
+                    </div>
+                </div>
+
+                <div class="collapsible" id="wio-config">
+                    <div class="collapsible-header" onclick="toggleCollapsible('wio-config')">
+                        <span>File Import Instructions</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="collapsible-content">
+                        <h4>How to Import WIO Bank Transactions:</h4>
+                        <ol style="margin: 15px 0; padding-left: 20px; line-height: 1.6;">
+                            <li>Log into your WIO Bank online banking</li>
+                            <li>Navigate to Account Statements</li>
+                            <li>Export transactions as CSV or Excel file</li>
+                            <li>Use the "Upload Bank Statement" feature in the dashboard</li>
+                            <li>Select "WIO Bank" as the bank type during upload</li>
+                        </ol>
+                        
+                        <p style="margin-top: 15px; color: #718096;">
+                            <strong>Supported formats:</strong> .csv, .xlsx, .qif, .ofx
+                        </p>
+                    </div>
+                </div>
+
+                <button class="button button-success" onclick="testIntegration('wio_bank')">
+                    <i class="fas fa-file-import"></i>
+                    Test File System
+                </button>
+
+                <div id="wio-test-result" class="test-result"></div>
+            </div>
+
+            <!-- File Import System -->
+            <div class="settings-card">
+                <div class="card-header">
+                    <h2>
+                        <i class="fas fa-file-upload"></i>
+                        File Import System
+                    </h2>
+                    <span class="status-badge {% if integrations.file_import.configured %}status-connected{% else %}status-not-configured{% endif %}">
+                        {{ integrations.file_import.status|title }}
+                    </span>
+                </div>
+
+                <div class="integration-info">
+                    <p class="integration-description">{{ integrations.file_import.description }}</p>
+                    
+                    <div class="credentials-list">
+                        <h4 style="margin: 15px 0 10px 0; color: #2d3748;">Supported Banks:</h4>
+                        {% for bank in integrations.file_import.supported_banks %}
+                        <div class="credential-item optional">
+                            <i class="fas fa-university"></i>
+                            {{ bank }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                    
+                    <div class="credentials-list">
+                        <h4 style="margin: 15px 0 10px 0; color: #2d3748;">Supported Formats:</h4>
+                        {% for format in integrations.file_import.supported_formats %}
+                        <div class="credential-item optional">
+                            <i class="fas fa-file"></i>
+                            {{ format }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <button class="button button-success" onclick="testIntegration('file_import')">
+                    <i class="fas fa-check-circle"></i>
+                    Test File System
+                </button>
+
+                <div id="file-test-result" class="test-result"></div>
+            </div>
+        </div>
+
+        <!-- Environment Configuration -->
+        <div class="settings-card">
+            <div class="config-section">
+                <h2 class="config-title">
+                    <i class="fas fa-server"></i>
+                    Environment Configuration
+                </h2>
+                <p style="color: #718096; margin-bottom: 20px;">Current environment variables (sensitive data masked)</p>
+                
+                <div class="env-grid">
+                    {% for key, value in environment.items() %}
+                    <div class="env-key">{{ key }}</div>
+                    <div class="env-value">{{ value }}</div>
+                    {% endfor %}
+                </div>
+                
+                <div class="note-box" style="margin-top: 20px;">
+                    <div class="note-title">
+                        <i class="fas fa-shield-alt"></i>
+                        Security Note
+                    </div>
+                    <p>Sensitive credentials are masked for security. Edit the .env file directly or use the configuration forms above to update settings.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Authentication check on page load
+        async function checkAuth() {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+            
+            // Verify token is still valid
+            try {
+                const response = await fetch('/auth/me', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    localStorage.removeItem('access_token');
+                    localStorage.removeItem('refresh_token');
+                    window.location.href = '/login';
+                    return;
+                }
+            } catch (error) {
+                localStorage.removeItem('access_token');
+                localStorage.removeItem('refresh_token');
+                window.location.href = '/login';
+                return;
+            }
+        }
+
+        // Call auth check when page loads
+        checkAuth();
+
+        function toggleCollapsible(id) {
+            const element = document.getElementById(id);
+            element.classList.toggle('active');
+        }
+
+        async function testIntegration(integration) {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+
+            const resultElement = document.getElementById(`${integration.replace('_', '-')}-test-result`);
+            
+            // Show loading state
+            resultElement.className = 'test-result loading';
+            resultElement.style.display = 'block';
+            resultElement.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="loading-spinner"></div>
+                    <span>Testing ${integration.replace('_', ' ')} connection...</span>
+                </div>
+            `;
+            
+            try {
+                const response = await fetch(`/api/integrations/test/${integration}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    resultElement.className = 'test-result success';
+                    resultElement.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <i class="fas fa-check-circle"></i>
+                            <strong>${result.message}</strong>
+                        </div>
+                        <p style="font-size: 0.85rem; opacity: 0.8;">${result.details}</p>
+                    `;
+                } else {
+                    resultElement.className = 'test-result error';
+                    resultElement.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <i class="fas fa-times-circle"></i>
+                            <strong>${result.message}</strong>
+                        </div>
+                        <p style="font-size: 0.85rem; opacity: 0.8;">${result.details}</p>
+                    `;
+                }
+                
+            } catch (error) {
+                resultElement.className = 'test-result error';
+                resultElement.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Test failed: ${error.message}</strong>
+                    </div>
+                `;
+            }
+        }
+
+        async function updateZohoSettings(event) {
+            event.preventDefault();
+            
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+            
+            const formData = new FormData(event.target);
+            const resultElement = document.getElementById('zoho-test-result');
+            
+            // Show loading state
+            resultElement.className = 'test-result loading';
+            resultElement.style.display = 'block';
+            resultElement.innerHTML = `
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div class="loading-spinner"></div>
+                    <span>Updating Zoho Books configuration...</span>
+                </div>
+            `;
+            
+            try {
+                const response = await fetch('/api/settings/zoho-books', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    resultElement.className = 'test-result success';
+                    resultElement.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                            <i class="fas fa-check-circle"></i>
+                            <strong>${result.message}</strong>
+                        </div>
+                        <p style="font-size: 0.85rem; opacity: 0.8;">
+                            Test Result: ${result.test_result.message}
+                        </p>
+                    `;
+                    
+                    // Refresh page after 2 seconds
+                    setTimeout(() => window.location.reload(), 2000);
+                } else {
+                    resultElement.className = 'test-result error';
+                    resultElement.innerHTML = `
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <i class="fas fa-times-circle"></i>
+                            <strong>Configuration failed: ${result.detail}</strong>
+                        </div>
+                    `;
+                }
+                
+            } catch (error) {
+                resultElement.className = 'test-result error';
+                resultElement.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 10px;">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <strong>Update failed: ${error.message}</strong>
+                    </div>
+                `;
+            }
+        }
+
+        async function generateZohoOAuth() {
+            const token = localStorage.getItem('access_token');
+            if (!token) {
+                window.location.href = '/login';
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/settings/oauth/zoho-authorize', {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                const result = await response.json();
+                
+                if (response.ok) {
+                    alert(`${result.instructions}\n\nURL: ${result.authorization_url}`);
+                    window.open(result.authorization_url, '_blank');
+                } else {
+                    alert(`Error: ${result.detail}`);
+                }
+            } catch (error) {
+                alert(`Failed to generate OAuth URL: ${error.message}`);
+            }
+        }
+    </script>
+</body>
+</html>

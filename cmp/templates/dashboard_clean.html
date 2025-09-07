@@ -84,20 +84,50 @@
             font-weight: 500;
         }
         
-        .logout-btn {
-            background: #ef4444;
+                .logout-btn {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
             color: white;
             border: none;
-            padding: 12px 20px;
-            border-radius: 12px;
+            padding: 10px 20px;
+            border-radius: 25px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-left: 10px;
         }
         
         .logout-btn:hover {
-            background: #dc2626;
+            background: linear-gradient(135deg, #dc2626, #b91c1c);
             transform: translateY(-2px);
+        }
+        
+        .settings-btn {
+            background: linear-gradient(135deg, #6366f1, #4f46e5);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        
+        .settings-btn:hover {
+            background: linear-gradient(135deg, #4f46e5, #3730a3);
+            transform: translateY(-2px);
+        }
+        
+        .header-buttons {
+            display: flex;
+            align-items: center;
         }
         
         .auth-check {
@@ -431,10 +461,16 @@
                     <div id="user-name" class="user-name"></div>
                     <div id="user-role" class="user-role"></div>
                 </div>
-                <button onclick="logout()" class="logout-btn">
-                    <i class="fas fa-sign-out-alt"></i>
-                    Logout
-                </button>
+                <div class="header-buttons">
+                    <a href="/settings" class="settings-btn">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                    <button onclick="logout()" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </button>
+                </div>
             </div>
         </div>
 

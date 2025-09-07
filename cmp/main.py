@@ -4,7 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from .db import init_db
-from .routers import health, dashboard, auth
+from .routers import health, dashboard, auth, settings
 from .logging_config import setup_logging, get_logger
 
 logger = get_logger("main")
@@ -29,6 +29,7 @@ def create_app() -> FastAPI:
     app.include_router(health.router)
     app.include_router(auth.router)  # Authentication endpoints
     app.include_router(dashboard.router)  # Protected dashboard endpoints
+    app.include_router(settings.router)  # Settings and configuration management
 
     @app.on_event("startup")
     def _startup():

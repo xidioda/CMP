@@ -18,17 +18,18 @@ class Settings(BaseSettings):
     zoho_organization_id: str | None = None
     zoho_base_url: str = "https://www.zohoapis.com/books/v3"  # Default to US data center
     
-    # Emirates NBD API Souq Configuration (Real UAE Bank API)
+    # WIO Bank Configuration (File Import Only - No Public API Available)
+    wio_account_number: str | None = None  # For file identification and matching
+    wio_account_name: str | None = None    # Account name for display purposes
+    
+    # Bank file import configuration (for banks without APIs like WIO)
+    bank_import_directory: str = "local_storage/bank_statements"
+    
+    # Legacy Emirates NBD (kept for backward compatibility but user uses WIO)
     emirates_nbd_api_key: str | None = None
     emirates_nbd_client_id: str | None = None
     emirates_nbd_base_url: str = "https://api.emiratesnbd.com/v1"  # API Souq platform
     emirates_nbd_account_number: str | None = None
-    
-    # Bank file import configuration (for banks without APIs)
-    bank_import_directory: str = "local_storage/bank_statements"
-    
-    # Legacy Wio Bank - now using file import method
-    wio_account_number: str | None = None  # For file naming and identification
     
     # API Rate Limiting
     api_rate_limit: int = 100  # requests per minute
