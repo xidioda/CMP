@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CMP AI Dashboard</title>
+  <style>
+    body { font-family: system-ui, -apple-system, sans-serif; margin: 2rem; background: #f8fafc; }
+    .container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; max-width: 1200px; margin: 0 auto; }
+    header { margin-bottom: 2rem; display: flex; justify-content: space-between; align-items: center; background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    section { background: white; border-radius: 12px; padding: 1.5rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+    h1 { margin: 0; color: #1e293b; display: flex; align-items: center; gap: 0.5rem; }
+    h2 { margin-top: 0; color: #334155; border-bottom: 2px solid #e2e8f0; padding-bottom: 0.5rem; }
+    .msg { background: #ecfdf5; border: 1px solid #10b981; padding: .75rem 1rem; border-radius: 8px; margin-bottom: 1rem; }
+    .error { background: #fef2f2; border: 1px solid #ef4444; color: #dc2626; }
+    .loading { background: #fef3c7; border: 1px solid #f59e0b; color: #92400e; }
+    input, textarea { width: 100%; padding: .75rem; margin: .25rem 0 .75rem; border: 1px solid #d1d5db; border-radius: 8px; font-size: 14px; }
+    button { background: #1e293b; color: white; padding: .75rem 1rem; border: none; border-radius: 8px; cursor: pointer; font-weight: 500; transition: background 0.2s; }
+    button:hover { background: #334155; }
+    button:disabled { background: #94a3b8; cursor: not-allowed; }
+    .logout-btn { background: #dc2626; }
+    .logout-btn:hover { background: #b91c1c; }
+    ul { padding-left: 1rem; }
+    .user-info { display: flex; gap: 1rem; align-items: center; }
+    .user-name { font-weight: 500; color: #1e293b; }
+    .user-role { background: #e2e8f0; color: #475569; padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 12px; text-transform: uppercase; }
+    .ledger-entry { border-bottom: 1px solid #e2e8f0; padding: 0.75rem 0; }
+    .ledger-entry:last-child { border-bottom: none; }
+    .ledger-actor { font-weight: 500; color: #1e293b; }
+    .ledger-timestamp { font-size: 12px; color: #64748b; }
+    .ledger-data { font-size: 13px; color: #475569; margin-top: 0.25rem; }
+    .ai-badge { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 12px; font-weight: 500; }
+    .permissions-hidden { opacity: 0.5; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>
+      <span>Company Management Platform</span>
+      <span class="ai-badge">🤖 AI-Powered</span>
+    </h1>
+    <div class="user-info">
+      <div id="user-display" style="display: none;">
+        <span id="user-name" class="user-name"></span>
+        <span id="user-role" class="user-role"></span>
+      </div>
+      <button onclick="logout()" class="logout-btn">Logout</button>
+    </div>
+  </header>
+
+  <div id="auth-check" class="msg loading">
+    🔄 Verifying authentication...
+  </div>
+
+  <div id="dashboard-content" style="display: none;">
+    <div class="container">
+      <section id="realworld-section">
+        <h2>Real-World Bridge</h2>
+        <form id="realworld-form">
+          <label>Description</label>
+          <textarea name="description" placeholder="e.g., Deposited AED 50,000 as capital injection" required></textarea>
+          <label>Amount (AED)</label>
+          <input type="number" name="amount" step="0.01" placeholder="50000" />
+          <label>Actor</label>
+          <input type="text" name="actor" value="Human:orchestrator" />
+          <button type="submit">Record Transaction</button>
+        </form>
+      </section>
+
+      <section id="invoice-section">
+        <h2>Invoice Upload & OCR</h2>
+        <form id="invoice-form" enctype="multipart/form-data">
+          <label>Upload Invoice/Receipt</label>
+          <input type="file" name="file" accept=".jpg,.jpeg,.png,.pdf,.tiff,.bmp" required />
+          <button type="submit">Process with AI OCR</button>
+        </form>
+        
+        <div id="ocr-results" style="display: none; margin-top: 1rem; padding: 1rem; background: #f3f4f6; border-radius: 8px;">
+          <h3>AI OCR Results</h3>
+          <div id="ocr-data"></div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Approval Queue</h2>
+        <div id="approvals-list">
+          <p>Loading...</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Exception Handling Log</h2>
+        <div id="exceptions-list">
+          <p>Loading...</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>Recent Ledger Entries</h2>
+        <div id="recent-entries" style="max-height: 300px; overflow-y: auto;">
+          <p>Loading entries...</p>
+        </div>
+      </section>
+
+      <section>
+        <h2>AI System</h2>
+        <p><a href="/healthz" target="_blank">Health Check</a></p>
+        <p><button onclick="loadAgentStatus()">AI Agent Status</button></p>
+        <div id="agent-status" style="display: none; margin-top: 1rem;"></div>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    let currentUser = null;
+    let permissions = null;
+
+    // Check authentication on page load
+    document.addEventListener('DOMContentLoaded', async function() {
+      const token = localStorage.getItem('access_token');
+      
+      if (!token) {
+        document.getElementById('auth-check').innerHTML = '❌ Not authenticated. Redirecting...';
+        setTimeout(() => window.location.href = '/login', 2000);
+        return;
+      }
+      
+      try {
+        await loadDashboardData();
+      } catch (error) {
+        console.error('Dashboard load error:', error);
+        document.getElementById('auth-check').innerHTML = '❌ Authentication failed. Redirecting...';
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('refresh_token');
+        localStorage.removeItem('user_data');
+        setTimeout(() => window.location.href = '/login', 2000);
+      }
+    });
+
+    async function loadDashboardData() {
+      const token = localStorage.getItem('access_token');
+      
+      const response = await fetch('/dashboard/data', {
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to load dashboard data');
+      }
+      
+      const data = await response.json();
+      currentUser = data.current_user;
+      permissions = data.permissions;
+      
+      // Hide auth check and show dashboard
+      document.getElementById('auth-check').style.display = 'none';
+      document.getElementById('dashboard-content').style.display = 'block';
+      
+      // Update user display
+      document.getElementById('user-name').textContent = currentUser.full_name;
+      document.getElementById('user-role').textContent = currentUser.role;
+      document.getElementById('user-display').style.display = 'flex';
+      
+      // Update permissions
+      updatePermissions();
+      
+      // Load data
+      loadApprovals(data.approvals);
+      loadExceptions(data.exceptions);
+      loadRecentEntries(data.recent_entries);
+    }
+
+    function updatePermissions() {
+      if (!permissions.can_add_entries) {
+        document.getElementById('realworld-section').classList.add('permissions-hidden');
+      }
+      if (!permissions.can_upload_invoices) {
+        document.getElementById('invoice-section').classList.add('permissions-hidden');
+      }
+    }
+
+    function loadApprovals(approvals) {
+      const list = document.getElementById('approvals-list');
+      if (approvals.length === 0) {
+        list.innerHTML = '<p>No pending approvals.</p>';
+      } else {
+        list.innerHTML = '<ul>' + approvals.map(item => `<li>${item}</li>`).join('') + '</ul>';
+      }
+    }
+
+    function loadExceptions(exceptions) {
+      const list = document.getElementById('exceptions-list');
+      if (exceptions.length === 0) {
+        list.innerHTML = '<p>No exceptions.</p>';
+      } else {
+        list.innerHTML = '<ul>' + exceptions.map(item => `<li>${item}</li>`).join('') + '</ul>';
+      }
+    }
+
+    function loadRecentEntries(entries) {
+      const container = document.getElementById('recent-entries');
+      if (entries.length === 0) {
+        container.innerHTML = '<p>No recent entries.</p>';
+      } else {
+        container.innerHTML = entries.map(entry => `
+          <div class="ledger-entry">
+            <div class="ledger-actor">${entry.actor}</div>
+            <div>${entry.action}</div>
+            <div class="ledger-timestamp">${new Date(entry.timestamp).toLocaleString()}</div>
+            ${entry.data ? `<div class="ledger-data">${JSON.stringify(entry.data)}</div>` : ''}
+          </div>
+        `).join('');
+      }
+    }
+
+    async function loadAgentStatus() {
+      const token = localStorage.getItem('access_token');
+      const statusDiv = document.getElementById('agent-status');
+      
+      try {
+        statusDiv.innerHTML = '<p>Loading AI agent status...</p>';
+        statusDiv.style.display = 'block';
+        
+        const response = await fetch('/dashboard/agent-status', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        
+        if (response.ok) {
+          const data = await response.json();
+          statusDiv.innerHTML = `
+            <h4>AI Platform Summary</h4>
+            <p><strong>Total Agents:</strong> ${data.ai_platform_summary.total_agents}</p>
+            <p><strong>Enhancement Level:</strong> ${data.ai_platform_summary.ai_enhancement_level}</p>
+            <h4>AI Capabilities</h4>
+            <ul>
+              ${data.ai_platform_summary.capabilities.map(cap => `<li>${cap}</li>`).join('')}
+            </ul>
+            <h4>Agent Status</h4>
+            <pre style="background: #f3f4f6; padding: 1rem; border-radius: 6px; overflow-x: auto; font-size: 12px;">
+${JSON.stringify(data.agents, null, 2)}
+            </pre>
+          `;
+        } else {
+          statusDiv.innerHTML = '<p>Error loading agent status.</p>';
+        }
+      } catch (error) {
+        statusDiv.innerHTML = '<p>Error loading agent status.</p>';
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user_data');
+      window.location.href = '/login';
+    }
+
+    // Handle form submissions
+    document.getElementById('realworld-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      await submitForm(this, '/dashboard/realworld', 'Transaction recorded successfully!');
+    });
+
+    document.getElementById('invoice-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      await submitForm(this, '/dashboard/upload-invoice', 'Invoice processed successfully!');
+    });
+
+    async function submitForm(form, endpoint, successMessage) {
+      const token = localStorage.getItem('access_token');
+      const formData = new FormData(form);
+      
+      try {
+        const button = form.querySelector('button[type="submit"]');
+        const originalText = button.textContent;
+        button.textContent = 'Processing...';
+        button.disabled = true;
+        
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
+        });
+        
+        if (response.ok) {
+          alert(successMessage);
+          form.reset();
+          await loadDashboardData(); // Refresh data
+        } else {
+          const errorData = await response.json();
+          alert('Error: ' + (errorData.detail || 'Request failed'));
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        alert('Network error. Please try again.');
+      } finally {
+        const button = form.querySelector('button[type="submit"]');
+        button.textContent = button.textContent.replace('Processing...', originalText);
+        button.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

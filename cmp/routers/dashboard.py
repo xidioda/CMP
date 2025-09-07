@@ -29,106 +29,25 @@ async def root_redirect():
 
 @router.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    """Serve login page for browser access"""
-    login_html = """
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>CMP Login</title>
-        <style>
-            body { font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 2rem; background: #f3f4f6; }
-            .container { max-width: 400px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-            h1 { text-align: center; margin-bottom: 2rem; color: #111827; }
-            input { width: 100%; padding: 0.75rem; margin: 0.5rem 0 1rem; border: 1px solid #d1d5db; border-radius: 6px; box-sizing: border-box; }
-            button { width: 100%; background: #111827; color: white; padding: 0.75rem; border: none; border-radius: 6px; cursor: pointer; font-size: 1rem; }
-            button:hover { background: #374151; }
-            .error { color: #dc2626; margin-top: 1rem; }
-            .demo-info { background: #ecfdf5; border: 1px solid #10b981; padding: 1rem; border-radius: 6px; margin-bottom: 1rem; font-size: 0.9rem; }
-            .success { color: #059669; margin-top: 1rem; }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <h1>CMP Dashboard Login</h1>
-            <div class="demo-info">
-                <strong>Demo Credentials:</strong><br>
-                Email: admin@cmp.com<br>
-                Password: admin123
-            </div>
-            <form id="loginForm">
-                <input type="email" id="email" placeholder="Email" required value="admin@cmp.com">
-                <input type="password" id="password" placeholder="Password" required value="admin123">
-                <button type="submit">Login</button>
-            </form>
-            <div id="error" class="error"></div>
-            <div id="success" class="success"></div>
-        </div>
-        
-        <script>
-            document.getElementById('loginForm').addEventListener('submit', async (e) => {
-                e.preventDefault();
-                
-                const email = document.getElementById('email').value;
-                const password = document.getElementById('password').value;
-                const errorDiv = document.getElementById('error');
-                const successDiv = document.getElementById('success');
-                
-                try {
-                    const response = await fetch('/auth/login', {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/x-www-form-urlencoded',
-                        },
-                        body: `username=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
-                    });
-                    
-                    if (response.ok) {
-                        const data = await response.json();
-                        successDiv.textContent = 'Login successful! Token: ' + data.access_token.substring(0, 20) + '...';
-                        errorDiv.textContent = '';
-                        
-                        // Show API usage instructions
-                        setTimeout(() => {
-                            successDiv.innerHTML = `
-                                <div>
-                                    <strong>Login successful!</strong><br><br>
-                                    To access the dashboard via API, use:<br>
-                                    <code style="background: #f3f4f6; padding: 0.5rem; display: block; margin: 0.5rem 0;">
-                                    curl -H "Authorization: Bearer ${data.access_token}" http://localhost:8000/dashboard/agent-status
-                                    </code><br>
-                                    Or test the enhanced AI agents:<br>
-                                    <code style="background: #f3f4f6; padding: 0.5rem; display: block; margin: 0.5rem 0;">
-                                    curl -H "Authorization: Bearer ${data.access_token}" http://localhost:8000/dashboard/agent-status
-                                    </code>
-                                </div>
-                            `;
-                        }, 1000);
-                        
-                    } else {
-                        const errorData = await response.json();
-                        errorDiv.textContent = errorData.detail || 'Login failed';
-                        successDiv.textContent = '';
-                    }
-                } catch (error) {
-                    errorDiv.textContent = 'Login failed: ' + error.message;
-                    successDiv.textContent = '';
-                }
-            });
-        </script>
-    </body>
-    </html>
-    """
-    return HTMLResponse(content=login_html)
+    """Serve the enhanced AI login page for browser access"""
+    return templates.TemplateResponse(request, "login.html")
 
 
 @router.get("/dashboard", response_class=HTMLResponse)
-async def dashboard_page(
-    request: Request, 
+async def dashboard_page(request: Request) -> Any:
+    """Serve the dashboard page - authentication handled by JavaScript"""
+    return templates.TemplateResponse(
+        "dashboard_dynamic.html",
+        {"request": request}
+    )
+
+
+@router.get("/dashboard/data")
+async def dashboard_data(
     db=Depends(get_db),
     current_user: User = Depends(get_current_user)
 ) -> Any:
+    """Get dashboard data with authentication"""
     # Get recent ledger entries for display
     from sqlalchemy import select
     from ..models import LedgerEntry
@@ -142,26 +61,29 @@ async def dashboard_page(
     can_add_entries = current_user.has_permission(UserRole.ORCHESTRATOR)
     can_view_agents = current_user.has_permission(UserRole.VIEWER)
     
-    # Placeholder lists for approvals/exceptions; will be wired later
-    return templates.TemplateResponse(
-        "dashboard.html",
-        {
-            "request": request,
-            "approvals": [],
-            "exceptions": [],
-            "recent_entries": recent_entries,
-            "current_user": {
-                "email": current_user.email,
-                "full_name": current_user.full_name,
-                "role": current_user.role.value
-            },
-            "permissions": {
-                "can_upload_invoices": can_upload_invoices,
-                "can_add_entries": can_add_entries,
-                "can_view_agents": can_view_agents
-            }
+    return {
+        "approvals": [],
+        "exceptions": [],
+        "recent_entries": [
+            {
+                "id": entry.id,
+                "actor": entry.actor,
+                "action": entry.action,
+                "timestamp": entry.timestamp.isoformat(),
+                "data": entry.data
+            } for entry in recent_entries
+        ],
+        "current_user": {
+            "email": current_user.email,
+            "full_name": current_user.full_name,
+            "role": current_user.role.value
         },
-    )
+        "permissions": {
+            "can_upload_invoices": can_upload_invoices,
+            "can_add_entries": can_add_entries,
+            "can_view_agents": can_view_agents
+        }
+    }
 
 
 @router.post("/dashboard/realworld", response_class=HTMLResponse)

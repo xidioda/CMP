@@ -7,18 +7,24 @@
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; margin: 2rem; }
     .container { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-    header { margin-bottom: 1rem; }
+    header { margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; }
     section { border: 1px solid #e5e7eb; border-radius: 8px; padding: 1rem; }
     h2 { margin-top: 0; }
     .msg { background: #ecfdf5; border: 1px solid #10b981; padding: .5rem .75rem; border-radius: 6px; margin-bottom: 1rem; }
     input, textarea { width: 100%; padding: .5rem; margin: .25rem 0 .75rem; border: 1px solid #d1d5db; border-radius: 6px; }
     button { background: #111827; color: white; padding: .5rem .75rem; border: none; border-radius: 6px; cursor: pointer; }
+    .logout-btn { background: #dc2626; }
     ul { padding-left: 1rem; }
+    .user-info { display: flex; gap: 1rem; align-items: center; }
   </style>
 </head>
 <body>
   <header>
-    <h1>Company Management Platform (CMP)</h1>
+    <h1>Company Management Platform (CMP) 🤖</h1>
+    <div class="user-info">
+      <span id="user-info"></span>
+      <button onclick="logout()" class="logout-btn">Logout</button>
+    </div>
   </header>
 
   {% if message %}
@@ -112,5 +118,91 @@
       <p><a href="/dashboard/agent-status">AI Agent Status</a></p>
     </section>
   </div>
+
+  <script>
+    // Check authentication on page load
+    document.addEventListener('DOMContentLoaded', function() {
+      const token = localStorage.getItem('access_token');
+      const userData = localStorage.getItem('user_data');
+      
+      if (!token) {
+        window.location.href = '/login';
+        return;
+      }
+      
+      // Display user info
+      if (userData) {
+        const user = JSON.parse(userData);
+        document.getElementById('user-info').textContent = `Welcome, ${user.full_name} (${user.role})`;
+      }
+      
+      // Add Authorization header to all fetch requests
+      const originalFetch = window.fetch;
+      window.fetch = function(...args) {
+        const [resource, config = {}] = args;
+        config.headers = {
+          ...config.headers,
+          'Authorization': `Bearer ${token}`
+        };
+        return originalFetch(resource, config);
+      };
+    });
+    
+    function logout() {
+      localStorage.removeItem('access_token');
+      localStorage.removeItem('refresh_token');
+      localStorage.removeItem('user_data');
+      window.location.href = '/login';
+    }
+    
+    // Handle form submissions with authentication
+    document.addEventListener('submit', function(e) {
+      const form = e.target;
+      const token = localStorage.getItem('access_token');
+      
+      if (!token) {
+        e.preventDefault();
+        window.location.href = '/login';
+        return;
+      }
+      
+      // For file uploads, we need to handle differently
+      if (form.enctype === 'multipart/form-data') {
+        e.preventDefault();
+        submitFormWithToken(form, token);
+      }
+    });
+    
+    async function submitFormWithToken(form, token) {
+      const formData = new FormData(form);
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          headers: {
+            'Authorization': `Bearer ${token}`
+          },
+          body: formData
+        });
+        
+        if (response.ok) {
+          // Refresh the page to show updated data
+          window.location.reload();
+        } else if (response.status === 401) {
+          // Token expired, redirect to login
+          localStorage.removeItem('access_token');
+          localStorage.removeItem('refresh_token');
+          localStorage.removeItem('user_data');
+          window.location.href = '/login';
+        } else {
+          const errorData = await response.json();
+          alert('Error: ' + (errorData.detail || 'Request failed'));
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        alert('Network error. Please try again.');
+      }
+    }
+  </script>
 </body>
 </html>

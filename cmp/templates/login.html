@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMP Login - AI Financial Platform</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .login-container {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .login-header h1 {
+            color: #333;
+            margin: 0 0 10px 0;
+            font-size: 28px;
+            font-weight: 600;
+        }
+        .login-header p {
+            color: #666;
+            margin: 0;
+            font-size: 16px;
+        }
+        .ai-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 500;
+        }
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        input[type="email"]:focus, input[type="password"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        .login-button {
+            width: 100%;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        .login-button:hover {
+            transform: translateY(-1px);
+        }
+        .login-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+        .error-message {
+            background: #fee;
+            color: #c33;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .success-message {
+            background: #efe;
+            color: #363;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        .demo-credentials {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .demo-credentials h4 {
+            margin: 0 0 10px 0;
+            color: #333;
+            font-size: 14px;
+        }
+        .loading {
+            display: none;
+            text-align: center;
+            color: #666;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <div class="ai-badge">🤖 AI-Powered</div>
+            <h1>CMP Login</h1>
+            <p>AI Financial Management Platform</p>
+        </div>
+
+        <div id="error-message" class="error-message"></div>
+        <div id="success-message" class="success-message"></div>
+
+        <form id="login-form">
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required 
+                       placeholder="admin@cmp.com">
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required 
+                       placeholder="Enter your password">
+            </div>
+            
+            <button type="submit" class="login-button" id="login-btn">
+                Sign In to AI Dashboard
+            </button>
+            
+            <div class="loading" id="loading">
+                🤖 Authenticating with AI system...
+            </div>
+        </form>
+
+        <div class="demo-credentials">
+            <h4>📋 Demo Credentials</h4>
+            <strong>Email:</strong> admin@cmp.com<br>
+            <strong>Password:</strong> admin123<br>
+            <small>⚠️ Change credentials after first login</small>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            const loginBtn = document.getElementById('login-btn');
+            const loading = document.getElementById('loading');
+            const errorMsg = document.getElementById('error-message');
+            const successMsg = document.getElementById('success-message');
+            
+            // Hide previous messages
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            // Show loading state
+            loginBtn.disabled = true;
+            loginBtn.textContent = 'Signing In...';
+            loading.style.display = 'block';
+            
+            try {
+                const response = await fetch('/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    // Store the token in localStorage
+                    localStorage.setItem('access_token', data.access_token);
+                    localStorage.setItem('refresh_token', data.refresh_token);
+                    localStorage.setItem('user_data', JSON.stringify(data.user));
+                    
+                    // Show success message
+                    successMsg.textContent = '✅ Login successful! Redirecting to AI dashboard...';
+                    successMsg.style.display = 'block';
+                    
+                    // Redirect to dashboard after a short delay
+                    setTimeout(() => {
+                        window.location.href = '/dashboard';
+                    }, 1500);
+                    
+                } else {
+                    const errorData = await response.json();
+                    let errorText = 'Login failed. Please check your credentials.';
+                    
+                    if (errorData.detail) {
+                        if (Array.isArray(errorData.detail)) {
+                            errorText = errorData.detail.map(err => err.msg || err).join(', ');
+                        } else {
+                            errorText = errorData.detail;
+                        }
+                    }
+                    
+                    errorMsg.textContent = '❌ ' + errorText;
+                    errorMsg.style.display = 'block';
+                }
+                
+            } catch (error) {
+                errorMsg.textContent = '❌ Network error. Please check your connection and try again.';
+                errorMsg.style.display = 'block';
+                console.error('Login error:', error);
+            } finally {
+                // Reset button state
+                loginBtn.disabled = false;
+                loginBtn.textContent = 'Sign In to AI Dashboard';
+                loading.style.display = 'none';
+            }
+        });
+        
+        // Check if user is already logged in
+        if (localStorage.getItem('access_token')) {
+            document.getElementById('success-message').textContent = 'Already logged in. Redirecting...';
+            document.getElementById('success-message').style.display = 'block';
+            setTimeout(() => {
+                window.location.href = '/dashboard';
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

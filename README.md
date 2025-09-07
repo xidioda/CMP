@@ -12,9 +12,17 @@
 - **Issue #2**: Tesseract OCR for Arabic & English invoice processing  
 - **Issue #3**: JWT Authentication System with Role-Based Access Control
 - **Issue #4**: 🤖 **Advanced AI Implementation** - Machine Learning Financial Agents
+- **🌐 Browser Interface**: Professional web dashboard with JWT authentication
 
 **🔄 Next Priority:**
 - **Issue #5**: Production Deployment Setup
+
+## 🌐 Web Access
+
+**Browser Dashboard:** http://localhost:8000/login
+- **Demo Credentials**: `admin@cmp.local` / `admin123`
+- **Features**: Professional UI, real-time AI agent status, secure JWT authentication
+- **Mobile-Friendly**: Responsive design for all devices
 
 ## 🤖 AI & Machine Learning Features
 
