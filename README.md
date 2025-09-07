@@ -3,7 +3,32 @@
 **🔗 Repository:** https://github.com/xidioda/CMP  
 **📋 Project Board:** https://github.com/users/xidioda/projects/1
 
-AI-first, modular platform to automate core business operations. Phase 1 delivers the Core Platform and Module 1: AI Finance Department.
+AI-first, modular platform to automate core business operations. Phase 1 delivers the Core Platform and Module 1: AI Finance Department with comprehensive authentication and security.
+
+## 🏆 Current Status
+
+**✅ Completed Features:**
+- **Issue #2**: Tesseract OCR for Arabic & English invoice processing
+- **Issue #1**: Live API Integration (Zoho Books, Emirates NBD, Bank Import)
+- **Issue #3**: JWT Authentication System with Role-Based Access Control
+
+**🔄 Next Priority:**
+- **Issue #4**: Phase 2B: Advanced AI Implementation
+- **Issue #5**: Production Deployment Setup
+
+## 🔐 Authentication & Security
+
+The platform now includes enterprise-grade authentication:
+
+- **JWT-based Authentication** with access/refresh tokens
+- **Role-Based Access Control**: Admin → Orchestrator → Viewer hierarchy  
+- **Protected Endpoints** with proper authorization
+- **User Management** with admin controls
+- **Password Security** using bcrypt hashing
+
+**Default Admin Login:**
+- Email: `admin@cmp.com`
+- Password: `admin123` ⚠️ *Change immediately!*
 
 ## Quick start
 
@@ -21,7 +46,14 @@ pip install -U pip
 pip install -r requirements.txt
 ```
 
-### 2) Run the API (SQLite by default; Postgres optional)
+### 2) Set up authentication (required)
+
+```bash
+# Run database migration to create user tables
+python scripts/migrate_auth.py
+```
+
+### 3) Run the API (SQLite by default; Postgres optional)
 
 ```bash
 # Start API
@@ -30,15 +62,39 @@ uvicorn cmp.main:app --reload
 
 Open: http://127.0.0.1:8000/dashboard
 
+**Login required!** Use the default admin credentials above.
+
 ### Using PostgreSQL locally (optional, recommended)
 
 Option A: Docker
 ```bash
-# Start local Postgres 15
-docker compose up -d
-# Then export DATABASE_URL for the API
-export DATABASE_URL=postgresql+psycopg://cmp:cmp@localhost:5432/cmp
-uvicorn cmp.main:app --reload
+```
+
+### 4) Run tests
+
+```bash
+pytest -q
+```
+
+## 🚀 API Endpoints
+
+### Authentication Endpoints
+- `POST /auth/login` - User authentication
+- `POST /auth/register` - User creation (admin only)  
+- `POST /auth/refresh` - Token refresh
+- `GET /auth/me` - Current user information
+- `GET /auth/users` - List users (admin only)
+- `PUT /auth/users/{id}/activate` - Activate user (admin only)
+- `PUT /auth/users/{id}/deactivate` - Deactivate user (admin only)
+
+### Application Endpoints
+- `GET /healthz` - Health check
+- `GET /dashboard` - Main dashboard (authenticated)
+- `POST /dashboard/realworld` - Record real-world events (orchestrator+)
+- `POST /dashboard/upload-invoice` - Upload invoices for OCR (orchestrator+)
+- `GET /dashboard/agent-status` - AI agent status (viewer+)
+
+### 3) Run tests
 ```
 
 Option B: Native install
