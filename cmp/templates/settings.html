@@ -771,19 +771,28 @@
                 return;
             }
 
+            // Get client_id from form
+            const clientIdInput = document.querySelector('input[name="client_id"]');
+            const clientId = clientIdInput ? clientIdInput.value : '';
+            
+            if (!clientId) {
+                alert('Please enter a Client ID first before generating OAuth URL');
+                return;
+            }
+
             try {
-                const response = await fetch('/api/settings/oauth/zoho-authorize', {
+                const response = await fetch(`/api/settings/oauth/zoho-authorize?client_id=${encodeURIComponent(clientId)}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`
                     }
                 });
                 const result = await response.json();
                 
-                if (response.ok) {
+                if (response.ok && result.authorization_url) {
                     alert(`${result.instructions}\n\nURL: ${result.authorization_url}`);
                     window.open(result.authorization_url, '_blank');
                 } else {
-                    alert(`Error: ${result.detail}`);
+                    alert(`Error: ${result.message || result.detail || 'Unknown error'}`);
                 }
             } catch (error) {
                 alert(`Failed to generate OAuth URL: ${error.message}`);

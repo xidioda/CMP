@@ -25,10 +25,10 @@ router = APIRouter()
 templates = Jinja2Templates(directory="cmp/templates")
 
 @router.get("/settings", response_class=HTMLResponse)
-async def settings_page(request: Request, current_user: User = Depends(get_current_user)):
-    """Render the settings management page"""
+async def settings_page(request: Request):
+    """Render the settings management page (authentication handled client-side)"""
     try:
-        # Get current configuration status
+        # Get current configuration status (no auth required for page load)
         integrations_status = await get_integrations_status()
         
         # Get environment variables (masked for security)
@@ -120,18 +120,29 @@ async def update_zoho_books_settings(
         raise HTTPException(status_code=500, detail=f"Failed to update settings: {str(e)}")
 
 @router.get("/api/settings/oauth/zoho-authorize")
-async def zoho_oauth_authorize(current_user: User = Depends(get_current_user)):
+async def zoho_oauth_authorize(
+    client_id: str = None, 
+    current_user: User = Depends(get_current_user)
+):
     """Generate Zoho OAuth authorization URL"""
     try:
-        client_id = settings.zoho_client_id or ""
-        if not client_id:
-            raise HTTPException(status_code=400, detail="Zoho Client ID not configured")
+        # Use provided client_id or fall back to configured one
+        if client_id:
+            oauth_client_id = client_id
+        else:
+            oauth_client_id = settings.zoho_client_id or ""
+            
+        if not oauth_client_id:
+            return {
+                "error": "Client ID required",
+                "message": "Please provide a Client ID or configure it in settings first"
+            }
             
         # Generate OAuth URL for Zoho Books
         oauth_url = (
             f"https://accounts.zoho.com/oauth/v2/auth?"
             f"scope=ZohoBooks.fullaccess.all&"
-            f"client_id={client_id}&"
+            f"client_id={oauth_client_id}&"
             f"response_type=code&"
             f"access_type=offline&"
             f"redirect_uri=http://localhost:8000/settings/oauth/zoho-callback"
@@ -139,12 +150,74 @@ async def zoho_oauth_authorize(current_user: User = Depends(get_current_user)):
         
         return {
             "authorization_url": oauth_url,
-            "instructions": "Click the URL to authorize CMP to access your Zoho Books data"
+            "instructions": "Click the URL to authorize CMP to access your Zoho Books data",
+            "client_id": oauth_client_id
         }
         
     except Exception as e:
         logger.error(f"Error generating Zoho OAuth URL: {e}")
-        raise HTTPException(status_code=500, detail="Failed to generate authorization URL")
+        return {
+            "error": "OAuth URL generation failed",
+            "message": str(e)
+        }
+
+@router.get("/settings/oauth/zoho-callback")
+async def zoho_oauth_callback(code: str = None, error: str = None):
+    """Handle Zoho OAuth callback"""
+    if error:
+        return HTMLResponse(f"""
+        <html>
+        <head><title>OAuth Error</title></head>
+        <body>
+            <h2>OAuth Authorization Failed</h2>
+            <p>Error: {error}</p>
+            <p><a href="/settings">Return to Settings</a></p>
+        </body>
+        </html>
+        """)
+    
+    if not code:
+        return HTMLResponse("""
+        <html>
+        <head><title>OAuth Error</title></head>
+        <body>
+            <h2>OAuth Authorization Failed</h2>
+            <p>No authorization code received</p>
+            <p><a href="/settings">Return to Settings</a></p>
+        </body>
+        </html>
+        """)
+    
+    return HTMLResponse(f"""
+    <html>
+    <head>
+        <title>OAuth Success</title>
+        <style>
+            body {{ font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }}
+            .success {{ background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 5px; }}
+            .code {{ background: #f8f9fa; border: 1px solid #dee2e6; padding: 10px; font-family: monospace; word-break: break-all; }}
+        </style>
+    </head>
+    <body>
+        <div class="success">
+            <h2>✅ OAuth Authorization Successful!</h2>
+            <p>Authorization code received. Copy this code and use it to get your access token:</p>
+        </div>
+        
+        <h3>Authorization Code:</h3>
+        <div class="code">{code}</div>
+        
+        <h3>Next Steps:</h3>
+        <ol>
+            <li>Copy the authorization code above</li>
+            <li><a href="/settings">Return to Settings</a></li>
+            <li>Use the code to exchange for access token (manual process)</li>
+        </ol>
+        
+        <p><strong>Note:</strong> This code expires in 10 minutes. Use it immediately to get your access token.</p>
+    </body>
+    </html>
+    """)
 
 async def get_integrations_status() -> Dict[str, Any]:
     """Get comprehensive status of all integrations"""

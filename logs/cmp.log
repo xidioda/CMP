@@ -331,3 +331,328 @@
 2025-09-08 01:23:25,746 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
 2025-09-08 01:26:10,662 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
 2025-09-08 01:26:10,819 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 01:31:30,340 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 01:31:30,392 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 01:31:48,512 - cmp.main - INFO - CMP application starting up...
+2025-09-08 01:31:48,514 - cmp.main - INFO - Database initialized successfully
+2025-09-08 01:32:05,520 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 01:32:05,582 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-08 01:32:06,405 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-08 01:32:06,405 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-08 01:32:06,405 - cmp.agents.accountant - INFO - AI:Accountant initialized with AI/ML capabilities
+2025-09-08 01:32:06,405 - cmp.agents.accountant - INFO - - Intelligent transaction categorization (ML)
+2025-09-08 01:32:06,405 - cmp.agents.accountant - INFO - - Smart document analysis and OCR
+2025-09-08 01:32:06,405 - cmp.agents.accountant - INFO - - Business insights and anomaly detection
+2025-09-08 01:32:06,405 - cmp.agents.accountant - INFO - - Multi-bank integration (Emirates NBD, File Import)
+2025-09-08 01:32:06,408 - cmp.agents.controller - INFO - AI:Controller initialized with AI-powered financial controls
+2025-09-08 01:32:06,409 - cmp.agents.director - INFO - AI:Director initialized with AI-powered strategic financial management
+2025-09-08 01:32:06,409 - cmp.agents.cfo - INFO - AI:CFO initialized with AI-powered strategic financial leadership
+2025-09-08 01:33:10,983 - cmp.main - INFO - CMP application starting up...
+2025-09-08 01:33:10,984 - cmp.main - INFO - Database initialized successfully
+2025-09-08 01:35:02,455 - cmp.main - INFO - CMP application starting up...
+2025-09-08 01:35:02,456 - cmp.main - INFO - Database initialized successfully
+2025-09-08 01:35:06,175 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:22:28,877 - cmp.main - INFO - CMP application starting up...
+2025-09-20 12:22:28,878 - cmp.main - INFO - Database initialized successfully
+2025-09-20 12:23:32,633 - cmp.main - INFO - CMP application starting up...
+2025-09-20 12:23:32,639 - cmp.main - INFO - Database initialized successfully
+2025-09-20 12:24:01,942 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:24:01,958 - cmp.auth - WARNING - JWT verification failed: Signature has expired.
+2025-09-20 12:24:27,435 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2025-09-20 12:24:27,436 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-09-20 12:24:27,641 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 12:24:27,642 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:24:27,642 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:24:27,642 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 12:24:29,507 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:24:29,545 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:24:32,241 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-20 12:24:32,241 - cmp.ai_utils - INFO - Loaded existing transaction categorizer model
+2025-09-20 12:24:32,241 - cmp.agents.accountant - INFO - AI:Accountant initialized with AI/ML capabilities
+2025-09-20 12:24:32,241 - cmp.agents.accountant - INFO - - Intelligent transaction categorization (ML)
+2025-09-20 12:24:32,241 - cmp.agents.accountant - INFO - - Smart document analysis and OCR
+2025-09-20 12:24:32,241 - cmp.agents.accountant - INFO - - Business insights and anomaly detection
+2025-09-20 12:24:32,241 - cmp.agents.accountant - INFO - - Multi-bank integration (Emirates NBD, File Import)
+2025-09-20 12:24:32,249 - cmp.agents.controller - INFO - AI:Controller initialized with AI-powered financial controls
+2025-09-20 12:24:32,249 - cmp.agents.director - INFO - AI:Director initialized with AI-powered strategic financial management
+2025-09-20 12:24:32,250 - cmp.agents.cfo - INFO - AI:CFO initialized with AI-powered strategic financial leadership
+2025-09-20 12:24:59,665 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:36:01,549 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 12:36:01,551 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:36:01,557 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 12:36:01,557 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:11:27,808 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:11:27,819 - cmp.auth - WARNING - JWT verification failed: Signature has expired.
+2025-09-20 13:11:37,182 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:11:37,182 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:11:37,182 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:11:37,183 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:11:37,282 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:11:46,950 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:11:46,950 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:11:46,950 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:11:46,950 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:12:00,469 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:12:00,470 - cmp.auth - WARNING - JWT verification failed: Signature verification failed.
+2025-09-20 13:12:09,207 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:12:09,207 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:12:09,207 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:12:09,207 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:12:55,200 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:12:55,201 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:12:55,201 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:12:55,201 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:12:55,286 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:13:08,177 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:13:08,178 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:13:08,178 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:13:08,178 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:13:08,321 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:17:30,905 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:17:30,906 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:17:30,906 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:17:30,906 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:17:31,031 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:18:59,996 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_value with data[63:90]
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_part_data with data[94:129]
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_field with data[173:192]
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_value with data[194:225]
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_part_data with data[229:271]
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_field with data[315:334]
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_value with data[336:369]
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:18:59,998 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_part_data with data[373:382]
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_header_field with data[426:445]
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_header_value with data[447:477]
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:18:59,999 - multipart.multipart - DEBUG - Calling on_end with no data
+2025-09-20 13:19:00,002 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:00,006 - cmp.auth - WARNING - JWT verification failed: Signature has expired.
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_header_value with data[63:90]
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_part_data with data[94:129]
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_header_field with data[173:192]
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_header_value with data[194:225]
+2025-09-20 13:19:04,459 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_part_data with data[229:271]
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_header_field with data[315:334]
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_header_value with data[336:369]
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_part_data with data[373:382]
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_header_field with data[426:445]
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_header_value with data[447:477]
+2025-09-20 13:19:04,460 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:19:04,461 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:19:04,461 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:19:04,461 - multipart.multipart - DEBUG - Calling on_end with no data
+2025-09-20 13:19:04,461 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:04,463 - cmp.auth - WARNING - JWT verification failed: Signature has expired.
+2025-09-20 13:19:08,076 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:08,076 - cmp.auth - WARNING - JWT verification failed: Signature has expired.
+2025-09-20 13:19:15,376 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:15,377 - cmp.auth - WARNING - JWT verification failed: Signature has expired.
+2025-09-20 13:19:27,285 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:27,285 - cmp.auth - WARNING - JWT verification failed: Signature has expired.
+2025-09-20 13:19:38,218 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:19:38,218 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:38,218 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:38,218 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:19:39,751 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:39,835 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:19:42,656 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:20:07,690 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:20:07,693 - cmp.routers.settings - ERROR - Error generating Zoho OAuth URL: 400: Zoho Client ID not configured
+2025-09-20 13:20:15,644 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_value with data[63:90]
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_part_data with data[94:129]
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_field with data[173:192]
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_value with data[194:225]
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_part_data with data[229:271]
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_field with data[315:334]
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_value with data[336:369]
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:20:15,645 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_part_data with data[373:382]
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_header_field with data[426:445]
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_header_value with data[447:477]
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:20:15,646 - multipart.multipart - DEBUG - Calling on_end with no data
+2025-09-20 13:20:15,647 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:20:15,656 - cmp.routers.settings - INFO - Updated .env file with 4 settings
+2025-09-20 13:20:15,656 - cmp.routers.settings - INFO - Zoho Books configuration updated
+2025-09-20 13:20:18,302 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:21:02,098 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_header_value with data[63:90]
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_part_data with data[94:129]
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_header_field with data[173:192]
+2025-09-20 13:21:02,100 - multipart.multipart - DEBUG - Calling on_header_value with data[194:225]
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_part_data with data[229:271]
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_header_field with data[315:334]
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_header_value with data[336:369]
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_part_data with data[373:382]
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_header_field with data[426:445]
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_header_value with data[447:477]
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:21:02,101 - multipart.multipart - DEBUG - Calling on_end with no data
+2025-09-20 13:21:02,103 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:21:02,108 - cmp.routers.settings - INFO - Updated .env file with 4 settings
+2025-09-20 13:21:02,108 - cmp.routers.settings - INFO - Zoho Books configuration updated
+2025-09-20 13:21:04,563 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:21:11,646 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:21:16,231 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:21:16,233 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:21:16,233 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:21:16,233 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:21:16,238 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:21:16,240 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:23:21,274 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:23:21,283 - cmp.routers.settings - ERROR - Error generating Zoho OAuth URL: 400: Zoho Client ID not configured
+2025-09-20 13:25:33,777 - cmp.main - INFO - CMP application starting up...
+2025-09-20 13:25:33,778 - cmp.main - INFO - Database initialized successfully
+2025-09-20 13:29:04,693 - cmp.main - INFO - CMP application starting up...
+2025-09-20 13:29:04,695 - cmp.main - INFO - Database initialized successfully
+2025-09-20 13:29:49,409 - cmp.main - INFO - CMP application starting up...
+2025-09-20 13:29:49,410 - cmp.main - INFO - Database initialized successfully
+2025-09-20 13:30:12,489 - cmp.main - INFO - CMP application starting up...
+2025-09-20 13:30:12,490 - cmp.main - INFO - Database initialized successfully
+2025-09-20 13:31:44,573 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:32:09,320 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:33:02,958 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:33:02,960 - multipart.multipart - DEBUG - Calling on_header_field with data[42:61]
+2025-09-20 13:33:02,960 - multipart.multipart - DEBUG - Calling on_header_value with data[63:90]
+2025-09-20 13:33:02,960 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_part_data with data[94:129]
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_header_field with data[173:192]
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_header_value with data[194:225]
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_part_data with data[229:271]
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:33:02,961 - multipart.multipart - DEBUG - Calling on_header_field with data[315:334]
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_header_value with data[336:369]
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_part_data with data[373:382]
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_part_begin with no data
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_header_field with data[426:445]
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_header_value with data[447:477]
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_header_end with no data
+2025-09-20 13:33:02,962 - multipart.multipart - DEBUG - Calling on_headers_finished with no data
+2025-09-20 13:33:02,963 - multipart.multipart - DEBUG - Calling on_part_data with data[481:551]
+2025-09-20 13:33:02,963 - multipart.multipart - DEBUG - Calling on_part_end with no data
+2025-09-20 13:33:02,963 - multipart.multipart - DEBUG - Calling on_end with no data
+2025-09-20 13:33:02,964 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:33:02,973 - cmp.routers.settings - INFO - Updated .env file with 5 settings
+2025-09-20 13:33:02,990 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-09-20 13:33:02,993 - httpx - DEBUG - load_verify_locations cafile='/Users/xidioda/Projects/CMP/.venv/lib/python3.13/site-packages/certifi/cacert.pem'
+2025-09-20 13:33:03,018 - httpcore.connection - DEBUG - connect_tcp.started host='www.zohoapis.com' port=443 local_address=None timeout=30 socket_options=None
+2025-09-20 13:33:03,315 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1153a4590>
+2025-09-20 13:33:03,315 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x115360cb0> server_hostname='www.zohoapis.com' timeout=30
+2025-09-20 13:33:03,668 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x115329bd0>
+2025-09-20 13:33:03,669 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-20 13:33:03,670 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-20 13:33:03,670 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-20 13:33:03,670 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-20 13:33:03,671 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-20 13:33:03,973 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'', [(b'Server', b'ZGS'), (b'Date', b'Sat, 20 Sep 2025 09:33:04 GMT'), (b'Content-Type', b'application/json;charset=UTF-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Set-Cookie', b'zalb_ba05f91d88=cf3f541f88be349f1971b1b55412062c; Path=/; Secure; HttpOnly'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'zbcscook=563ccac9-374e-43ee-a459-6e3d2e449ab5;path=/;SameSite=None;Secure;priority=high'), (b'Set-Cookie', b'_zcsr_tmp=563ccac9-374e-43ee-a459-6e3d2e449ab5;path=/;SameSite=Strict;Secure;priority=high'), (b'Cache-Control', b'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0'), (b'Pragma', b'no-cache'), (b'Expires', b'Thu, 01 Jan 1970 00:00:00 GMT'), (b'X-Frame-Options', b'DENY'), (b'Set-Cookie', b'JSESSIONID=707014B4617F2F446D18E55722DA5D26; Path=/; Secure; HttpOnly'), (b'SERVER_BUILD_VERSION', b'Sep_18_2025_2_23059/'), (b'Content-Disposition', b'attachment;'), (b'vary', b'accept-encoding'), (b'Content-Encoding', b'gzip'), (b'Strict-Transport-Security', b'max-age=64072000; includeSubDomains; preload')])
+2025-09-20 13:33:03,973 - httpx - INFO - HTTP Request: GET https://www.zohoapis.com/books/v3/organizations?organization_id=900204587 "HTTP/1.1 401 "
+2025-09-20 13:33:03,974 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-20 13:33:03,974 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-20 13:33:03,974 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-20 13:33:03,974 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-20 13:33:03,974 - cmp.integrations.invoices - INFO - Access token expired, attempting refresh
+2025-09-20 13:33:03,974 - cmp.integrations.invoices - ERROR - Zoho API error: 401 - {"code":14,"message":"The request could not be authenticated as the authentication value you entered is invalid. Enter a valid authentication value and try again."}
+2025-09-20 13:33:03,974 - httpcore.connection - DEBUG - close.started
+2025-09-20 13:33:03,974 - httpcore.connection - DEBUG - close.complete
+2025-09-20 13:33:03,974 - cmp.routers.settings - INFO - Zoho Books configuration updated
+2025-09-20 13:33:06,610 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:33:31,445 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:33:34,539 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:35:19,294 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:38:08,223 - passlib.handlers.bcrypt - DEBUG - detected 'bcrypt' backend, version '4.0.1'
+2025-09-20 13:38:08,224 - passlib.handlers.bcrypt - DEBUG - 'bcrypt' backend lacks $2$ support, enabling workaround
+2025-09-20 13:38:08,427 - cmp.auth - INFO - User admin@cmp.com authenticated successfully
+2025-09-20 13:38:08,427 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:38:08,428 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:38:08,428 - cmp.auth_router - INFO - User admin@cmp.com logged in successfully
+2025-09-20 13:38:08,434 - cmp.auth - WARNING - Using default JWT secret key - change this in production!
+2025-09-20 13:38:08,435 - httpx - DEBUG - load_ssl_context verify=True cert=None trust_env=True http2=False
+2025-09-20 13:38:08,435 - httpx - DEBUG - load_verify_locations cafile='/Users/xidioda/Projects/CMP/.venv/lib/python3.13/site-packages/certifi/cacert.pem'
+2025-09-20 13:38:08,439 - httpcore.connection - DEBUG - connect_tcp.started host='www.zohoapis.com' port=443 local_address=None timeout=30 socket_options=None
+2025-09-20 13:38:08,712 - httpcore.connection - DEBUG - connect_tcp.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x1153a9bd0>
+2025-09-20 13:38:08,712 - httpcore.connection - DEBUG - start_tls.started ssl_context=<ssl.SSLContext object at 0x115360d40> server_hostname='www.zohoapis.com' timeout=30
+2025-09-20 13:38:09,020 - httpcore.connection - DEBUG - start_tls.complete return_value=<httpcore._backends.anyio.AnyIOStream object at 0x11529f490>
+2025-09-20 13:38:09,020 - httpcore.http11 - DEBUG - send_request_headers.started request=<Request [b'GET']>
+2025-09-20 13:38:09,020 - httpcore.http11 - DEBUG - send_request_headers.complete
+2025-09-20 13:38:09,020 - httpcore.http11 - DEBUG - send_request_body.started request=<Request [b'GET']>
+2025-09-20 13:38:09,020 - httpcore.http11 - DEBUG - send_request_body.complete
+2025-09-20 13:38:09,020 - httpcore.http11 - DEBUG - receive_response_headers.started request=<Request [b'GET']>
+2025-09-20 13:38:09,304 - httpcore.http11 - DEBUG - receive_response_headers.complete return_value=(b'HTTP/1.1', 401, b'', [(b'Server', b'ZGS'), (b'Date', b'Sat, 20 Sep 2025 09:38:09 GMT'), (b'Content-Type', b'application/json;charset=UTF-8'), (b'Transfer-Encoding', b'chunked'), (b'Connection', b'keep-alive'), (b'Set-Cookie', b'zalb_ba05f91d88=fc714f5e35e3fd4957efaf938943eb9c; Path=/; Secure; HttpOnly'), (b'X-Content-Type-Options', b'nosniff'), (b'Set-Cookie', b'zbcscook=988b7608-af09-4f1d-949e-9f3f241fef16;path=/;SameSite=None;Secure;priority=high'), (b'Set-Cookie', b'_zcsr_tmp=988b7608-af09-4f1d-949e-9f3f241fef16;path=/;SameSite=Strict;Secure;priority=high'), (b'Cache-Control', b'no-store, no-cache, must-revalidate, max-age=0, post-check=0, pre-check=0'), (b'Pragma', b'no-cache'), (b'Expires', b'Thu, 01 Jan 1970 00:00:00 GMT'), (b'X-Frame-Options', b'DENY'), (b'Set-Cookie', b'JSESSIONID=0976EB5FBA2A8D2EB36F5B4BBD7B1C14; Path=/; Secure; HttpOnly'), (b'SERVER_BUILD_VERSION', b'Sep_18_2025_2_23059/'), (b'Content-Disposition', b'attachment;'), (b'vary', b'accept-encoding'), (b'Content-Encoding', b'gzip'), (b'Strict-Transport-Security', b'max-age=64072000; includeSubDomains; preload')])
+2025-09-20 13:38:09,306 - httpx - INFO - HTTP Request: GET https://www.zohoapis.com/books/v3/organizations?organization_id=900204587 "HTTP/1.1 401 "
+2025-09-20 13:38:09,306 - httpcore.http11 - DEBUG - receive_response_body.started request=<Request [b'GET']>
+2025-09-20 13:38:09,306 - httpcore.http11 - DEBUG - receive_response_body.complete
+2025-09-20 13:38:09,306 - httpcore.http11 - DEBUG - response_closed.started
+2025-09-20 13:38:09,306 - httpcore.http11 - DEBUG - response_closed.complete
+2025-09-20 13:38:09,306 - cmp.integrations.invoices - INFO - Access token expired, attempting refresh
+2025-09-20 13:38:09,306 - cmp.integrations.invoices - ERROR - Zoho API error: 401 - {"code":14,"message":"The request could not be authenticated as the authentication value you entered is invalid. Enter a valid authentication value and try again."}
+2025-09-20 13:38:09,306 - httpcore.connection - DEBUG - close.started
+2025-09-20 13:38:09,306 - httpcore.connection - DEBUG - close.complete
