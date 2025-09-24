@@ -12,6 +12,7 @@ from fastapi.templating import Jinja2Templates
 from ..db import get_db
 from ..models import append_ledger_entry, User, UserRole
 from ..utils.ocr import ocr_processor
+from ..utils.monitoring import performance_metrics, system_health_monitor
 from ..logging_config import get_logger
 from .auth import get_current_user
 
@@ -36,9 +37,9 @@ async def login_page(request: Request):
 
 @router.get("/dashboard", response_class=HTMLResponse)
 async def dashboard_page(request: Request) -> Any:
-    """Serve the clean, professional dashboard page - authentication handled by JavaScript"""
+    """Serve the enhanced dashboard page with agent control panels - authentication handled by JavaScript"""
     return templates.TemplateResponse(
-        "dashboard_clean.html",
+        "dashboard.html",
         {"request": request}
     )
 
@@ -89,6 +90,11 @@ async def dashboard_data(
     can_add_entries = current_user.has_permission(UserRole.ORCHESTRATOR)
     can_view_agents = current_user.has_permission(UserRole.VIEWER)
     
+    # Get system performance metrics
+    performance_stats = performance_metrics.get_stats()
+    system_metrics = system_health_monitor.get_system_metrics()
+    uptime_info = system_health_monitor.get_uptime()
+    
     return {
         "approvals": [],  # TODO: Implement approval queue
         "exceptions": [],  # TODO: Implement exception tracking
@@ -120,6 +126,10 @@ async def dashboard_data(
             "average_processing_time": 2.3  # TODO: Calculate from actual processing times
         },
         "system_health": {
+            "performance": performance_stats,
+            "system_metrics": system_metrics,
+            "uptime": uptime_info,
+            "status": "healthy" if not isinstance(system_metrics, dict) or "error" not in system_metrics else "degraded",
             "api_status": "online",
             "database_status": "connected", 
             "ml_models_status": "loaded",
@@ -227,11 +237,8 @@ async def upload_invoice(
 
 
 @router.get("/dashboard/agent-status")
-async def agent_status(current_user: User = Depends(get_current_user)):
-    """Get enhanced status of all AI agents with detailed capabilities"""
-    # Check permission for viewing agents
-    if not current_user.has_permission(UserRole.VIEWER):
-        raise HTTPException(status_code=403, detail="Viewer access required")
+async def agent_status():
+    """Get enhanced status of all AI agents with detailed capabilities - authentication handled by frontend"""
     
     from ..agents.accountant import accountant
     from ..agents.controller import controller

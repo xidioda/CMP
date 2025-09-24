@@ -227,7 +227,7 @@ async def main():
     print("   📄 Bank file import - CSV/Excel support")
     
     print(f"\n📋 Configuration Status:")
-    print(f"   • Environment: {settings.env}")
+    print(f"   • Environment: {settings.environment}")
     print(f"   • Zoho Books URL: {settings.zoho_base_url}")
     print(f"   • Emirates NBD URL: {settings.emirates_nbd_base_url}")
     print(f"   • Bank Import Dir: {getattr(settings, 'bank_import_directory', 'local_storage/bank_statements')}")

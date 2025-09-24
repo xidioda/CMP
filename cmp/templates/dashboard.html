@@ -23,6 +23,7 @@
     <h1>Company Management Platform (CMP) 🤖</h1>
     <div class="user-info">
       <span id="user-info"></span>
+      <button onclick="window.location.href='/settings'" style="background: #6b7280; margin-right: 0.5rem;">Settings</button>
       <button onclick="logout()" class="logout-btn">Logout</button>
     </div>
   </header>
@@ -110,6 +111,17 @@
       {% else %}
         <p>No recent entries.</p>
       {% endif %}
+    </section>
+
+    <section>
+      <h2>AI Agent Control Panels</h2>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 1rem;">
+        <a href="/agents/accountant" style="background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 0.75rem; border-radius: 6px; text-decoration: none; text-align: center; font-weight: bold;">💼 Accountant</a>
+        <a href="/agents/cfo" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 0.75rem; border-radius: 6px; text-decoration: none; text-align: center; font-weight: bold;">📊 CFO</a>
+        <a href="/agents/controller" style="background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 0.75rem; border-radius: 6px; text-decoration: none; text-align: center; font-weight: bold;">🛡️ Controller</a>
+        <a href="/agents/director" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed); color: white; padding: 0.75rem; border-radius: 6px; text-decoration: none; text-align: center; font-weight: bold;">👔 Director</a>
+      </div>
+      <p><a href="/agents/">View All Agents Overview</a></p>
     </section>
 
     <section>

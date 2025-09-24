@@ -780,7 +780,18 @@
             
             // Update metrics
             updateFinancialMetrics(response);
+            updateSystemHealth(response.system_health);
             loadRecentEntries(response.recent_entries);
+        }
+
+        async function refreshMonitoringData() {
+            try {
+                const response = await apiCall('/dashboard/data', 'GET');
+                updateSystemHealth(response.system_health);
+                updateFinancialMetrics(response);
+            } catch (error) {
+                console.error('Error refreshing monitoring data:', error);
+            }
         }
 
         function updateFinancialMetrics(data) {
@@ -818,6 +829,69 @@
             }
             if (!permissions?.can_upload_invoices) {
                 document.getElementById('invoice-section').classList.add('permissions-disabled');
+            }
+        }
+
+        function updateSystemHealth(healthData) {
+            if (!healthData) return;
+            
+            // Update system metrics
+            const systemMetrics = healthData.system_metrics || {};
+            const performance = healthData.performance || {};
+            const uptime = healthData.uptime || {};
+            
+            // Find system health card and update it
+            const healthCard = document.querySelector('.card:has(.icon-status)');
+            if (healthCard) {
+                const healthContent = `
+                    <div class="card-header">
+                        <div class="card-title">
+                            <div class="card-icon icon-status">
+                                <i class="fas fa-heartbeat"></i>
+                            </div>
+                            System Health & Performance
+                        </div>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">API Status</span>
+                        <span class="status-indicator ${healthData.api_status === 'online' ? 'status-online' : 'status-offline'}">
+                            <i class="fas fa-circle"></i>
+                            ${healthData.api_status || 'Online'}
+                        </span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Database</span>
+                        <span class="status-indicator ${healthData.database_status === 'connected' ? 'status-online' : 'status-offline'}">
+                            <i class="fas fa-circle"></i>
+                            ${healthData.database_status || 'Connected'}
+                        </span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">CPU Usage</span>
+                        <span class="metric-value">${systemMetrics.cpu_usage || 'N/A'}%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Memory Usage</span>
+                        <span class="metric-value">${systemMetrics.memory_usage || 'N/A'}%</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Uptime</span>
+                        <span class="metric-value">${uptime.uptime_human || 'N/A'}</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Avg Response</span>
+                        <span class="metric-value">${performance.avg_response_time || 'N/A'}s</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Total Requests</span>
+                        <span class="metric-value">${performance.total_requests || 0}</span>
+                    </div>
+                    <div class="metric">
+                        <span class="metric-label">Error Rate</span>
+                        <span class="metric-value">${performance.error_rate || 0}%</span>
+                    </div>
+                `;
+                healthCard.innerHTML = healthContent;
             }
         }
 

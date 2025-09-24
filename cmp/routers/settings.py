@@ -14,7 +14,7 @@ import os
 from pathlib import Path
 
 from .auth import get_current_user
-from ..models import User
+from ..models import User, Company, BusinessDocument, BusinessActivity, DocumentType
 from ..db import get_db
 from ..logging_config import get_logger
 from ..config import settings
@@ -23,6 +23,65 @@ from ..integrations.invoices import zoho_books, emirates_nbd, bank_file_importer
 logger = get_logger("routers.settings")
 router = APIRouter()
 templates = Jinja2Templates(directory="cmp/templates")
+
+
+async def get_company_info() -> Dict[str, Any]:
+    """Get current company information"""
+    try:
+        from ..db import session_scope
+        with session_scope() as session:
+            company = session.query(Company).first()
+            if not company:
+                # Create default company if none exists
+                company = Company(
+                    legal_name="CMP Financial Services LLC",
+                    trade_name="CMP Financial Services",
+                    business_type="Limited Liability Company",
+                    city="Dubai",
+                    emirate="Dubai", 
+                    country="United Arab Emirates",
+                    primary_activity=BusinessActivity.FINANCIAL_SERVICES,
+                    currency="AED",
+                    fiscal_year_end="31-Dec"
+                )
+                session.add(company)
+                session.commit()
+            
+            return {
+                "id": company.id,
+                "legal_name": company.legal_name,
+                "trade_name": company.trade_name,
+                "business_type": company.business_type,
+                "email": company.email,
+                "phone": company.phone,
+                "website": company.website,
+                "address_line1": company.address_line1,
+                "address_line2": company.address_line2,
+                "city": company.city,
+                "emirate": company.emirate,
+                "country": company.country,
+                "po_box": company.po_box,
+                "trade_license_number": company.trade_license_number,
+                "trade_license_authority": company.trade_license_authority,
+                "trade_license_issue_date": company.trade_license_issue_date.isoformat() if company.trade_license_issue_date else None,
+                "trade_license_expiry_date": company.trade_license_expiry_date.isoformat() if company.trade_license_expiry_date else None,
+                "vat_registered": company.vat_registered,
+                "vat_registration_number": company.vat_registration_number,
+                "vat_registration_date": company.vat_registration_date.isoformat() if company.vat_registration_date else None,
+                "corporate_tax_registered": company.corporate_tax_registered,
+                "corporate_tax_number": company.corporate_tax_number,
+                "corporate_tax_registration_date": company.corporate_tax_registration_date.isoformat() if company.corporate_tax_registration_date else None,
+                "primary_activity": company.primary_activity.value if company.primary_activity else None,
+                "established_date": company.established_date.isoformat() if company.established_date else None,
+                "fiscal_year_end": company.fiscal_year_end,
+                "currency": company.currency,
+                "description": company.description,
+                "notes": company.notes
+            }
+    except Exception as e:
+        logger.error(f"Error getting company info: {e}")
+        return {}
+
 
 @router.get("/settings", response_class=HTMLResponse)
 async def settings_page(request: Request):
@@ -38,6 +97,9 @@ async def settings_page(request: Request):
             "request": request,
             "integrations": integrations_status,
             "environment": env_config,
+            "company": await get_company_info(),
+            "business_activities": [activity.value for activity in BusinessActivity],
+            "document_types": [doc_type.value for doc_type in DocumentType],
             "page_title": "Settings & Configuration"
         }
         
@@ -55,6 +117,122 @@ async def integrations_status(current_user: User = Depends(get_current_user)):
     except Exception as e:
         logger.error(f"Error getting integrations status: {e}")
         raise HTTPException(status_code=500, detail="Failed to get integration status")
+
+@router.get("/api/company")
+async def get_company_data(current_user: User = Depends(get_current_user)):
+    """Get current company information"""
+    try:
+        return await get_company_info()
+    except Exception as e:
+        logger.error(f"Error getting company data: {e}")
+        raise HTTPException(status_code=500, detail="Failed to get company data")
+
+@router.post("/api/company")
+async def update_company_data(
+    current_user: User = Depends(get_current_user),
+    legal_name: str = Form(...),
+    trade_name: str = Form(None),
+    business_type: str = Form(...),
+    email: str = Form(None),
+    phone: str = Form(None),
+    website: str = Form(None),
+    address_line1: str = Form(None),
+    address_line2: str = Form(None),
+    city: str = Form(...),
+    emirate: str = Form(...),
+    country: str = Form(...),
+    po_box: str = Form(None),
+    trade_license_number: str = Form(None),
+    trade_license_authority: str = Form(None),
+    trade_license_issue_date: str = Form(None),
+    trade_license_expiry_date: str = Form(None),
+    vat_registered: bool = Form(False),
+    vat_registration_number: str = Form(None),
+    vat_registration_date: str = Form(None),
+    corporate_tax_registered: bool = Form(False),
+    corporate_tax_number: str = Form(None),
+    corporate_tax_registration_date: str = Form(None),
+    primary_activity: str = Form(None),
+    established_date: str = Form(None),
+    fiscal_year_end: str = Form(...),
+    currency: str = Form(...),
+    description: str = Form(None),
+    notes: str = Form(None)
+):
+    """Update company information"""
+    try:
+        from ..db import session_scope
+        from datetime import datetime
+        
+        with session_scope() as session:
+            company = session.query(Company).first()
+            if not company:
+                company = Company()
+                session.add(company)
+            
+            # Update basic information
+            company.legal_name = legal_name
+            company.trade_name = trade_name if trade_name else None
+            company.business_type = business_type
+            company.email = email if email else None
+            company.phone = phone if phone else None
+            company.website = website if website else None
+            
+            # Update address
+            company.address_line1 = address_line1 if address_line1 else None
+            company.address_line2 = address_line2 if address_line2 else None
+            company.city = city
+            company.emirate = emirate
+            company.country = country
+            company.po_box = po_box if po_box else None
+            
+            # Update trade license
+            company.trade_license_number = trade_license_number if trade_license_number else None
+            company.trade_license_authority = trade_license_authority if trade_license_authority else None
+            if trade_license_issue_date:
+                company.trade_license_issue_date = datetime.strptime(trade_license_issue_date, '%Y-%m-%d').date()
+            if trade_license_expiry_date:
+                company.trade_license_expiry_date = datetime.strptime(trade_license_expiry_date, '%Y-%m-%d').date()
+            
+            # Update VAT information
+            company.vat_registered = vat_registered
+            company.vat_registration_number = vat_registration_number if vat_registration_number else None
+            if vat_registration_date:
+                company.vat_registration_date = datetime.strptime(vat_registration_date, '%Y-%m-%d').date()
+            
+            # Update corporate tax
+            company.corporate_tax_registered = corporate_tax_registered
+            company.corporate_tax_number = corporate_tax_number if corporate_tax_number else None
+            if corporate_tax_registration_date:
+                company.corporate_tax_registration_date = datetime.strptime(corporate_tax_registration_date, '%Y-%m-%d').date()
+            
+            # Update business activity
+            if primary_activity:
+                try:
+                    company.primary_activity = BusinessActivity(primary_activity)
+                except ValueError:
+                    company.primary_activity = BusinessActivity.OTHER
+            
+            # Update other fields
+            if established_date:
+                company.established_date = datetime.strptime(established_date, '%Y-%m-%d').date()
+            company.fiscal_year_end = fiscal_year_end
+            company.currency = currency
+            company.description = description if description else None
+            company.notes = notes if notes else None
+            company.updated_by = current_user.email
+            
+            session.commit()
+            
+            return {
+                "success": True,
+                "message": "Company information updated successfully",
+                "data": await get_company_info()
+            }
+            
+    except Exception as e:
+        logger.error(f"Error updating company data: {e}")
+        raise HTTPException(status_code=500, detail=f"Failed to update company data: {str(e)}")
 
 @router.post("/api/integrations/test/{integration}")
 async def test_integration(integration: str, current_user: User = Depends(get_current_user)):
@@ -163,7 +341,7 @@ async def zoho_oauth_authorize(
 
 @router.get("/settings/oauth/zoho-callback")
 async def zoho_oauth_callback(code: str = None, error: str = None):
-    """Handle Zoho OAuth callback"""
+    """Handle Zoho OAuth callback and exchange code for tokens"""
     if error:
         return HTMLResponse(f"""
         <html>
@@ -188,36 +366,125 @@ async def zoho_oauth_callback(code: str = None, error: str = None):
         </html>
         """)
     
-    return HTMLResponse(f"""
-    <html>
-    <head>
-        <title>OAuth Success</title>
-        <style>
-            body {{ font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }}
-            .success {{ background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 5px; }}
-            .code {{ background: #f8f9fa; border: 1px solid #dee2e6; padding: 10px; font-family: monospace; word-break: break-all; }}
-        </style>
-    </head>
-    <body>
-        <div class="success">
-            <h2>✅ OAuth Authorization Successful!</h2>
-            <p>Authorization code received. Copy this code and use it to get your access token:</p>
-        </div>
+    try:
+        # Exchange authorization code for access token
+        import aiohttp
         
-        <h3>Authorization Code:</h3>
-        <div class="code">{code}</div>
+        token_url = "https://accounts.zoho.com/oauth/v2/token"
         
-        <h3>Next Steps:</h3>
-        <ol>
-            <li>Copy the authorization code above</li>
-            <li><a href="/settings">Return to Settings</a></li>
-            <li>Use the code to exchange for access token (manual process)</li>
-        </ol>
+        # Prepare token exchange data
+        token_data = {
+            "code": code,
+            "client_id": settings.zoho_client_id,
+            "client_secret": settings.zoho_client_secret,
+            "redirect_uri": "http://localhost:8000/settings/oauth/zoho-callback",
+            "grant_type": "authorization_code"
+        }
         
-        <p><strong>Note:</strong> This code expires in 10 minutes. Use it immediately to get your access token.</p>
-    </body>
-    </html>
-    """)
+        # Exchange code for tokens
+        async with aiohttp.ClientSession() as session:
+            async with session.post(token_url, data=token_data) as response:
+                token_response = await response.json()
+                
+                if response.status == 200 and "access_token" in token_response:
+                    access_token = token_response["access_token"]
+                    refresh_token = token_response.get("refresh_token", "")
+                    expires_in = token_response.get("expires_in", 3600)
+                    
+                    # Store tokens in environment/database (for now, we'll show them)
+                    # TODO: Store these in database or update .env file
+                    
+                    return HTMLResponse(f"""
+                    <html>
+                    <head>
+                        <title>OAuth Success</title>
+                        <style>
+                            body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }}
+                            .success {{ background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
+                            .warning {{ background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
+                            .token-box {{ background: #f8f9fa; border: 1px solid #dee2e6; padding: 15px; border-radius: 5px; margin: 10px 0; }}
+                            .token {{ font-family: monospace; word-break: break-all; font-size: 12px; }}
+                            .copy-btn {{ background: #007bff; color: white; border: none; padding: 5px 10px; border-radius: 3px; cursor: pointer; margin-left: 10px; }}
+                        </style>
+                        <script>
+                            function copyToClipboard(text, btnId) {{
+                                navigator.clipboard.writeText(text).then(function() {{
+                                    const btn = document.getElementById(btnId);
+                                    const originalText = btn.innerText;
+                                    btn.innerText = 'Copied!';
+                                    setTimeout(() => btn.innerText = originalText, 2000);
+                                }});
+                            }}
+                        </script>
+                    </head>
+                    <body>
+                        <div class="success">
+                            <h2>🎉 OAuth Authorization Successful!</h2>
+                            <p>Your Zoho Books access tokens have been generated successfully!</p>
+                        </div>
+                        
+                        <div class="warning">
+                            <h3>⚠️ Important: Add These Tokens to Your .env File</h3>
+                            <p>Copy the tokens below and add them to your <code>.env</code> file to complete the setup:</p>
+                        </div>
+                        
+                        <h3>Access Token:</h3>
+                        <div class="token-box">
+                            <div class="token">{access_token}</div>
+                            <button class="copy-btn" id="copy-access" onclick="copyToClipboard('{access_token}', 'copy-access')">Copy</button>
+                        </div>
+                        
+                        <h3>Refresh Token:</h3>
+                        <div class="token-box">
+                            <div class="token">{refresh_token}</div>
+                            <button class="copy-btn" id="copy-refresh" onclick="copyToClipboard('{refresh_token}', 'copy-refresh')">Copy</button>
+                        </div>
+                        
+                        <h3>Add to .env file:</h3>
+                        <div class="token-box">
+                            <div class="token">ZOHO_ACCESS_TOKEN={access_token}<br>ZOHO_REFRESH_TOKEN={refresh_token}</div>
+                            <button class="copy-btn" id="copy-env" onclick="copyToClipboard('ZOHO_ACCESS_TOKEN={access_token}\\nZOHO_REFRESH_TOKEN={refresh_token}', 'copy-env')">Copy Both</button>
+                        </div>
+                        
+                        <h3>Next Steps:</h3>
+                        <ol>
+                            <li>Copy the tokens above</li>
+                            <li>Add them to your <code>.env</code> file</li>
+                            <li>Restart your application</li>
+                            <li><a href="/settings">Return to Settings</a> to verify the connection</li>
+                        </ol>
+                        
+                        <p><strong>Token Details:</strong> Access token expires in {expires_in} seconds ({expires_in//3600} hours). The refresh token can be used to get new access tokens automatically.</p>
+                    </body>
+                    </html>
+                    """)
+                else:
+                    error_msg = token_response.get("error", "Unknown error")
+                    error_desc = token_response.get("error_description", "")
+                    return HTMLResponse(f"""
+                    <html>
+                    <head><title>Token Exchange Failed</title></head>
+                    <body>
+                        <h2>❌ Token Exchange Failed</h2>
+                        <p>Error: {error_msg}</p>
+                        <p>Description: {error_desc}</p>
+                        <p><a href="/settings">Return to Settings</a></p>
+                    </body>
+                    </html>
+                    """)
+    
+    except Exception as e:
+        logger.error(f"OAuth callback error: {e}")
+        return HTMLResponse(f"""
+        <html>
+        <head><title>OAuth Error</title></head>
+        <body>
+            <h2>❌ OAuth Processing Error</h2>
+            <p>An error occurred while processing the OAuth callback: {str(e)}</p>
+            <p><a href="/settings">Return to Settings</a></p>
+        </body>
+        </html>
+        """)
 
 async def get_integrations_status() -> Dict[str, Any]:
     """Get comprehensive status of all integrations"""
@@ -352,7 +619,7 @@ def get_env_config() -> Dict[str, Any]:
         "ZOHO_ORGANIZATION_ID": settings.zoho_organization_id or "Not set",
         "ZOHO_BASE_URL": settings.zoho_base_url,
         "DATABASE_URL": mask_credential(settings.database_url),
-        "ENV": settings.env,
+        "ENV": settings.environment,
         "JWT_SECRET_KEY": mask_credential(settings.jwt_secret_key)
     }
     

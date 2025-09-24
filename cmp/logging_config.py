@@ -14,7 +14,7 @@ def setup_logging() -> None:
     
     # Configure root logger
     logging.basicConfig(
-        level=logging.INFO if settings.env == "production" else logging.DEBUG,
+        level=logging.INFO if settings.environment == "production" else logging.DEBUG,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
         handlers=[
             # Console handler

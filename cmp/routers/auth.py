@@ -17,6 +17,12 @@ from ..auth import (
 )
 from ..models import User, UserRole
 from ..logging_config import get_logger
+from ..utils.error_handling import (
+    ErrorCode, ValidationException, AuthenticationException, 
+    AuthorizationException, BusinessLogicException,
+    validate_email, validate_password, validate_required_string,
+    create_success_response, SuccessResponse
+)
 
 logger = get_logger("auth_router")
 
@@ -71,22 +77,18 @@ async def get_current_user(
     try:
         user = get_current_user_from_token(db, credentials.credentials)
         return user
-    except AuthenticationError as e:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail=str(e),
-            headers={"WWW-Authenticate": "Bearer"},
-        )
+    except AuthenticationError:
+        raise AuthenticationException("Invalid or expired token", ErrorCode.TOKEN_INVALID)
+    except Exception as e:
+        logger.error(f"Token validation error: {e}")
+        raise AuthenticationException("Authentication failed")
 
 
 # Dependency to check if user is admin
 async def require_admin(current_user: User = Depends(get_current_user)) -> User:
     """Require admin role"""
     if current_user.role != UserRole.ADMIN:
-        raise HTTPException(
-            status_code=status.HTTP_403_FORBIDDEN,
-            detail="Admin access required"
-        )
+        raise AuthorizationException("Admin access required")
     return current_user
 
 
@@ -96,19 +98,33 @@ async def login(
     db: Session = Depends(get_db)
 ):
     """Authenticate user and return JWT tokens"""
-    user = authenticate_user(db, request.email, request.password)
-    
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Invalid email or password",
-            headers={"WWW-Authenticate": "Bearer"},
-        )
-    
-    token_response = create_token_response(user)
-    logger.info(f"User {user.email} logged in successfully")
-    
-    return token_response
+    try:
+        # Validate input
+        email = validate_email(request.email)
+        password = validate_password(request.password)
+        
+        user = authenticate_user(db, email, password)
+        
+        if not user:
+            logger.warning(f"Failed login attempt for email: {email}")
+            raise AuthenticationException("Invalid email or password")
+        
+        if not user.is_active:
+            logger.warning(f"Login attempt for inactive user: {email}")
+            raise AuthenticationException("User account is deactivated", ErrorCode.USER_INACTIVE)
+        
+        token_response = create_token_response(user)
+        logger.info(f"User {user.email} logged in successfully")
+        
+        return token_response
+        
+    except ValidationException:
+        raise
+    except AuthenticationException:
+        raise
+    except Exception as e:
+        logger.error(f"Login error: {e}")
+        raise AuthenticationException("Authentication failed")
 
 
 @router.post("/register", response_model=UserResponse)
@@ -119,11 +135,24 @@ async def register(
 ):
     """Register a new user (admin only)"""
     try:
+        # Validate input
+        email = validate_email(request.email)
+        password = validate_password(request.password)
+        full_name = validate_required_string(request.full_name, "full_name", 100)
+        
+        # Check if user already exists
+        existing_user = db.query(User).filter(User.email == email).first()
+        if existing_user:
+            raise BusinessLogicException(
+                ErrorCode.RESOURCE_CONFLICT,
+                f"User with email {email} already exists"
+            )
+        
         user = create_user(
             db=db,
-            email=request.email,
-            password=request.password,
-            full_name=request.full_name,
+            email=email,
+            password=password,
+            full_name=full_name,
             role=request.role
         )
         
@@ -139,16 +168,15 @@ async def register(
             last_login=user.last_login.isoformat() if user.last_login else None
         )
         
-    except ValueError as e:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
-        )
+    except ValidationException:
+        raise
+    except BusinessLogicException:
+        raise
     except Exception as e:
         logger.error(f"Registration error: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="Registration failed"
+        raise BusinessLogicException(
+            ErrorCode.INTERNAL_SERVER_ERROR,
+            "Failed to create user account"
         )
 
 

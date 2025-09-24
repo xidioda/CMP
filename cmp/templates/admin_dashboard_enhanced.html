@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CMP - Enhanced Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .chart-container {
+            position: relative;
+            height: 300px;
+        }
+        .agent-card {
+            transition: all 0.3s ease;
+        }
+        .agent-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        .chat-message {
+            animation: fadeIn 0.3s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        .status-active { background-color: #10b981; }
+        .status-warning { background-color: #f59e0b; }
+        .status-error { background-color: #ef4444; }
+        .department-section {
+            border-left: 4px solid;
+            padding-left: 1rem;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen" x-data="adminDashboard()">
+    <!-- Header -->
+    <div class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <i class="fas fa-crown text-2xl text-yellow-500 mr-3"></i>
+                    <h1 class="text-2xl font-bold text-gray-900">CMP Enhanced Admin Dashboard</h1>
+                    <span class="ml-4 px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                        Autonomous AI Organization
+                    </span>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="text-right">
+                        <div class="text-sm text-gray-500">Autonomous Operation Level</div>
+                        <div class="text-lg font-bold" :class="organizationData.organization_overview?.autonomous_operation_level >= '90%' ? 'text-green-600' : 'text-yellow-600'">
+                            <span x-text="organizationData.organization_overview?.autonomous_operation_level || '95%'"></span>
+                        </div>
+                    </div>
+                    <button @click="logout()" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition-colors">
+                        <i class="fas fa-sign-out-alt mr-2"></i>Logout
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Organization Overview Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-blue-100 rounded-lg">
+                        <i class="fas fa-users text-blue-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Total AI Agents</p>
+                        <p class="text-2xl font-bold text-gray-900" x-text="organizationData.organization_overview?.total_agents || {{ total_agents }}"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-green-100 rounded-lg">
+                        <i class="fas fa-heartbeat text-green-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Active Agents</p>
+                        <p class="text-2xl font-bold text-green-600" x-text="organizationData.organization_overview?.active_agents || '0'"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-purple-100 rounded-lg">
+                        <i class="fas fa-brain text-purple-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">Organization Health</p>
+                        <p class="text-2xl font-bold" :class="(organizationData.organization_overview?.organization_health || 0) >= 90 ? 'text-green-600' : 'text-yellow-600'" x-text="Math.round(organizationData.organization_overview?.organization_health || 0) + '%'"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="p-3 bg-indigo-100 rounded-lg">
+                        <i class="fas fa-clock text-indigo-600 text-xl"></i>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm text-gray-600">System Uptime</p>
+                        <p class="text-2xl font-bold text-indigo-600" x-text="organizationData.organization_overview?.uptime || '99.9%'"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Dashboard Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Left Column: Department Status -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Departments Overview -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                            <i class="fas fa-building mr-3 text-blue-600"></i>
+                            Departments Overview
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <template x-for="(dept, deptName) in organizationData.departments" :key="deptName">
+                                <div class="department-section border-l-4 pl-4" 
+                                     :style="'border-left-color: ' + getDepartmentColor(deptName)">
+                                    <div class="flex justify-between items-center mb-2">
+                                        <h3 class="font-semibold text-gray-900" x-text="deptName"></h3>
+                                        <span class="text-sm text-gray-500" x-text="dept.active_agents + '/' + dept.total_agents + ' active'"></span>
+                                    </div>
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
+                                        <div class="bg-green-500 h-2 rounded-full transition-all duration-300"
+                                             :style="'width: ' + (dept.total_agents > 0 ? (dept.active_agents / dept.total_agents * 100) : 0) + '%'"></div>
+                                    </div>
+                                    <div class="mt-2 flex flex-wrap gap-1">
+                                        <template x-for="agentId in dept.agents" :key="agentId">
+                                            <span class="text-xs px-2 py-1 rounded-full"
+                                                  :class="organizationData.agents[agentId]?.is_active ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'"
+                                                  x-text="organizationData.agents[agentId]?.name?.replace('AI ', '') || agentId"></span>
+                                        </template>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Autonomous Operations Status -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                            <i class="fas fa-robot mr-3 text-purple-600"></i>
+                            Autonomous Operations
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <template x-for="(system, systemId) in autonomousData.autonomous_systems" :key="systemId">
+                                <div class="bg-gray-50 rounded-lg p-4">
+                                    <div class="flex justify-between items-start mb-2">
+                                        <h4 class="font-medium text-gray-900" x-text="system.name"></h4>
+                                        <span class="status-indicator" :class="system.status === 'active' ? 'status-active' : 'status-error'"></span>
+                                    </div>
+                                    <p class="text-sm text-gray-600 mb-2" x-text="system.description"></p>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-xs text-gray-500">Efficiency</span>
+                                        <span class="text-sm font-bold text-green-600" x-text="system.efficiency"></span>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="mt-6 p-4 bg-purple-50 rounded-lg">
+                            <div class="flex justify-between items-center">
+                                <span class="font-medium text-purple-900">Overall Autonomy Level</span>
+                                <span class="text-xl font-bold text-purple-600" x-text="autonomousData.overall_autonomy_level"></span>
+                            </div>
+                            <div class="mt-2 w-full bg-purple-200 rounded-full h-3">
+                                <div class="bg-purple-600 h-3 rounded-full transition-all duration-500"
+                                     :style="'width: ' + (autonomousData.overall_autonomy_level?.replace('%', '') || '95') + '%'"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Agent Grid -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-6 border-b border-gray-200">
+                        <h2 class="text-xl font-bold text-gray-900 flex items-center">
+                            <i class="fas fa-network-wired mr-3 text-green-600"></i>
+                            Real-time Agent Status
+                        </h2>
+                    </div>
+                    <div class="p-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <template x-for="(agent, agentId) in organizationData.agents" :key="agentId">
+                                <div class="agent-card bg-white border rounded-lg p-4 cursor-pointer"
+                                     :class="agent.is_active ? 'border-green-200 hover:border-green-400' : 'border-red-200 hover:border-red-400'"
+                                     @click="viewAgentDetails(agentId)">
+                                    <div class="flex items-center justify-between mb-2">
+                                        <div class="flex items-center">
+                                            <span class="status-indicator" :class="agent.is_active ? 'status-active' : 'status-error'"></span>
+                                            <span class="text-sm font-medium text-gray-900" x-text="agent.name"></span>
+                                        </div>
+                                        <i class="fas fa-chevron-right text-gray-400"></i>
+                                    </div>
+                                    <p class="text-xs text-gray-600 mb-1" x-text="agent.department"></p>
+                                    <p class="text-xs text-gray-500" x-text="agent.status?.specialization || 'AI Agent'"></p>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Column: CEO Chat Interface -->
+            <div class="space-y-6">
+                <!-- CEO Chat Interface -->
+                <div class="bg-white rounded-lg shadow h-96 flex flex-col">
+                    <div class="p-4 border-b border-gray-200 bg-gradient-to-r from-red-600 to-red-700 rounded-t-lg">
+                        <h3 class="text-lg font-bold text-white flex items-center">
+                            <i class="fas fa-crown mr-2"></i>
+                            Chat with AI CEO
+                        </h3>
+                        <p class="text-red-100 text-sm">Strategic guidance and organizational oversight</p>
+                    </div>
+                    
+                    <div class="flex-1 p-4 overflow-y-auto bg-gray-50" id="chat-messages">
+                        <div class="space-y-3">
+                            <!-- Welcome message -->
+                            <div class="chat-message">
+                                <div class="bg-red-100 border-l-4 border-red-500 p-3 rounded">
+                                    <div class="flex items-center mb-1">
+                                        <i class="fas fa-crown text-red-600 mr-2"></i>
+                                        <span class="font-medium text-red-800">AI CEO</span>
+                                    </div>
+                                    <p class="text-sm text-red-700">
+                                        Welcome to the autonomous AI organization. I'm here to provide strategic guidance and oversight. 
+                                        Ask me about organizational health, strategic recommendations, or business operations.
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <!-- Chat messages will be added here -->
+                            <template x-for="message in chatMessages" :key="message.id">
+                                <div class="chat-message">
+                                    <div :class="message.isUser ? 'bg-blue-100 border-l-4 border-blue-500' : 'bg-red-100 border-l-4 border-red-500'" class="p-3 rounded">
+                                        <div class="flex items-center mb-1">
+                                            <i :class="message.isUser ? 'fas fa-user text-blue-600' : 'fas fa-crown text-red-600'" class="mr-2"></i>
+                                            <span class="font-medium" :class="message.isUser ? 'text-blue-800' : 'text-red-800'" 
+                                                  x-text="message.isUser ? 'You' : 'AI CEO'"></span>
+                                        </div>
+                                        <div class="text-sm" :class="message.isUser ? 'text-blue-700' : 'text-red-700'" 
+                                             x-html="message.isUser ? message.content : formatCEOResponse(message.content)"></div>
+                                    </div>
+                                </div>
+                            </template>
+                        </div>
+                    </div>
+                    
+                    <div class="p-4 border-t border-gray-200">
+                        <div class="flex space-x-2">
+                            <input type="text" 
+                                   x-model="chatInput" 
+                                   @keydown.enter="sendChatMessage()"
+                                   placeholder="Ask the CEO for strategic guidance..."
+                                   class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent"
+                                   :disabled="chatLoading">
+                            <button @click="sendChatMessage()" 
+                                    :disabled="chatLoading"
+                                    class="px-4 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 disabled:opacity-50">
+                                <i class="fas fa-paper-plane" x-show="!chatLoading"></i>
+                                <i class="fas fa-spinner fa-spin" x-show="chatLoading"></i>
+                            </button>
+                        </div>
+                        <div class="mt-2 flex flex-wrap gap-1">
+                            <button @click="sendQuickMessage('Give me a strategic review')" 
+                                    class="text-xs px-2 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                                Strategic Review
+                            </button>
+                            <button @click="sendQuickMessage('What are your recommendations?')" 
+                                    class="text-xs px-2 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                                Recommendations
+                            </button>
+                            <button @click="sendQuickMessage('Show me the service portfolio')" 
+                                    class="text-xs px-2 py-1 bg-gray-200 text-gray-700 rounded hover:bg-gray-300">
+                                Service Portfolio
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow">
+                    <div class="p-4 border-b border-gray-200">
+                        <h3 class="text-lg font-bold text-gray-900 flex items-center">
+                            <i class="fas fa-bolt mr-2 text-yellow-500"></i>
+                            Quick Actions
+                        </h3>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <button @click="refreshOrganizationStatus()" 
+                                class="w-full text-left px-4 py-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors">
+                            <i class="fas fa-sync-alt text-blue-600 mr-3"></i>
+                            <span class="font-medium text-blue-900">Refresh Organization Status</span>
+                        </button>
+                        
+                        <button @click="runAutonomousTest()" 
+                                class="w-full text-left px-4 py-3 bg-purple-50 hover:bg-purple-100 rounded-lg transition-colors">
+                            <i class="fas fa-robot text-purple-600 mr-3"></i>
+                            <span class="font-medium text-purple-900">Test Autonomous Operations</span>
+                        </button>
+                        
+                        <button @click="viewSystemMetrics()" 
+                                class="w-full text-left px-4 py-3 bg-green-50 hover:bg-green-100 rounded-lg transition-colors">
+                            <i class="fas fa-chart-bar text-green-600 mr-3"></i>
+                            <span class="font-medium text-green-900">View System Metrics</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Modal -->
+    <div x-show="loading" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-sm mx-auto">
+            <div class="text-center">
+                <i class="fas fa-spinner fa-spin text-4xl text-blue-600 mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">Loading...</h3>
+                <p class="text-gray-600">Fetching organization data</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get auth token from template variable
+        const AUTH_TOKEN = '{{ auth_token }}';
+        
+        function adminDashboard() {
+            return {
+                loading: false,
+                organizationData: {},
+                autonomousData: {},
+                chatMessages: [],
+                chatInput: '',
+                chatLoading: false,
+                websocket: null,
+
+                init() {
+                    this.loadOrganizationStatus();
+                    this.loadAutonomousOperations();
+                    this.setupWebSocket();
+                    this.startRealTimeUpdates();
+                },
+
+                async loadOrganizationStatus() {
+                    this.loading = true;
+                    try {
+                        const response = await fetch('/admin/api/organization-status', {
+                            headers: {
+                                'Authorization': `Bearer ${AUTH_TOKEN}`,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            this.organizationData = await response.json();
+                            console.log('Organization data loaded:', this.organizationData);
+                        } else {
+                            console.error('Failed to load organization status:', response.status, response.statusText);
+                        }
+                    } catch (error) {
+                        console.error('Error loading organization status:', error);
+                    } finally {
+                        this.loading = false;
+                    }
+                },
+
+                async loadAutonomousOperations() {
+                    try {
+                        const response = await fetch('/admin/api/autonomous-operations', {
+                            headers: {
+                                'Authorization': `Bearer ${AUTH_TOKEN}`,
+                                'Content-Type': 'application/json'
+                            }
+                        });
+                        
+                        if (response.ok) {
+                            this.autonomousData = await response.json();
+                        } else {
+                            console.error('Failed to load autonomous operations data');
+                        }
+                    } catch (error) {
+                        console.error('Error loading autonomous operations:', error);
+                    }
+                },
+
+                async sendChatMessage() {
+                    if (!this.chatInput.trim() || this.chatLoading) return;
+
+                    const message = this.chatInput.trim();
+                    this.chatInput = '';
+                    this.chatLoading = true;
+
+                    // Add user message
+                    this.chatMessages.push({
+                        id: Date.now() + Math.random(),
+                        content: message,
+                        isUser: true,
+                        timestamp: new Date()
+                    });
+
+                    try {
+                        const response = await fetch('/admin/api/ceo/chat', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${AUTH_TOKEN}`,
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ message })
+                        });
+
+                        if (response.ok) {
+                            const data = await response.json();
+                            this.chatMessages.push({
+                                id: Date.now() + Math.random(),
+                                content: data.response,
+                                isUser: false,
+                                timestamp: new Date()
+                            });
+                        } else {
+                            this.chatMessages.push({
+                                id: Date.now() + Math.random(),
+                                content: 'Sorry, I\'m currently unavailable. Please try again later.',
+                                isUser: false,
+                                timestamp: new Date()
+                            });
+                        }
+                    } catch (error) {
+                        console.error('Error sending chat message:', error);
+                        this.chatMessages.push({
+                            id: Date.now() + Math.random(),
+                            content: 'Sorry, there was an error processing your request.',
+                            isUser: false,
+                            timestamp: new Date()
+                        });
+                    } finally {
+                        this.chatLoading = false;
+                        this.scrollChatToBottom();
+                    }
+                },
+
+                sendQuickMessage(message) {
+                    this.chatInput = message;
+                    this.sendChatMessage();
+                },
+
+                formatCEOResponse(content) {
+                    return content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                                 .replace(/\n/g, '<br>');
+                },
+
+                scrollChatToBottom() {
+                    this.$nextTick(() => {
+                        const chatContainer = document.getElementById('chat-messages');
+                        chatContainer.scrollTop = chatContainer.scrollHeight;
+                    });
+                },
+
+                getDepartmentColor(deptName) {
+                    const colors = {
+                        'Finance': '#3b82f6',
+                        'Executive': '#dc2626', 
+                        'Operations': '#059669',
+                        'Development': '#7c3aed',
+                        'Marketing & Sales': '#ec4899'
+                    };
+                    return colors[deptName] || '#6b7280';
+                },
+
+                refreshOrganizationStatus() {
+                    this.loadOrganizationStatus();
+                    this.loadAutonomousOperations();
+                },
+
+                async runAutonomousTest() {
+                    alert('Autonomous operations test initiated. Check console for results.');
+                    console.log('Running autonomous operations test...');
+                },
+
+                viewSystemMetrics() {
+                    alert('System metrics viewer - Implementation pending');
+                },
+
+                viewAgentDetails(agentId) {
+                    window.open(`/agents/${agentId}`, '_blank');
+                },
+
+                setupWebSocket() {
+                    try {
+                        const wsProtocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+                        this.websocket = new WebSocket(`${wsProtocol}//${window.location.host}/admin/ws/real-time`);
+                        
+                        this.websocket.onmessage = (event) => {
+                            const data = JSON.parse(event.data);
+                            if (data.type === 'status_update') {
+                                // Update real-time data
+                                if (this.organizationData.organization_overview) {
+                                    this.organizationData.organization_overview.active_agents = data.active_agents;
+                                }
+                            }
+                        };
+
+                        this.websocket.onclose = () => {
+                            // Attempt to reconnect after 5 seconds
+                            setTimeout(() => this.setupWebSocket(), 5000);
+                        };
+                    } catch (error) {
+                        console.error('WebSocket connection failed:', error);
+                    }
+                },
+
+                startRealTimeUpdates() {
+                    // Refresh data every 2 minutes
+                    setInterval(() => {
+                        this.loadOrganizationStatus();
+                        this.loadAutonomousOperations();
+                    }, 120000);
+                },
+
+                logout() {
+                    localStorage.removeItem('token');
+                    window.location.href = '/login';
+                }
+            }
+        }
+    </script>
+</body>
+</html>

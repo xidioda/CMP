@@ -205,7 +205,7 @@ async def main():
     print("=====================================")
     
     print(f"\n📋 Configuration Status:")
-    print(f"   • Environment: {settings.env}")
+    print(f"   • Environment: {settings.environment}")
     print(f"   • Zoho Books URL: {settings.zoho_base_url}")
     print(f"   • Wio Bank URL: {settings.wio_base_url}")
     print(f"   • Rate Limit: {settings.api_rate_limit} req/min")
