@@ -23,6 +23,7 @@ from ..utils.agent_zoho_tools import AgentZohoBooks
 from ..utils.ai_service import AIAgentService
 from ..utils.zoho_sync_service import zoho_sync_service
 from ..utils.task_execution_engine import task_engine
+from ..utils.autonomous_scheduler import autonomous_scheduler
 
 logger = logging.getLogger(__name__)
 
@@ -57,6 +58,10 @@ class LeadDeveloperAgent:
             "Bug detection and fixing",
             "Feature enhancement based on usage data"
         ]
+        
+        # Register with autonomous scheduler for REAL task execution
+        autonomous_scheduler.register_agent("lead_developer", self)
+        logger.info("Lead Developer registered for REAL autonomous task execution!")
         
     async def get_status(self) -> Dict[str, Any]:
         """Get comprehensive Lead Developer status"""
@@ -722,8 +727,8 @@ This is REAL work performed by the Lead Developer Agent, not simulation!
                     "Analyzing disk space usage",
                     "Checking dependency updates"
                 ],
-                "execution_engine": "task_execution_engine",
-                "last_executed": self._get_last_execution("optimization")
+                                "execution_engine": "n8n_workflows",
+                "last_executed": self._get_last_execution("n8n_workflow")
             },
             {
                 "id": "lead_dev_real_git_management",
@@ -743,7 +748,7 @@ This is REAL work performed by the Lead Developer Agent, not simulation!
                     "Managing repository cleanliness"
                 ],
                 "execution_engine": "git_commands",
-                "last_executed": self._get_last_execution("git")
+                "last_executed": self._get_last_execution("git_operations")
             },
             {
                 "id": "lead_dev_real_file_operations",
@@ -763,7 +768,7 @@ This is REAL work performed by the Lead Developer Agent, not simulation!
                     "Managing log file optimization"
                 ],
                 "execution_engine": "file_system",
-                "last_executed": self._get_last_execution("files")
+                "last_executed": self._get_last_execution("file_operations")
             },
             {
                 "id": "lead_dev_real_n8n_integration",

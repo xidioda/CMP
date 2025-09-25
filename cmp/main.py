@@ -52,7 +52,7 @@ def create_app() -> FastAPI:
     app.include_router(zoho_sync.router)  # Zoho Books synchronization management
 
     @app.on_event("startup")
-    def _startup():
+    async def _startup():
         setup_logging()
         logger.info("CMP application starting up...")
         
@@ -66,6 +66,19 @@ def create_app() -> FastAPI:
             logger.info("Zoho sync scheduler started successfully")
         except Exception as e:
             logger.error(f"Failed to start Zoho sync scheduler: {e}")
+        
+        # Start autonomous task scheduler for REAL agent task execution
+        try:
+            from .utils.autonomous_scheduler import autonomous_scheduler
+            # Import agents to register them with the scheduler
+            from .agents.lead_developer import lead_developer  # This will register the agent
+            
+            # Start the scheduler in the background
+            import asyncio
+            asyncio.create_task(autonomous_scheduler.start_scheduler())
+            logger.info("🚀 Autonomous Task Scheduler started - Agents will now perform REAL WORK!")
+        except Exception as e:
+            logger.error(f"Failed to start autonomous task scheduler: {e}")
         
         # Log system startup
         contextual_logger.info("Enhanced error handling system activated")
