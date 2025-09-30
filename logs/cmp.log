@@ -13538,3 +13538,849 @@ github.GithubException.GithubException: 422 {"message": "Validation Failed", "er
 2025-09-30 12:01:58,829 - cmp.agents.autonomous_developer - INFO - 🧠 Development analysis complete: {'missing_tests': 3867, 'feature_requests': 0, 'bug_reports': 0, 'incomplete_features': 949, 'copilot_instructions_created': 2}
 2025-09-30 12:01:58,832 - cmp.utils.autonomous_scheduler - INFO - ⚡ autonomous_developer: Completed execution - unknown - Real work: False
 2025-09-30 12:02:58,889 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:30:48,067 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:30:48,071 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:30:48,071 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:30:48,071 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:30:48,074 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:30:48,074 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:30:48,075 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:30:48,075 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:30:48,075 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:30:48,075 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:30:48,076 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:30:48,089 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:30:48,093 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:30:48,093 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:30:48,093 - cmp.monitoring - INFO - Request completed [request_id=1759221048093 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,094 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:30:48,094 - cmp.monitoring - INFO - Request completed [request_id=1759221048094 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,094 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:30:48,094 - cmp.monitoring - INFO - Request completed [request_id=1759221048094 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,096 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:30:48,096 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:30:48,096 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:30:48,096 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:30:48,096 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:30:48,097 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:30:48,097 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:48,097 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:48,097 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:30:48,097 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:30:48,097 - cmp.monitoring - INFO - Request completed [request_id=1759221048093 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:30:48,097 - cmp.monitoring - INFO - Request completed [request_id=1759221048089 | endpoint=/admin/api/organization-status | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:30:48,102 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:30:48,103 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:30:48,103 - cmp.monitoring - INFO - Request completed [request_id=1759221048103 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,104 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:30:48,104 - cmp.monitoring - INFO - Request completed [request_id=1759221048104 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,104 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:30:48,104 - cmp.monitoring - INFO - Request completed [request_id=1759221048104 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,104 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:30:48,105 - cmp.monitoring - INFO - Request completed [request_id=1759221048103 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,106 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:30:48,106 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:30:48,107 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:30:48,107 - cmp.monitoring - INFO - Request completed [request_id=1759221048107 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,107 - cmp.monitoring - INFO - Request completed [request_id=1759221048106 | endpoint=/admin/api/organization-status | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,107 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:30:48,108 - cmp.monitoring - INFO - Request completed [request_id=1759221048106 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,111 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:30:48,111 - cmp.monitoring - INFO - Request completed [request_id=1759221048111 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,111 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:30:48,112 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:30:48,112 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:30:48,112 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:30:48,112 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:30:48,112 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:30:48,112 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:48,112 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:48,112 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:30:48,112 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:30:48,112 - cmp.monitoring - INFO - Request completed [request_id=1759221048112 | endpoint=/admin/api/organization-status | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,112 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:30:48,113 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:30:48,113 - cmp.monitoring - INFO - Request completed [request_id=1759221048113 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,114 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:30:48,114 - cmp.monitoring - INFO - Request completed [request_id=1759221048114 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,114 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:30:48,115 - cmp.monitoring - INFO - Request completed [request_id=1759221048106 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,115 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:30:48,115 - cmp.monitoring - INFO - Request completed [request_id=1759221048115 | endpoint=/admin/api/organization-status | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,115 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:30:48,117 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:30:48,117 - cmp.monitoring - INFO - Request completed [request_id=1759221048117 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,118 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:30:48,118 - cmp.monitoring - INFO - Request completed [request_id=1759221048118 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:30:48,119 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:30:48,120 - cmp.monitoring - INFO - Request completed [request_id=1759221048119 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:48,120 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:30:48,120 - cmp.monitoring - INFO - Request completed [request_id=1759221048120 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:30:49,133 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:30:49,137 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:30:49,138 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:30:49,139 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:30:49,139 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:30:50,202 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:30:50,202 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:30:50,204 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:30:50,204 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:30:50,204 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:30:50,204 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:30:50,207 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:30:50,207 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:30:50,209 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:30:50,209 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:30:50,967 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:51,055 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:51,069 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:51,070 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:51,078 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:51,979 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:51,979 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:30:52,049 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:52,049 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:30:52,166 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:52,166 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:30:52,257 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:52,257 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:30:52,258 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:52,258 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:30:52,332 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:30:52,431 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:30:52,541 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:30:52,651 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:30:52,656 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:30:52,747 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:30:52,843 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:30:52,946 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:30:53,051 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:30:53,055 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:30:53,569 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:53,569 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:30:53,569 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:30:53,570 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:30:53,570 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:30:53,570 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:30:53,570 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:30:53,570 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:30:53,570 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,570 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,570 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:30:53,671 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:53,671 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,672 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:30:53,813 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:53,813 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:30:53,814 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:30:53,814 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:30:53,815 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:30:53,815 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:30:53,815 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:30:53,815 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:30:53,815 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,815 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,815 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:30:53,913 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:53,913 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:30:53,915 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:30:53,916 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:30:53,916 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:30:53,916 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:30:53,917 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:30:53,917 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:30:53,917 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,918 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,918 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:30:53,926 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:53,926 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:30:53,927 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:30:53,927 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:30:53,927 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:30:53,927 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:30:53,927 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:30:53,927 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:30:53,928 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,928 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:30:53,928 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:30:54,006 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:54,101 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:54,177 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:54,271 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:54,272 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:54,778 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:54,882 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:55,016 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:55,102 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:55,105 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:30:55,280 - cmp.monitoring - INFO - Request completed [request_id=1759221048114 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=7.178 | status_code=200]
+2025-09-30 12:30:55,501 - cmp.monitoring - INFO - Request completed [request_id=1759221048093 | endpoint=/admin/api/autonomous-operations | method=GET | duration=7.389 | status_code=200]
+2025-09-30 12:30:55,714 - cmp.monitoring - INFO - Request completed [request_id=1759221048111 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=7.625 | status_code=200]
+2025-09-30 12:30:55,715 - cmp.monitoring - INFO - Request completed [duration=7.609 | status_code=200]
+2025-09-30 12:30:55,715 - cmp.monitoring - INFO - Request completed [request_id=1759221048102 | endpoint=/admin/api/organization-status | method=GET | duration=7.6 | status_code=200]
+2025-09-30 12:31:48,081 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:31:50,458 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:31:50,460 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:31:50,460 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:31:50,460 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:31:50,464 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:31:50,464 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:31:50,464 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:31:50,464 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:31:50,464 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:31:50,464 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:31:50,464 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:31:52,297 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:31:52,298 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:31:52,299 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:31:52,299 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:31:52,302 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:31:52,302 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:31:52,302 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:31:52,302 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:31:52,302 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:31:52,303 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:31:52,303 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:31:57,143 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:31:57,148 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:31:57,149 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:31:57,150 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:31:57,151 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:31:57,151 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:31:57,152 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:31:57,152 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:31:57,152 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:31:57,152 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:31:57,153 - cmp.monitoring - INFO - Request completed [request_id=1759221117141 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.012 | status_code=200]
+2025-09-30 12:31:59,271 - cmp.monitoring - INFO - Request completed [request_id=1759221119263 | endpoint=/agents/lead_developer | method=GET | duration=0.008 | status_code=200]
+2025-09-30 12:31:59,563 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:31:59,566 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:31:59,566 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:31:59,567 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:31:59,568 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:31:59,568 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:31:59,568 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:31:59,568 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:31:59,568 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:31:59,569 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:31:59,570 - cmp.monitoring - INFO - Request completed [request_id=1759221119563 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.007 | status_code=200]
+2025-09-30 12:31:59,570 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:31:59,571 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:31:59,571 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:31:59,571 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:31:59,571 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:31:59,571 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:31:59,572 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:31:59,572 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:31:59,572 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:31:59,572 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:31:59,572 - cmp.monitoring - INFO - Request completed [request_id=1759221119570 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.002 | status_code=200]
+2025-09-30 12:32:29,574 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:32:29,575 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:32:29,575 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:32:29,575 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:32:29,575 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:32:29,575 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:32:29,575 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:32:29,575 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:32:29,575 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:32:29,575 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:32:29,576 - cmp.monitoring - INFO - Request completed [request_id=1759221149568 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.007 | status_code=200]
+2025-09-30 12:32:59,571 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:32:59,571 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:32:59,571 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:32:59,572 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:32:59,572 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:32:59,572 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:32:59,572 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:32:59,572 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:32:59,572 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:32:59,572 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:32:59,572 - cmp.monitoring - INFO - Request completed [request_id=1759221179569 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:33:52,306 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:33:54,624 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:33:54,626 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:33:54,627 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:33:54,627 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:33:54,630 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:33:54,630 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:33:54,630 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:33:54,630 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:33:54,630 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:33:54,630 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:33:54,631 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:33:56,528 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:33:56,529 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:33:56,529 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:33:56,529 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:33:56,533 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:33:56,533 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:33:56,533 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:33:56,533 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:33:56,533 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:33:56,533 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:33:56,533 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:33:56,537 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:33:56,537 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:33:56,537 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:33:56,538 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:33:56,538 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:33:56,538 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:33:56,538 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:33:56,538 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:33:56,538 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:33:56,538 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:33:56,541 - cmp.monitoring - INFO - Request completed [request_id=1759221236538 | endpoint=/agents/lead_developer | method=GET | duration=0.005 | status_code=200]
+2025-09-30 12:33:56,541 - cmp.monitoring - INFO - Request completed [duration=0.003 | status_code=200]
+2025-09-30 12:33:56,913 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:33:56,913 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:33:56,913 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:33:56,914 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:33:56,915 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:33:56,915 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:33:56,915 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:33:56,915 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:33:56,916 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:33:56,916 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:33:56,917 - cmp.monitoring - INFO - Request completed [request_id=1759221236910 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.008 | status_code=200]
+2025-09-30 12:33:56,918 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:33:56,919 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:33:56,919 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:33:56,919 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:33:56,919 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:33:56,919 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:33:56,919 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:33:56,919 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:33:56,919 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:33:56,919 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:33:56,919 - cmp.monitoring - INFO - Request completed [request_id=1759221236918 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.002 | status_code=200]
+2025-09-30 12:34:56,536 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:34:58,776 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:34:58,778 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:34:58,778 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:34:58,778 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:34:58,781 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:34:58,781 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:34:58,781 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:34:58,781 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:34:58,782 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:34:58,782 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:34:58,782 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:35:00,585 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:35:00,586 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:35:00,586 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:35:00,586 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:35:00,589 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:35:00,589 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:35:00,589 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:35:00,589 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:35:00,589 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:35:00,590 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:35:00,590 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:36:00,593 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:36:03,239 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:36:03,242 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:36:03,242 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:36:03,242 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:36:03,247 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:36:03,248 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:36:03,248 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:36:03,249 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:36:03,249 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:36:03,249 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:36:03,249 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:36:05,240 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:36:05,241 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:36:05,241 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:36:05,241 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:36:05,244 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:36:05,244 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:36:05,245 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:36:05,245 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:36:05,245 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:36:05,245 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:36:05,245 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:37:05,212 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:37:07,563 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:37:07,564 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:37:07,564 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:37:07,564 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:37:07,568 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:37:07,568 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:37:07,568 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:37:07,568 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:37:07,568 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:37:07,568 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:37:07,568 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:37:27,703 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:37:27,724 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:37:27,726 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:37:27,726 - cmp.monitoring - INFO - Request completed [request_id=1759221447726 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:37:27,727 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:37:27,727 - cmp.monitoring - INFO - Request completed [request_id=1759221447727 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:37:27,728 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:37:27,729 - cmp.monitoring - INFO - Request completed [request_id=1759221447723 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:37:27,730 - cmp.monitoring - INFO - Request completed [request_id=1759221447724 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:37:28,660 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:37:29,514 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:37:29,514 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:37:41,604 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:37:43,013 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:37:43,013 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:37:43,698 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:37:44,023 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:37:44,791 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:37:44,791 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:37:44,795 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:37:44,795 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:37:44,795 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:37:44,796 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:37:44,796 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:37:44,796 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:37:44,796 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:37:44,796 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:37:44,796 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:37:45,148 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:37:45,844 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:37:46,279 - cmp.monitoring - INFO - Request completed [request_id=1759221447701 | endpoint=/admin/api/organization-status | method=GET | duration=18.578 | status_code=200]
+2025-09-30 12:38:07,569 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:38:10,028 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:38:10,030 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:38:10,030 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:38:10,030 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:38:10,033 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:38:10,033 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:38:10,033 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:38:10,034 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:38:10,034 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:38:10,034 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:38:10,034 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:39:10,038 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:39:12,552 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:39:12,554 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:39:12,554 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:39:12,554 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:39:12,557 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:39:12,557 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:39:12,558 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:39:12,558 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:39:12,558 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:39:12,558 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:39:12,558 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:39:12,561 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:39:12,564 - cmp.monitoring - INFO - Request completed [request_id=1759221552561 | endpoint=/agents/n8n_manager | method=GET | duration=0.004 | status_code=200]
+2025-09-30 12:39:12,565 - cmp.monitoring - INFO - Request completed [duration=0.003 | status_code=200]
+2025-09-30 12:39:13,449 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:39:13,973 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:39:13,980 - cmp.monitoring - INFO - Request completed [request_id=1759221553968 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.532 | status_code=200]
+2025-09-30 12:39:13,982 - cmp.monitoring - INFO - Request completed [request_id=1759221552561 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.013 | status_code=200]
+2025-09-30 12:40:12,562 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:40:15,143 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:40:15,144 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:40:15,145 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:40:15,145 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:40:15,148 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:40:15,148 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:40:15,148 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:40:15,148 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:40:15,148 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:40:15,149 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:40:15,149 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:40:17,283 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:40:17,284 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:40:17,284 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:40:17,284 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:40:17,287 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:40:17,287 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:40:17,287 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:40:17,287 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:40:17,288 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:40:17,288 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:40:17,288 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:40:17,295 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:40:17,295 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:40:17,295 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:40:17,296 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:40:17,296 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:40:17,296 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:40:17,296 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:40:17,296 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:40:17,296 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:40:17,296 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:40:17,299 - cmp.monitoring - INFO - Request completed [request_id=1759221617296 | endpoint=/agents/lead_developer | method=GET | duration=0.005 | status_code=200]
+2025-09-30 12:40:17,299 - cmp.monitoring - INFO - Request completed [request_id=1759221617299 | endpoint=/agents/n8n_manager | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:40:17,300 - cmp.monitoring - INFO - Request completed [request_id=1759221617294 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.0 | status_code=200]
+2025-09-30 12:40:17,913 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:40:17,914 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:40:17,914 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:40:17,914 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:40:17,914 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:40:17,914 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:40:17,914 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:40:17,914 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:40:17,914 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:40:17,914 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:40:17,915 - cmp.monitoring - INFO - Request completed [request_id=1759221617915 | endpoint=/agents/api/lead_developer/detail-data | method=GET | duration=0.002 | status_code=200]
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:40:17,916 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:40:17,917 - cmp.agents_router - INFO - Successfully loaded detail data for agent lead_developer
+2025-09-30 12:40:17,917 - cmp.monitoring - INFO - Request completed [duration=0.002 | status_code=200]
+2025-09-30 12:40:17,981 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:40:17,982 - cmp.monitoring - INFO - Request completed [request_id=1759221617981 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:40:17,983 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:40:17,984 - cmp.monitoring - INFO - Request completed [request_id=1759221617983 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:40:48,071 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:40:48,074 - cmp.monitoring - INFO - Request completed [request_id=1759221648067 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.006 | status_code=200]
+2025-09-30 12:41:17,307 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:41:19,658 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:41:19,660 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:41:19,660 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:41:19,661 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:41:19,664 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:41:19,664 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:41:19,664 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:41:19,664 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:41:19,664 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:41:19,664 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:41:19,664 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:41:19,667 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:41:19,667 - cmp.monitoring - INFO - Request completed [request_id=1759221679667 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:41:48,070 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:41:48,072 - cmp.monitoring - INFO - Request completed [request_id=1759221708067 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.004 | status_code=200]
+2025-09-30 12:42:19,667 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:42:22,063 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:42:22,064 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:42:22,065 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:42:22,065 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:42:22,068 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:42:22,068 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:42:22,068 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:42:22,068 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:42:22,068 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:42:22,069 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:42:22,069 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:42:22,071 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:42:22,072 - cmp.monitoring - INFO - Request completed [request_id=1759221742071 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:43:22,075 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:43:24,637 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:43:24,640 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:43:24,640 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:43:24,640 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:43:24,644 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:43:24,644 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:43:24,644 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:43:24,644 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:43:24,644 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:43:24,644 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:43:24,644 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:43:26,467 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:43:26,468 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:43:26,468 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:43:26,468 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:43:26,472 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:43:26,472 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:43:26,472 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:43:26,472 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:43:26,472 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:43:26,472 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:43:26,472 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:43:28,499 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:43:28,500 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:43:28,500 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:43:28,500 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:43:28,503 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:43:28,503 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:43:28,503 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:43:28,503 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:43:28,503 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:43:28,503 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:43:28,504 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:43:28,506 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:43:28,507 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:43:28,507 - cmp.monitoring - INFO - Request completed [request_id=1759221808507 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:43:28,507 - cmp.monitoring - INFO - Request completed [duration=0.0 | status_code=200]
+2025-09-30 12:44:28,506 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:44:31,722 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:44:31,724 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:44:31,724 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:44:31,724 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:44:31,728 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:44:31,728 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:44:31,729 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:44:31,729 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:44:31,729 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:44:31,729 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:44:31,729 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:44:33,513 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:44:33,514 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:44:33,514 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:44:33,514 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:44:33,517 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:44:33,517 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:44:33,517 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:44:33,517 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:44:33,517 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:44:33,517 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:44:33,517 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:44:33,521 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:44:33,521 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:44:33,525 - cmp.monitoring - INFO - Request completed [request_id=1759221873525 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.004 | status_code=200]
+2025-09-30 12:44:33,525 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:44:33,525 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:44:33,526 - cmp.monitoring - INFO - Request completed [request_id=1759221873526 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:44:33,526 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:44:33,526 - cmp.monitoring - INFO - Request completed [request_id=1759221873521 | endpoint=/admin/api/organization-status | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:44:33,526 - cmp.monitoring - INFO - Request completed [duration=0.001 | status_code=200]
+2025-09-30 12:44:34,452 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:44:35,382 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:44:35,383 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:44:36,306 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:44:37,676 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:44:37,677 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:44:38,051 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:44:38,436 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:44:39,201 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:44:39,201 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:44:39,204 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:44:39,205 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:44:39,205 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:44:39,205 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:44:39,205 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:44:39,206 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:44:39,206 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:44:39,206 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:44:39,206 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:44:39,675 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:44:40,491 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:44:40,963 - cmp.monitoring - INFO - Request completed [request_id=1759221873525 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=7.442 | status_code=200]
+2025-09-30 12:45:33,529 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:45:35,949 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:45:35,951 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:45:35,951 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:45:35,951 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:45:35,954 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:45:35,954 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:45:35,954 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:45:35,954 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:45:35,954 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:45:35,954 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:45:35,954 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:45:37,928 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:45:37,929 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:45:37,929 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:45:37,929 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:45:37,932 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:45:37,932 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:45:37,932 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:45:37,933 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:45:37,933 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:45:37,933 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:45:37,933 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:46:43,886 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:46:43,888 - cmp.monitoring - INFO - Request completed [request_id=1759222003883 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.004 | status_code=200]
+2025-09-30 12:48:08,104 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:48:08,106 - cmp.monitoring - INFO - Request completed [request_id=1759222088101 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.005 | status_code=200]
+2025-09-30 12:50:37,962 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:51:27,684 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:51:27,704 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:51:27,706 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:51:27,707 - cmp.monitoring - INFO - Request completed [request_id=1759222287707 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:51:27,707 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:51:27,707 - cmp.monitoring - INFO - Request completed [request_id=1759222287681 | endpoint=/admin/api/organization-status | method=GET | duration=0.002 | status_code=200]
+2025-09-30 12:51:27,708 - cmp.monitoring - INFO - Request completed [request_id=1759222287704 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:51:28,654 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:51:30,183 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:51:30,183 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:51:30,930 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:51:32,044 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:51:32,044 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:51:32,434 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:51:32,843 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:51:33,764 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:51:33,764 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:51:33,766 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:51:33,766 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:51:33,766 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:51:33,766 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:51:33,766 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:51:33,766 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:51:33,766 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:51:33,766 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:51:33,767 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:51:34,174 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:51:34,890 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:51:35,409 - cmp.monitoring - INFO - Request completed [request_id=1759222287705 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=7.729 | status_code=200]
+2025-09-30 12:52:37,959 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:52:40,431 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:52:40,433 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:52:40,433 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:52:40,433 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:52:40,436 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:52:40,437 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:52:40,437 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:52:40,437 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:52:40,437 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:52:40,437 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:52:40,437 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:53:40,442 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:53:42,892 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:53:42,894 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:53:42,895 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:53:42,895 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:53:42,898 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:53:42,898 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:53:42,898 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:53:42,898 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:53:42,898 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:53:42,899 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:53:42,899 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:53:44,665 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:53:44,666 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:53:44,666 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:53:44,666 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:53:44,669 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:53:44,670 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:53:44,670 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:53:44,670 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:53:44,670 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:53:44,670 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:53:44,670 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:53:44,673 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:53:44,674 - cmp.monitoring - INFO - Request completed [request_id=1759222424673 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:54:44,673 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 12:54:47,076 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:54:47,077 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:54:47,077 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:54:47,077 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:54:47,080 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:54:47,081 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:54:47,081 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:54:47,081 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:54:47,081 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:54:47,081 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:54:47,081 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:54:48,896 - cmp.main - INFO - CMP application starting up...
+2025-09-30 12:54:48,897 - cmp.main - INFO - Database initialized successfully
+2025-09-30 12:54:48,897 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 12:54:48,897 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 12:54:48,901 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 12:54:48,901 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 12:54:48,901 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 12:54:48,901 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 12:54:48,901 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 12:54:48,901 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 12:54:48,901 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 12:58:27,647 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 12:58:27,662 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 12:58:27,664 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 12:58:27,664 - cmp.monitoring - INFO - Request completed [request_id=1759222707664 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.002 | status_code=200]
+2025-09-30 12:58:27,665 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 12:58:27,665 - cmp.monitoring - INFO - Request completed [request_id=1759222707665 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.003 | status_code=200]
+2025-09-30 12:58:27,665 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 12:58:27,665 - cmp.monitoring - INFO - Request completed [request_id=1759222707662 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:58:27,666 - cmp.monitoring - INFO - Request completed [request_id=1759222707662 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 12:58:28,793 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 12:58:29,877 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 12:58:29,877 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 12:58:30,676 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:58:31,865 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 12:58:31,865 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 12:58:32,188 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 12:58:32,507 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 12:58:33,168 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:58:33,169 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 12:58:33,173 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:58:33,173 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:58:33,173 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:58:33,174 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:58:33,174 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:58:33,174 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:58:33,174 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:58:33,174 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:58:33,174 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:58:33,638 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:58:34,282 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 12:58:34,735 - cmp.monitoring - INFO - Request completed [request_id=1759222707646 | endpoint=/admin/api/organization-status | method=GET | duration=7.089 | status_code=200]
+2025-09-30 12:59:48,910 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 13:02:48,921 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 13:02:51,271 - cmp.main - INFO - CMP application starting up...
+2025-09-30 13:02:51,273 - cmp.main - INFO - Database initialized successfully
+2025-09-30 13:02:51,273 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 13:02:51,273 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 13:02:51,276 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 13:02:51,276 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 13:02:51,276 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 13:02:51,277 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 13:02:51,277 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 13:02:51,277 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 13:02:51,277 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 13:03:51,281 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 13:03:53,660 - cmp.main - INFO - CMP application starting up...
+2025-09-30 13:03:53,662 - cmp.main - INFO - Database initialized successfully
+2025-09-30 13:03:53,662 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 13:03:53,662 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 13:03:53,666 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 13:03:53,666 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 13:03:53,666 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 13:03:53,666 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 13:03:53,666 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 13:03:53,666 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 13:03:53,666 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 13:05:27,686 - cmp.admin_dashboard - INFO - Admin dashboard: Getting organization status
+2025-09-30 13:05:27,697 - cmp.admin_dashboard - INFO - Getting autonomous operations status
+2025-09-30 13:05:27,698 - cmp.agents_router - INFO - Successfully loaded detail data for agent ceo
+2025-09-30 13:05:27,699 - cmp.monitoring - INFO - Request completed [request_id=1759223127699 | endpoint=/agents/api/cto/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 13:05:27,699 - cmp.agents_router - INFO - Successfully loaded detail data for agent cto
+2025-09-30 13:05:27,699 - cmp.monitoring - INFO - Request completed [request_id=1759223127699 | endpoint=/agents/api/n8n_manager/detail-data | method=GET | duration=0.002 | status_code=200]
+2025-09-30 13:05:27,700 - cmp.agents_router - INFO - Successfully loaded detail data for agent n8n_manager
+2025-09-30 13:05:27,700 - cmp.monitoring - INFO - Request completed [request_id=1759223127697 | endpoint=/admin/api/autonomous-operations | method=GET | duration=0.001 | status_code=200]
+2025-09-30 13:05:27,700 - cmp.monitoring - INFO - Request completed [request_id=1759223127698 | endpoint=/agents/api/ceo/detail-data | method=GET | duration=0.001 | status_code=200]
+2025-09-30 13:05:28,902 - cmp.zoho_books_api - WARNING - Access token expired, attempting to refresh...
+2025-09-30 13:05:30,068 - cmp.zoho_books_api - INFO - Successfully refreshed Zoho Books access token
+2025-09-30 13:05:30,068 - cmp.zoho_books_api - INFO - Token refreshed, retrying request...
+2025-09-30 13:05:30,886 - cmp.agent_zoho_tools - INFO - AI:CMO: Retrieved 5 customers from Zoho Books
+2025-09-30 13:05:32,321 - cmp.agent_zoho_tools - INFO - AI:AI:COO: Retrieved 5 customers from Zoho Books
+2025-09-30 13:05:32,321 - cmp.agents.coo - INFO - AI:COO: Operational status retrieved successfully
+2025-09-30 13:05:32,649 - cmp.agents.pmo - INFO - AI:PMO: PMO status retrieved successfully
+2025-09-30 13:05:33,028 - cmp.agents.project_manager - INFO - AI:ProjectManager: Status retrieved successfully
+2025-09-30 13:05:33,686 - cmp.agent_zoho_tools - INFO - AI:AI:OperationsManager: Retrieved 5 customers from Zoho Books
+2025-09-30 13:05:33,686 - cmp.agents.operations_manager - INFO - AI:OperationsManager: Status retrieved successfully
+2025-09-30 13:05:33,689 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 13:05:33,689 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 13:05:33,689 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 13:05:33,690 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 13:05:33,690 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 13:05:33,690 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 13:05:33,690 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 13:05:33,690 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 13:05:33,690 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 13:05:34,268 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 13:05:35,030 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
+2025-09-30 13:05:35,454 - cmp.monitoring - INFO - Request completed [request_id=1759223127685 | endpoint=/admin/api/organization-status | method=GET | duration=7.769 | status_code=200]
+2025-09-30 13:05:53,672 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 13:05:56,235 - cmp.main - INFO - CMP application starting up...
+2025-09-30 13:05:56,237 - cmp.main - INFO - Database initialized successfully
+2025-09-30 13:05:56,237 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 13:05:56,237 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 13:05:56,241 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 13:05:56,241 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 13:05:56,241 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 13:05:56,241 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 13:05:56,241 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 13:05:56,241 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 13:05:56,241 - cmp.main - INFO - CMP application startup completed successfully

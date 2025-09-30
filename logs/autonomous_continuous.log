@@ -1,0 +1,246 @@
+2025-09-30 12:35:27,159 - __main__ - INFO - 🚀 Starting Continuous Autonomous AI Organization
+2025-09-30 12:35:27,159 - __main__ - INFO - 💡 All agents will perform REAL development work using N8N and MCP servers
+2025-09-30 12:35:27,159 - cmp.utils.autonomous_scheduler - INFO - Registered agent lead_developer for autonomous task execution
+2025-09-30 12:35:27,159 - cmp.agents.lead_developer - INFO - Lead Developer registered for REAL autonomous task execution!
+2025-09-30 12:35:27,159 - cmp.utils.autonomous_scheduler - INFO - Registered agent autonomous_developer for autonomous task execution
+2025-09-30 12:35:27,159 - cmp.utils.autonomous_scheduler - INFO - Registered agent lead_developer for autonomous task execution
+2025-09-30 12:35:27,159 - cmp.utils.autonomous_scheduler - INFO - Registered agent n8n_manager for autonomous task execution
+2025-09-30 12:35:27,160 - __main__ - INFO - ✅ Registered 3 AI agents for continuous autonomous operation
+2025-09-30 12:35:27,160 - __main__ - INFO - ⏰ Agents will execute real tasks every 5 minutes
+2025-09-30 12:35:27,160 - __main__ - INFO - 🔧 Tasks will use N8N workflows and MCP servers for real work
+2025-09-30 12:35:27,160 - __main__ - INFO - 📊 Monitor progress in logs/autonomous_continuous.log and local_storage/execution_log.json
+2025-09-30 12:35:27,160 - cmp.utils.autonomous_scheduler - INFO - 🚀 Starting Autonomous Task Scheduler - Agents will now perform REAL WORK!
+2025-09-30 12:35:27,160 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:35:27,160 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:35:27,160 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:35:27,160 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:35:27,160 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:35:27,160 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:35:27,161 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:35:27,161 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:35:27,161 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:35:27,161 - cmp.utils.autonomous_scheduler - INFO - 🔧 lead_developer: Executing 3 overdue tasks using REAL MCP tools
+2025-09-30 12:35:27,161 - cmp.agents.lead_developer - INFO - 🤖 Lead Developer executing INTELLIGENT autonomous work cycle...
+2025-09-30 12:35:27,161 - cmp.agents.lead_developer - INFO - 🚀 Starting autonomous work cycle...
+2025-09-30 12:35:27,161 - cmp.agents.lead_developer - INFO - 🧠 Lead Developer analyzing project needs...
+2025-09-30 12:35:27,607 - cmp.agents.lead_developer - INFO - ⚡ Executing urgent task: Commit pending changes
+2025-09-30 12:35:27,607 - cmp.utils.task_execution_engine - INFO - 🚀 Executing task git_commit_20250930_1235 (git_operations) with real automation
+2025-09-30 12:35:27,607 - cmp.utils.task_execution_engine - INFO - 📋 Attempting N8N workflow execution for git_operations
+2025-09-30 12:35:27,607 - cmp.integrations.n8n_workflow_integration - INFO - 🔄 Would trigger N8N workflow for git_operations
+2025-09-30 12:35:27,607 - cmp.utils.task_execution_engine - INFO - ✅ Task executed successfully via N8N workflow
+2025-09-30 12:35:27,607 - cmp.agents.lead_developer - INFO - ⚡ Executing urgent task: Comprehensive Code Cleanup
+2025-09-30 12:35:27,607 - cmp.utils.task_execution_engine - INFO - 🚀 Executing task code_cleanup_20250930_1235 (system_optimization) with real automation
+2025-09-30 12:35:27,608 - cmp.utils.task_execution_engine - INFO - 📋 Attempting N8N workflow execution for system_optimization
+2025-09-30 12:35:27,608 - cmp.integrations.n8n_workflow_integration - INFO - 🔄 Would trigger N8N workflow for system_optimization
+2025-09-30 12:35:27,608 - cmp.utils.task_execution_engine - INFO - ✅ Task executed successfully via N8N workflow
+2025-09-30 12:35:27,608 - cmp.agents.lead_developer - INFO - ✅ Intelligent autonomous work completed - Health Score: 0
+2025-09-30 12:35:27,609 - cmp.agents.lead_developer - INFO - 🔧 Work performed: 2 tasks
+2025-09-30 12:35:27,610 - cmp.utils.autonomous_scheduler - INFO - ⚡ lead_developer: Completed execution - completed - Real work: True
+2025-09-30 12:35:27,610 - cmp.utils.autonomous_scheduler - INFO - 🔧 autonomous_developer: Executing 1 overdue tasks using REAL MCP tools
+2025-09-30 12:35:27,610 - cmp.agents.autonomous_developer - INFO - 🚀 Executing real autonomous development work...
+2025-09-30 12:35:27,621 - cmp.integrations.n8n_workflow_integration - INFO - ✅ N8N server is accessible
+2025-09-30 12:35:27,622 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server filesystem_mcp: Cannot connect to host localhost:8001 ssl:default [Multiple exceptions: [Errno 61] Connect call failed ('::1', 8001, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8001)]
+2025-09-30 12:35:27,623 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server git_mcp: Cannot connect to host localhost:8002 ssl:default [Multiple exceptions: [Errno 61] Connect call failed ('::1', 8002, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8002)]
+2025-09-30 12:35:27,624 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server database_mcp: Cannot connect to host localhost:8003 ssl:default [Multiple exceptions: [Errno 61] Connect call failed ('::1', 8003, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8003)]
+2025-09-30 12:35:27,624 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server copilot_mcp: Cannot connect to host localhost:8004 ssl:default [Multiple exceptions: [Errno 61] Connect call failed ('::1', 8004, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8004)]
+2025-09-30 12:35:27,625 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server testing_mcp: Cannot connect to host localhost:8005 ssl:default [Multiple exceptions: [Errno 61] Connect call failed ('::1', 8005, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8005)]
+2025-09-30 12:35:27,625 - cmp.agents.autonomous_developer - INFO - 📊 Integration status: ready
+2025-09-30 12:35:27,625 - cmp.agents.autonomous_developer - INFO - 🧠 Autonomous Developer analyzing project development needs...
+2025-09-30 12:35:28,362 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10f1a2710>
+2025-09-30 12:35:28,363 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10f1a3110>
+2025-09-30 12:35:28,363 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10f1d09d0>
+2025-09-30 12:35:28,363 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10f1d2ea0>
+2025-09-30 12:35:28,363 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10f2e0b90>
+2025-09-30 12:35:34,436 - cmp.agents.autonomous_developer - INFO - ⚠️ Skipping recent similar issue: 🧪 Create comprehensive unit tests for untested modules (similar issue #89 exists)
+2025-09-30 12:35:34,437 - cmp.agents.autonomous_developer - INFO - ⚠️ Skipping recent similar issue: 🔧 Complete TODO items and incomplete features (similar issue #128 exists)
+2025-09-30 12:35:34,437 - cmp.agents.autonomous_developer - INFO - 🤖 Executing code enhancement via MCP...
+2025-09-30 12:35:34,439 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server copilot_mcp: Cannot connect to host localhost:8004 ssl:default [Multiple exceptions: [Errno 61] Connect call failed ('::1', 8004, 0, 0), [Errno 61] Connect call failed ('127.0.0.1', 8004)]
+2025-09-30 12:35:34,439 - cmp.agents.autonomous_developer - INFO - ✅ Real development work completed: 0/1 tasks successful
+2025-09-30 12:35:34,442 - cmp.utils.autonomous_scheduler - INFO - ⚡ autonomous_developer: Completed execution - unknown - Real work: False
+2025-09-30 12:38:00,383 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10f195d00>
+2025-09-30 12:50:57,807 - __main__ - INFO - 🚀 Starting Continuous Autonomous AI Organization
+2025-09-30 12:50:57,807 - __main__ - INFO - 💡 All agents will perform REAL development work using N8N and MCP servers
+2025-09-30 12:50:57,807 - cmp.utils.autonomous_scheduler - INFO - Registered agent lead_developer for autonomous task execution
+2025-09-30 12:50:57,807 - cmp.agents.lead_developer - INFO - Lead Developer registered for REAL autonomous task execution!
+2025-09-30 12:50:57,807 - cmp.utils.autonomous_scheduler - INFO - Registered agent autonomous_developer for autonomous task execution
+2025-09-30 12:50:57,807 - cmp.utils.autonomous_scheduler - INFO - Registered agent lead_developer for autonomous task execution
+2025-09-30 12:50:57,807 - cmp.utils.autonomous_scheduler - INFO - Registered agent n8n_manager for autonomous task execution
+2025-09-30 12:50:57,807 - __main__ - INFO - ✅ Registered 3 AI agents for continuous autonomous operation
+2025-09-30 12:50:57,807 - __main__ - INFO - ⏰ Agents will execute real tasks every 5 minutes
+2025-09-30 12:50:57,807 - __main__ - INFO - 🔧 Tasks will use N8N workflows and MCP servers for real work
+2025-09-30 12:50:57,807 - __main__ - INFO - 📊 Monitor progress in logs/autonomous_continuous.log and local_storage/execution_log.json
+2025-09-30 12:50:57,807 - cmp.utils.autonomous_scheduler - INFO - 🚀 Starting Autonomous Task Scheduler - Agents will now perform REAL WORK!
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:50:57,808 - cmp.utils.autonomous_scheduler - INFO - 🔧 lead_developer: Executing 3 overdue tasks using REAL MCP tools
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🤖 Lead Developer executing INTELLIGENT autonomous work cycle...
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🚀 Starting autonomous work cycle...
+2025-09-30 12:50:57,808 - cmp.agents.lead_developer - INFO - 🧠 Lead Developer analyzing project needs...
+2025-09-30 12:50:58,279 - cmp.agents.lead_developer - INFO - ⚡ Executing urgent task: Commit pending changes
+2025-09-30 12:50:58,279 - cmp.utils.task_execution_engine - INFO - 🚀 Executing task git_commit_20250930_1250 (git_operations) with real automation
+2025-09-30 12:50:58,279 - cmp.utils.task_execution_engine - INFO - 📋 Attempting N8N workflow execution for git_operations
+2025-09-30 12:50:58,279 - cmp.integrations.n8n_workflow_integration - INFO - 🔄 Would trigger N8N workflow for git_operations
+2025-09-30 12:50:58,279 - cmp.utils.task_execution_engine - INFO - ✅ Task executed successfully via N8N workflow
+2025-09-30 12:50:58,279 - cmp.agents.lead_developer - INFO - ⚡ Executing urgent task: Comprehensive Code Cleanup
+2025-09-30 12:50:58,279 - cmp.utils.task_execution_engine - INFO - 🚀 Executing task code_cleanup_20250930_1250 (system_optimization) with real automation
+2025-09-30 12:50:58,279 - cmp.utils.task_execution_engine - INFO - 📋 Attempting N8N workflow execution for system_optimization
+2025-09-30 12:50:58,279 - cmp.integrations.n8n_workflow_integration - INFO - 🔄 Would trigger N8N workflow for system_optimization
+2025-09-30 12:50:58,279 - cmp.utils.task_execution_engine - INFO - ✅ Task executed successfully via N8N workflow
+2025-09-30 12:50:58,279 - cmp.agents.lead_developer - INFO - ✅ Intelligent autonomous work completed - Health Score: 0
+2025-09-30 12:50:58,279 - cmp.agents.lead_developer - INFO - 🔧 Work performed: 2 tasks
+2025-09-30 12:50:58,280 - cmp.utils.autonomous_scheduler - INFO - ⚡ lead_developer: Completed execution - completed - Real work: True
+2025-09-30 12:50:58,281 - cmp.utils.autonomous_scheduler - INFO - 🔧 autonomous_developer: Executing 1 overdue tasks using REAL MCP tools
+2025-09-30 12:50:58,281 - cmp.agents.autonomous_developer - INFO - 🚀 Executing real autonomous development work...
+2025-09-30 12:50:58,294 - cmp.integrations.n8n_workflow_integration - INFO - ✅ N8N server is accessible
+2025-09-30 12:50:58,300 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server filesystem_mcp: 404, message='Invalid response status', url='ws://localhost:8001/ws'
+2025-09-30 12:50:58,300 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10fd86ad0>
+2025-09-30 12:50:58,300 - asyncio - ERROR - Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x10fed5610>, 708026.081028625)]']
+connector: <aiohttp.connector.TCPConnector object at 0x10fd865d0>
+2025-09-30 12:50:58,303 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server git_mcp: 404, message='Invalid response status', url='ws://localhost:8002/ws'
+2025-09-30 12:50:58,303 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10fd86ad0>
+2025-09-30 12:50:58,303 - asyncio - ERROR - Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x10fed5670>, 708026.083766458)]']
+connector: <aiohttp.connector.TCPConnector object at 0x10fd86c10>
+2025-09-30 12:50:58,304 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server database_mcp: 404, message='Invalid response status', url='ws://localhost:8003/ws'
+2025-09-30 12:50:58,304 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10fdb5a70>
+2025-09-30 12:50:58,304 - asyncio - ERROR - Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x10fed46b0>, 708026.084658708)]']
+connector: <aiohttp.connector.TCPConnector object at 0x10fdb6060>
+2025-09-30 12:50:58,305 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server copilot_mcp: 404, message='Invalid response status', url='ws://localhost:8004/ws'
+2025-09-30 12:50:58,305 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10fdb5a70>
+2025-09-30 12:50:58,305 - asyncio - ERROR - Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x10fed5610>, 708026.08562925)]']
+connector: <aiohttp.connector.TCPConnector object at 0x10fdb49d0>
+2025-09-30 12:50:58,306 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server testing_mcp: 404, message='Invalid response status', url='ws://localhost:8005/ws'
+2025-09-30 12:50:58,306 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10fe9c3b0>
+2025-09-30 12:50:58,306 - asyncio - ERROR - Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x10ec77a10>, 708026.086636166)]']
+connector: <aiohttp.connector.TCPConnector object at 0x10fdb5a70>
+2025-09-30 12:50:58,306 - cmp.agents.autonomous_developer - INFO - 📊 Integration status: ready
+2025-09-30 12:50:58,306 - cmp.agents.autonomous_developer - INFO - 🧠 Autonomous Developer analyzing project development needs...
+2025-09-30 12:51:04,361 - cmp.agents.autonomous_developer - INFO - ⚠️ Skipping recent similar issue: 🧪 Create comprehensive unit tests for untested modules (similar issue #89 exists)
+2025-09-30 12:51:04,362 - cmp.agents.autonomous_developer - INFO - ⚠️ Skipping recent similar issue: 🔧 Complete TODO items and incomplete features (similar issue #128 exists)
+2025-09-30 12:51:04,362 - cmp.agents.autonomous_developer - INFO - 🤖 Executing code enhancement via MCP...
+2025-09-30 12:51:04,363 - cmp.integrations.mcp_server_integration - ERROR - ❌ Failed to connect to MCP server copilot_mcp: 404, message='Invalid response status', url='ws://localhost:8004/ws'
+2025-09-30 12:51:04,363 - asyncio - ERROR - Unclosed client session
+client_session: <aiohttp.client.ClientSession object at 0x10fd7a250>
+2025-09-30 12:51:04,363 - asyncio - ERROR - Unclosed connector
+connections: ['[(<aiohttp.client_proto.ResponseHandler object at 0x10ec77a10>, 708032.143836916)]']
+connector: <aiohttp.connector.TCPConnector object at 0x10fdb5350>
+2025-09-30 12:51:04,363 - cmp.agents.autonomous_developer - INFO - ✅ Real development work completed: 0/1 tasks successful
+2025-09-30 12:51:04,364 - cmp.utils.autonomous_scheduler - INFO - ⚡ autonomous_developer: Completed execution - unknown - Real work: False
+2025-09-30 12:54:57,905 - __main__ - INFO - 🚀 Starting Continuous Autonomous AI Organization
+2025-09-30 12:54:57,905 - __main__ - INFO - 💡 All agents will perform REAL development work using N8N and MCP servers
+2025-09-30 12:54:57,905 - cmp.utils.autonomous_scheduler - INFO - Registered agent lead_developer for autonomous task execution
+2025-09-30 12:54:57,905 - cmp.agents.lead_developer - INFO - Lead Developer registered for REAL autonomous task execution!
+2025-09-30 12:54:57,905 - cmp.utils.autonomous_scheduler - INFO - Registered agent autonomous_developer for autonomous task execution
+2025-09-30 12:54:57,905 - cmp.utils.autonomous_scheduler - INFO - Registered agent lead_developer for autonomous task execution
+2025-09-30 12:54:57,905 - cmp.utils.autonomous_scheduler - INFO - Registered agent n8n_manager for autonomous task execution
+2025-09-30 12:54:57,905 - __main__ - INFO - ✅ Registered 3 AI agents for continuous autonomous operation
+2025-09-30 12:54:57,905 - __main__ - INFO - ⏰ Agents will execute real tasks every 5 minutes
+2025-09-30 12:54:57,905 - __main__ - INFO - 🔧 Tasks will use N8N workflows and MCP servers for real work
+2025-09-30 12:54:57,905 - __main__ - INFO - 📊 Monitor progress in logs/autonomous_continuous.log and local_storage/execution_log.json
+2025-09-30 12:54:57,905 - cmp.utils.autonomous_scheduler - INFO - 🚀 Starting Autonomous Task Scheduler - Agents will now perform REAL WORK!
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 12:54:57,906 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 12:54:57,907 - cmp.utils.autonomous_scheduler - INFO - 🔧 lead_developer: Executing 3 overdue tasks using REAL MCP tools
+2025-09-30 12:54:57,907 - cmp.agents.lead_developer - INFO - 🤖 Lead Developer executing INTELLIGENT autonomous work cycle...
+2025-09-30 12:54:57,907 - cmp.agents.lead_developer - INFO - 🚀 Starting autonomous work cycle...
+2025-09-30 12:54:57,907 - cmp.agents.lead_developer - INFO - 🧠 Lead Developer analyzing project needs...
+2025-09-30 12:54:58,314 - cmp.agents.lead_developer - INFO - ⚡ Executing urgent task: Commit pending changes
+2025-09-30 12:54:58,314 - cmp.utils.task_execution_engine - INFO - 🚀 Executing task git_commit_20250930_1254 (git_operations) with real automation
+2025-09-30 12:54:58,314 - cmp.utils.task_execution_engine - INFO - 📋 Attempting N8N workflow execution for git_operations
+2025-09-30 12:54:58,314 - cmp.integrations.n8n_workflow_integration - INFO - 🔄 Would trigger N8N workflow for git_operations
+2025-09-30 12:54:58,314 - cmp.utils.task_execution_engine - INFO - ✅ Task executed successfully via N8N workflow
+2025-09-30 12:54:58,314 - cmp.agents.lead_developer - INFO - ⚡ Executing urgent task: Comprehensive Code Cleanup
+2025-09-30 12:54:58,314 - cmp.utils.task_execution_engine - INFO - 🚀 Executing task code_cleanup_20250930_1254 (system_optimization) with real automation
+2025-09-30 12:54:58,314 - cmp.utils.task_execution_engine - INFO - 📋 Attempting N8N workflow execution for system_optimization
+2025-09-30 12:54:58,314 - cmp.integrations.n8n_workflow_integration - INFO - 🔄 Would trigger N8N workflow for system_optimization
+2025-09-30 12:54:58,314 - cmp.utils.task_execution_engine - INFO - ✅ Task executed successfully via N8N workflow
+2025-09-30 12:54:58,314 - cmp.agents.lead_developer - INFO - ✅ Intelligent autonomous work completed - Health Score: 0
+2025-09-30 12:54:58,314 - cmp.agents.lead_developer - INFO - 🔧 Work performed: 2 tasks
+2025-09-30 12:54:58,316 - cmp.utils.autonomous_scheduler - INFO - ⚡ lead_developer: Completed execution - completed - Real work: True
+2025-09-30 12:54:58,316 - cmp.utils.autonomous_scheduler - INFO - 🔧 autonomous_developer: Executing 1 overdue tasks using REAL MCP tools
+2025-09-30 12:54:58,316 - cmp.agents.autonomous_developer - INFO - 🚀 Executing real autonomous development work...
+2025-09-30 12:54:58,322 - cmp.integrations.n8n_workflow_integration - INFO - ✅ N8N server is accessible
+2025-09-30 12:54:58,322 - cmp.agents.autonomous_developer - INFO - 📊 Integration status: ready
+2025-09-30 12:54:58,322 - cmp.agents.autonomous_developer - INFO - 🧠 Autonomous Developer analyzing project development needs...
+2025-09-30 12:55:04,291 - cmp.agents.autonomous_developer - INFO - ⚠️ Skipping recent similar issue: 🧪 Create comprehensive unit tests for untested modules (similar issue #89 exists)
+2025-09-30 12:55:04,292 - cmp.agents.autonomous_developer - INFO - ⚠️ Skipping recent similar issue: 🔧 Complete TODO items and incomplete features (similar issue #128 exists)
+2025-09-30 12:55:04,292 - cmp.agents.autonomous_developer - INFO - 🤖 Executing code enhancement via MCP...
+2025-09-30 12:55:04,296 - cmp.agents.autonomous_developer - INFO - 💾 Committing changes via MCP git server...
+2025-09-30 12:55:04,351 - cmp.agents.autonomous_developer - INFO - ✅ Real development work completed: 1/2 tasks successful
+2025-09-30 12:55:04,352 - cmp.utils.autonomous_scheduler - INFO - ⚡ autonomous_developer: Completed execution - unknown - Real work: False
+2025-09-30 13:00:04,358 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 13:00:04,359 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 13:00:04,359 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 13:00:04,359 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 13:00:04,359 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 13:00:04,359 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 13:00:04,359 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 13:00:04,360 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 13:00:04,360 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 13:05:04,365 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 13:05:04,367 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 13:05:04,367 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 13:05:04,368 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 13:05:04,368 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 13:05:04,368 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 13:05:04,369 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 13:05:04,369 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 13:05:04,369 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 13:05:58,266 - __main__ - INFO - 🚀 Starting Continuous Autonomous AI Organization
+2025-09-30 13:05:58,267 - __main__ - INFO - 💡 All agents will perform REAL development work using N8N and MCP servers
+2025-09-30 13:05:58,267 - cmp.utils.autonomous_scheduler - INFO - Registered agent lead_developer for autonomous task execution
+2025-09-30 13:05:58,267 - cmp.agents.lead_developer - INFO - Lead Developer registered for REAL autonomous task execution!
+2025-09-30 13:05:58,267 - cmp.utils.autonomous_scheduler - INFO - Registered agent autonomous_developer for autonomous task execution
+2025-09-30 13:05:58,267 - cmp.utils.autonomous_scheduler - INFO - Registered agent lead_developer for autonomous task execution
+2025-09-30 13:05:58,267 - cmp.utils.autonomous_scheduler - INFO - Registered agent n8n_manager for autonomous task execution
+2025-09-30 13:05:58,267 - __main__ - INFO - ✅ Registered 3 AI agents for continuous autonomous operation
+2025-09-30 13:05:58,267 - __main__ - INFO - ⏰ Agents will execute real tasks every 5 minutes
+2025-09-30 13:05:58,267 - __main__ - INFO - 🔧 Tasks will use N8N workflows and MCP servers for real work
+2025-09-30 13:05:58,267 - __main__ - INFO - 📊 Monitor progress in logs/autonomous_continuous.log and local_storage/execution_log.json
+2025-09-30 13:05:58,267 - cmp.utils.autonomous_scheduler - INFO - 🚀 Starting Autonomous Task Scheduler - Agents will now perform REAL WORK!
+2025-09-30 13:05:58,267 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 13:05:58,268 - cmp.utils.autonomous_scheduler - INFO - 🔧 lead_developer: Executing 3 overdue tasks using REAL MCP tools
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🤖 Lead Developer executing INTELLIGENT autonomous work cycle...
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🚀 Starting autonomous work cycle...
+2025-09-30 13:05:58,268 - cmp.agents.lead_developer - INFO - 🧠 Lead Developer analyzing project needs...
+2025-09-30 13:05:58,679 - cmp.agents.lead_developer - INFO - ⚡ Executing urgent task: Commit pending changes
+2025-09-30 13:05:58,679 - cmp.utils.task_execution_engine - INFO - 🚀 Executing task git_commit_20250930_1305 (git_operations) with real automation
+2025-09-30 13:05:58,679 - cmp.utils.task_execution_engine - INFO - 📋 Attempting N8N workflow execution for git_operations
+2025-09-30 13:05:58,679 - cmp.integrations.n8n_workflow_integration - INFO - � Executing REAL N8N workflow for git_operations

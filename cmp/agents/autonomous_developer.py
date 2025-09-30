@@ -12,7 +12,7 @@ import logging
 from datetime import datetime, timedelta
 from typing import Dict, List, Any, Optional
 from ..utils.github_project_manager import github_project_manager
-from ..utils.enhanced_task_execution_engine import enhanced_task_engine
+from ..utils.task_execution_engine import task_execution_engine
 from ..integrations.n8n_workflow_integration import n8n_integration
 from ..integrations.mcp_server_integration import mcp_integration
 
@@ -28,7 +28,7 @@ class AutonomousDeveloperAgent:
         self.analysis_cache = {}
         self.last_analysis = None
         # Set up task execution engine
-        enhanced_task_engine.set_github_manager(github_project_manager)
+        task_execution_engine.set_github_manager(github_project_manager)
         
     async def analyze_development_needs(self) -> Dict[str, Any]:
         """
@@ -508,7 +508,7 @@ Please complete the TODO items and incomplete features in the codebase:
             logger.info("🚀 Executing real autonomous development work...")
             
             # Check integration status first
-            integration_status = await enhanced_task_engine.check_integrations_status()
+            integration_status = await task_execution_engine.check_integrations_status()
             logger.info(f"📊 Integration status: {integration_status.get('overall_status')}")
             
             if integration_status.get('overall_status') == 'error':
@@ -531,7 +531,7 @@ Please complete the TODO items and incomplete features in the codebase:
                     "generate_coverage": True
                 }
                 
-                test_result = await enhanced_task_engine.execute_task_with_real_work(test_task)
+                test_result = await task_execution_engine.execute_task_with_real_work(test_task)
                 execution_results.append({
                     "task": "testing",
                     "result": test_result,
@@ -548,7 +548,7 @@ Please complete the TODO items and incomplete features in the codebase:
                     "features_to_complete": development_needs.get("missing_functionality", [])[:3]
                 }
                 
-                completion_result = await enhanced_task_engine.execute_task_with_real_work(completion_task)
+                completion_result = await task_execution_engine.execute_task_with_real_work(completion_task)
                 execution_results.append({
                     "task": "completion",
                     "result": completion_result,

@@ -2,7 +2,7 @@
 MCP (Model Context Protocol) Server Integration
 
 This module integrates AI agents with MCP servers to enhance development capabilities
-through structured communication with specialized development tools and services.
+through HTTP REST API communication with specialized development tools and services.
 """
 
 import asyncio
@@ -14,9 +14,6 @@ from datetime import datetime
 from typing import Dict, List, Any, Optional, Union
 from dataclasses import dataclass
 from enum import Enum
-
-# Use aiohttp for WebSocket communication instead of websockets
-# This avoids dependency issues while maintaining functionality
 
 logger = logging.getLogger(__name__)
 
@@ -44,7 +41,7 @@ class MCPServerIntegration:
     
     def __init__(self):
         self.servers: Dict[str, MCPServer] = {}
-        self.connections: Dict[str, aiohttp.ClientWebSocketResponse] = {}
+        self.active_servers: Dict[str, bool] = {}
         self.load_server_configs()
     
     def load_server_configs(self):
@@ -92,7 +89,7 @@ class MCPServerIntegration:
             self.servers[server.name] = server
     
     async def connect_to_server(self, server_name: str) -> Dict[str, Any]:
-        """Connect to a specific MCP server"""
+        """Connect to a specific MCP server via HTTP"""
         if server_name not in self.servers:
             return {
                 "success": False,
@@ -102,133 +99,169 @@ class MCPServerIntegration:
         server = self.servers[server_name]
         
         try:
-            # Connect via WebSocket using aiohttp
-            session = aiohttp.ClientSession()
-            uri = f"{server.url}:{server.port}/ws"
-            connection = await session.ws_connect(uri, timeout=10)
-            
-            # Send handshake
-            handshake = {
-                "type": "handshake",
-                "protocol": "mcp",
-                "version": "1.0",
-                "client_id": "cmp_ai_agent",
-                "timestamp": datetime.now().isoformat()
-            }
-            
-            await connection.send_str(json.dumps(handshake))
-            response = await connection.receive()
-            
-            if response.type == aiohttp.WSMsgType.TEXT:
-                response_data = json.loads(response.data)
-                
-                if response_data.get("status") == "connected":
-                    self.connections[server_name] = connection
-                    server.active = True
-                    
-                    logger.info(f"✅ Connected to MCP server: {server_name}")
-                    return {
-                        "success": True,
-                        "server_name": server_name,
-                        "server_type": server.type.value,
-                        "capabilities": server.capabilities,
-                        "connected": True
-                    }
-                else:
-                    await session.close()
-                    return {
-                        "success": False,
-                        "error": f"MCP server handshake failed: {response_data}"
-                    }
-            else:
-                await session.close()
-                return {
-                    "success": False,
-                    "error": "Invalid response from MCP server"
-                }
-                
-        except asyncio.TimeoutError:
-            logger.error(f"⏰ Connection to MCP server {server_name} timed out")
-            return {
-                "success": False,
-                "error": f"Connection timeout to {server_name}"
-            }
+            # Connect via HTTP REST API
+            async with aiohttp.ClientSession() as session:
+                uri = f"http://localhost:{server.port}/health"
+                async with session.get(uri, timeout=5) as response:
+                    if response.status == 200:
+                        health_data = await response.json()
+                        server.active = True
+                        self.active_servers[server_name] = True
+                        
+                        logger.info(f"✅ Connected to MCP server {server_name} on port {server.port}")
+                        return {
+                            "success": True,
+                            "server": server_name,
+                            "health": health_data,
+                            "uri": uri
+                        }
+                    else:
+                        raise Exception(f"HTTP {response.status}")
         except Exception as e:
+            server.active = False
+            self.active_servers[server_name] = False
             logger.error(f"❌ Failed to connect to MCP server {server_name}: {e}")
             return {
                 "success": False,
-                "error": f"Connection failed: {str(e)}"
+                "error": str(e),
+                "server": server_name
             }
-    
-    async def send_request(self, 
-                          server_name: str, 
-                          operation: str, 
-                          parameters: Dict[str, Any]) -> Dict[str, Any]:
-        """Send a request to an MCP server"""
-        if server_name not in self.connections:
-            # Try to connect first
-            connect_result = await self.connect_to_server(server_name)
-            if not connect_result["success"]:
-                return connect_result
+
+    async def execute_tool(self, server_name: str, tool_name: str, parameters: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Execute a tool on an MCP server via HTTP"""
+        if server_name not in self.servers:
+            return {
+                "success": False,
+                "error": f"MCP server '{server_name}' not configured"
+            }
         
-        connection = self.connections[server_name]
+        server = self.servers[server_name]
+        if parameters is None:
+            parameters = {}
         
         try:
-            request = {
-                "type": "request",
-                "operation": operation,
-                "parameters": parameters,
-                "request_id": f"req_{datetime.now().timestamp()}",
-                "timestamp": datetime.now().isoformat()
-            }
-            
-            await connection.send_str(json.dumps(request))
-            response = await asyncio.wait_for(connection.receive(), timeout=30)
-            
-            if response.type == aiohttp.WSMsgType.TEXT:
-                response_data = json.loads(response.data)
+            async with aiohttp.ClientSession() as session:
+                uri = f"http://localhost:{server.port}/execute"
+                payload = {
+                    "tool": tool_name,
+                    "parameters": parameters
+                }
                 
-                logger.info(f"✅ MCP request successful: {server_name}.{operation}")
-                return {
-                    "success": True,
-                    "server_name": server_name,
-                    "operation": operation,
-                    "response": response_data
-                }
-            else:
-                return {
-                    "success": False,
-                    "error": f"Invalid response type from {server_name}"
-                }
-            
-        except asyncio.TimeoutError:
-            logger.error(f"⏰ MCP request timeout: {server_name}.{operation}")
+                async with session.post(uri, json=payload, timeout=30) as response:
+                    if response.status == 200:
+                        result = await response.json()
+                        return result
+                    else:
+                        error_text = await response.text()
+                        return {
+                            "success": False,
+                            "error": f"HTTP {response.status}: {error_text}",
+                            "server": server_name,
+                            "tool": tool_name
+                        }
+        except Exception as e:
+            logger.error(f"❌ Failed to execute tool {tool_name} on {server_name}: {e}")
             return {
                 "success": False,
-                "error": f"Request timeout for {operation} on {server_name}"
+                "error": str(e),
+                "server": server_name,
+                "tool": tool_name
             }
         except Exception as e:
-            logger.error(f"❌ MCP request failed: {server_name}.{operation} - {e}")
+            logger.error(f"❌ Failed to execute tool {tool_name} on {server_name}: {e}")
             return {
                 "success": False,
-                "error": f"Request failed: {str(e)}"
+                "error": str(e),
+                "server": server_name,
+                "tool": tool_name
             }
-    
+
+    async def get_server_capabilities(self, server_name: str) -> Dict[str, Any]:
+        """Get capabilities from an MCP server"""
+        if server_name not in self.servers:
+            return {
+                "success": False,
+                "error": f"MCP server '{server_name}' not configured"
+            }
+        
+        server = self.servers[server_name]
+        
+        try:
+            async with aiohttp.ClientSession() as session:
+                uri = f"http://localhost:{server.port}/capabilities"
+                async with session.get(uri, timeout=10) as response:
+                    if response.status == 200:
+                        capabilities = await response.json()
+                        return {
+                            "success": True,
+                            "server": server_name,
+                            "capabilities": capabilities
+                        }
+                    else:
+                        error_text = await response.text()
+                        return {
+                            "success": False,
+                            "error": f"HTTP {response.status}: {error_text}",
+                            "server": server_name
+                        }
+        except Exception as e:
+            logger.error(f"❌ Failed to get capabilities from {server_name}: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "server": server_name
+            }
+
+    async def list_tools(self, server_name: str) -> Dict[str, Any]:
+        """List available tools from an MCP server"""
+        if server_name not in self.servers:
+            return {
+                "success": False,
+                "error": f"MCP server '{server_name}' not configured"
+            }
+        
+        server = self.servers[server_name]
+        
+        try:
+            async with aiohttp.ClientSession() as session:
+                uri = f"http://localhost:{server.port}/tools"
+                async with session.get(uri, timeout=10) as response:
+                    if response.status == 200:
+                        tools = await response.json()
+                        return {
+                            "success": True,
+                            "server": server_name,
+                            "tools": tools
+                        }
+                    else:
+                        error_text = await response.text()
+                        return {
+                            "success": False,
+                            "error": f"HTTP {response.status}: {error_text}",
+                            "server": server_name
+                        }
+        except Exception as e:
+            logger.error(f"❌ Failed to list tools from {server_name}: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "server": server_name
+            }
     async def execute_filesystem_operation(self, operation: str, **kwargs) -> Dict[str, Any]:
         """Execute filesystem operations via MCP server"""
-        return await self.send_request("filesystem_mcp", operation, kwargs)
+        return await self.execute_tool("filesystem_mcp", operation, kwargs)
     
     async def execute_git_operation(self, operation: str, **kwargs) -> Dict[str, Any]:
         """Execute git operations via MCP server"""
-        return await self.send_request("git_mcp", operation, kwargs)
+        return await self.execute_tool("git_mcp", operation, kwargs)
     
     async def execute_copilot_operation(self, operation: str, **kwargs) -> Dict[str, Any]:
         """Execute Copilot operations via MCP server"""
-        return await self.send_request("copilot_mcp", operation, kwargs)
+        return await self.execute_tool("copilot_mcp", operation, kwargs)
     
     async def execute_testing_operation(self, operation: str, **kwargs) -> Dict[str, Any]:
         """Execute testing operations via MCP server"""
-        return await self.send_request("testing_mcp", operation, kwargs)
+        return await self.execute_tool("testing_mcp", operation, kwargs)
     
     async def enhance_code_with_copilot(self, 
                                        file_path: str, 
@@ -242,48 +275,48 @@ class MCPServerIntegration:
             "improve_error_handling": True
         }
         
-        return await self.execute_copilot_operation("enhance_code", **parameters)
+        if enhancement_type == "code_review":
+            return await self.execute_tool("copilot_mcp", "code_review", {"file_path": file_path})
+        elif enhancement_type == "refactoring":
+            return await self.execute_tool("copilot_mcp", "suggest_refactoring", {"file_path": file_path})
+        elif enhancement_type == "bug_detection":
+            return await self.execute_tool("copilot_mcp", "detect_bugs", {"file_path": file_path})
+        else:
+            return await self.execute_tool("copilot_mcp", "analyze_code", {"file_path": file_path})
     
     async def generate_tests_via_mcp(self, 
                                     module_path: str, 
                                     test_types: List[str] = None) -> Dict[str, Any]:
         """Generate tests using MCP testing server"""
-        if test_types is None:
-            test_types = ["unit", "integration"]
-        
-        parameters = {
-            "module_path": module_path,
-            "test_types": test_types,
-            "coverage_target": 80,
-            "framework": "pytest"
-        }
-        
-        return await self.execute_testing_operation("generate_tests", **parameters)
+        parameters = {"file_path": module_path}
+        return await self.execute_tool("testing_mcp", "discover_tests", parameters)
     
     async def run_comprehensive_tests(self, 
                                      test_scope: str = "all") -> Dict[str, Any]:
         """Run comprehensive tests via MCP testing server"""
-        parameters = {
-            "test_scope": test_scope,
-            "generate_coverage": True,
-            "run_integration_tests": True,
-            "validate_performance": True
-        }
-        
-        return await self.execute_testing_operation("run_comprehensive_tests", **parameters)
+        if test_scope == "all":
+            return await self.execute_tool("testing_mcp", "run_tests", {})
+        else:
+            return await self.execute_tool("testing_mcp", "run_specific_test", {"test_path": test_scope})
     
     async def commit_changes_via_mcp(self, 
                                     commit_message: str, 
                                     files_to_commit: List[str] = None) -> Dict[str, Any]:
         """Commit changes using MCP git server"""
-        parameters = {
-            "commit_message": commit_message,
-            "files": files_to_commit or [],
-            "auto_stage": True,
-            "verify_tests": True
-        }
+        # First add files
+        if files_to_commit:
+            add_result = await self.execute_tool("git_mcp", "git_add", {"files": files_to_commit})
+        else:
+            add_result = await self.execute_tool("git_mcp", "git_add", {})
         
-        return await self.execute_git_operation("commit_changes", **parameters)
+        if add_result.get("success"):
+            # Then commit
+            return await self.execute_tool("git_mcp", "git_commit", {
+                "message": commit_message,
+                "author": "AI Agent"
+            })
+        else:
+            return add_result
     
     async def check_all_server_status(self) -> Dict[str, Any]:
         """Check status of all configured MCP servers"""

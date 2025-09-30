@@ -22,7 +22,7 @@ import json
 from ..utils.agent_zoho_tools import AgentZohoBooks
 from ..utils.ai_service import AIAgentService
 from ..utils.zoho_sync_service import zoho_sync_service
-from ..utils.task_execution_engine import task_engine
+from ..utils.task_execution_engine import task_execution_engine
 from ..utils.autonomous_scheduler import autonomous_scheduler
 from ..utils.mcp_server import mcp_server, AGENT_TOOLS
 from ..utils.autonomous_communication import communication_hub
@@ -185,7 +185,7 @@ class LeadDeveloperAgent:
                 "agent": "Lead Developer"
             }
             
-            result = await task_engine.execute_task(optimization_task)
+            result = await task_execution_engine.execute_task_with_real_work(optimization_task)
             
             return {
                 "success": result.get('status') == 'completed',
@@ -217,7 +217,7 @@ class LeadDeveloperAgent:
                 "agent": "Lead Developer"
             }
             
-            result = await task_engine.execute_task(git_task)
+            result = await task_execution_engine.execute_task_with_real_work(git_task)
             
             return {
                 "success": result.get('status') == 'completed',
@@ -278,7 +278,7 @@ This is REAL work performed by the Lead Developer Agent, not simulation!
                 "agent": "Lead Developer"
             }
             
-            result = await task_engine.execute_task(file_task)
+            result = await task_execution_engine.execute_task_with_real_work(file_task)
             
             return {
                 "success": result.get('status') == 'completed',
@@ -313,7 +313,7 @@ This is REAL work performed by the Lead Developer Agent, not simulation!
                 "agent": "Lead Developer"
             }
             
-            result = await task_engine.execute_task(n8n_task)
+            result = await task_execution_engine.execute_task_with_real_work(n8n_task)
             
             return {
                 "success": result.get('status') == 'completed',
@@ -822,10 +822,10 @@ This is REAL work performed by the Lead Developer Agent, not simulation!
                         "agent": "Lead Developer"
                     }
                     
-                    logger.info(f"🚀 About to call task_engine.execute_task with: {execution_task}")
+                    logger.info(f"🚀 About to call task_execution_engine.execute_task_with_real_work with: {execution_task}")
                     
                     # Execute using the task engine
-                    result = await task_engine.execute_task(execution_task)
+                    result = await task_execution_engine.execute_task_with_real_work(execution_task)
                     
                     logger.info(f"✅ Task engine result: {result}")
                     
@@ -1275,7 +1275,7 @@ This task is being executed autonomously by the Lead Developer AI agent. Progres
             for task in urgent_tasks:
                 logger.info(f"⚡ Executing urgent task: {task['title']}")
                 
-                execution_result = await task_engine.execute_task(task)
+                execution_result = await task_execution_engine.execute_task_with_real_work(task)
                 work_performed.append({
                     "task": task['title'],
                     "type": task['type'],
@@ -1290,7 +1290,7 @@ This task is being executed autonomously by the Lead Developer AI agent. Progres
                 for task in routine_tasks[:2]:  # Limit to 2 tasks per cycle
                     logger.info(f"🔧 Executing routine task: {task['title']}")
                     
-                    execution_result = await task_engine.execute_task(task)
+                    execution_result = await task_execution_engine.execute_task_with_real_work(task)
                     work_performed.append({
                         "task": task['title'],
                         "type": task['type'], 
