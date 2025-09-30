@@ -15015,3 +15015,4 @@ github.GithubException.GithubException: 422 {"message": "Validation Failed", "er
 2025-09-30 17:16:29,444 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
 2025-09-30 17:16:30,194 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
 2025-09-30 17:16:30,634 - cmp.monitoring - INFO - Request completed [request_id=1759238183777 | endpoint=/admin/api/organization-status | method=GET | duration=6.857 | status_code=200]
+2025-09-30 17:18:58,777 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
