@@ -615,3 +615,6 @@ TypeError: FilesystemMCPServer.write_file() got an unexpected keyword argument '
 2025-09-30 19:17:05,533 - aiohttp.access - INFO - ::1 [30/Sep/2025:19:17:05 +0400] "POST /execute HTTP/1.1" 200 15182 "-" "Python/3.13 aiohttp/3.10.5"
 2025-09-30 19:17:05,540 - aiohttp.access - INFO - ::1 [30/Sep/2025:19:17:05 +0400] "POST /execute HTTP/1.1" 200 13787 "-" "Python/3.13 aiohttp/3.10.5"
 2025-09-30 19:17:05,541 - aiohttp.access - INFO - ::1 [30/Sep/2025:19:17:05 +0400] "POST /execute HTTP/1.1" 200 664 "-" "Python/3.13 aiohttp/3.10.5"
+2025-09-30 19:17:05,576 - aiohttp.access - INFO - ::1 [30/Sep/2025:19:17:05 +0400] "POST /execute HTTP/1.1" 200 342 "-" "Python/3.13 aiohttp/3.10.5"
+2025-09-30 19:17:05,604 - aiohttp.access - INFO - ::1 [30/Sep/2025:19:17:05 +0400] "POST /execute HTTP/1.1" 200 633 "-" "Python/3.13 aiohttp/3.10.5"
+2025-09-30 19:30:02,219 - aiohttp.access - INFO - ::1 [30/Sep/2025:19:30:02 +0400] "GET /health HTTP/1.1" 200 457 "-" "curl/8.7.1"

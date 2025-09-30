@@ -13,6 +13,9 @@ from ..db import get_db
 from ..models import append_ledger_entry, User, UserRole
 from ..utils.ocr import ocr_processor
 from ..utils.monitoring import performance_metrics, system_health_monitor
+from ..utils.approval_queue import get_approval_queue, ApprovalItem, ApprovalType, ApprovalStatus
+from ..utils.exception_tracker import get_exception_tracker, ExceptionSeverity
+from ..utils.ml_performance import get_ml_performance_tracker
 from ..logging_config import get_logger
 from .auth import get_current_user
 
@@ -95,9 +98,22 @@ async def dashboard_data(
     system_metrics = system_health_monitor.get_system_metrics()
     uptime_info = system_health_monitor.get_uptime()
     
+    # Get real approval queue and exception data
+    approval_queue = get_approval_queue()
+    exception_tracker = get_exception_tracker()
+    ml_tracker = get_ml_performance_tracker()
+    
+    # Clean up expired approvals
+    approval_queue.cleanup_expired()
+    
+    # Get real ML performance metrics
+    ml_performance = ml_tracker.get_model_performance_summary()
+    overall_accuracy = ml_performance["overall"]["accuracy"]
+    overall_processing_time = ml_performance["overall"]["average_processing_time"]
+    
     return {
-        "approvals": [],  # TODO: Implement approval queue
-        "exceptions": [],  # TODO: Implement exception tracking
+        "approvals": approval_queue.get_pending_approvals(),
+        "exceptions": exception_tracker.get_recent_exceptions(24),
         "recent_entries": [
             {
                 "id": entry.id,
@@ -122,8 +138,9 @@ async def dashboard_data(
             "monthly_transaction_count": len(monthly_entries),
             "monthly_volume": total_monthly_volume,
             "transaction_categories": transaction_categories,
-            "ai_accuracy": 94.2,  # TODO: Calculate from ML model performance
-            "average_processing_time": 2.3  # TODO: Calculate from actual processing times
+            "ai_accuracy": overall_accuracy,
+            "average_processing_time": overall_processing_time,
+            "ml_performance": ml_performance
         },
         "system_health": {
             "performance": performance_stats,
@@ -136,6 +153,62 @@ async def dashboard_data(
             "ocr_engine_status": "ready"
         }
     }
+
+
+@router.post("/dashboard/approve/{item_id}")
+async def approve_item(
+    item_id: str,
+    current_user: User = Depends(get_current_user)
+):
+    """Approve a pending approval request"""
+    if not current_user.has_permission(UserRole.ORCHESTRATOR):
+        raise HTTPException(status_code=403, detail="Insufficient permissions")
+    
+    approval_queue = get_approval_queue()
+    success = approval_queue.approve_item(item_id, current_user.email)
+    
+    if success:
+        return {"status": "success", "message": "Item approved successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Approval item not found or already processed")
+
+
+@router.post("/dashboard/reject/{item_id}")
+async def reject_item(
+    item_id: str,
+    reason: str = Form(""),
+    current_user: User = Depends(get_current_user)
+):
+    """Reject a pending approval request"""
+    if not current_user.has_permission(UserRole.ORCHESTRATOR):
+        raise HTTPException(status_code=403, detail="Insufficient permissions")
+    
+    approval_queue = get_approval_queue()
+    success = approval_queue.reject_item(item_id, current_user.email, reason)
+    
+    if success:
+        return {"status": "success", "message": "Item rejected successfully"}
+    else:
+        raise HTTPException(status_code=404, detail="Approval item not found or already processed")
+
+
+@router.post("/dashboard/resolve-exception/{exc_id}")
+async def resolve_exception(
+    exc_id: str,
+    notes: str = Form(""),
+    current_user: User = Depends(get_current_user)
+):
+    """Mark an exception as resolved"""
+    if not current_user.has_permission(UserRole.ORCHESTRATOR):
+        raise HTTPException(status_code=403, detail="Insufficient permissions")
+    
+    exception_tracker = get_exception_tracker()
+    success = exception_tracker.resolve_exception(exc_id, current_user.email, notes)
+    
+    if success:
+        return {"status": "success", "message": "Exception marked as resolved"}
+    else:
+        raise HTTPException(status_code=404, detail="Exception not found")
 
 
 @router.post("/dashboard/realworld")
