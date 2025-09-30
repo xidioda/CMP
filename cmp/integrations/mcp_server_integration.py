@@ -267,20 +267,15 @@ class MCPServerIntegration:
                                        file_path: str, 
                                        enhancement_type: str = "optimization") -> Dict[str, Any]:
         """Use MCP Copilot server to enhance code"""
-        parameters = {
-            "file_path": file_path,
-            "enhancement_type": enhancement_type,
-            "preserve_functionality": True,
-            "add_documentation": True,
-            "improve_error_handling": True
-        }
-        
+        # Fix parameter names to match actual MCP server tool signatures
         if enhancement_type == "code_review":
             return await self.execute_tool("copilot_mcp", "code_review", {"file_path": file_path})
         elif enhancement_type == "refactoring":
             return await self.execute_tool("copilot_mcp", "suggest_refactoring", {"file_path": file_path})
         elif enhancement_type == "bug_detection":
             return await self.execute_tool("copilot_mcp", "detect_bugs", {"file_path": file_path})
+        elif enhancement_type == "optimization":
+            return await self.execute_tool("copilot_mcp", "optimize_code", {"file_path": file_path})
         else:
             return await self.execute_tool("copilot_mcp", "analyze_code", {"file_path": file_path})
     
@@ -288,8 +283,8 @@ class MCPServerIntegration:
                                     module_path: str, 
                                     test_types: List[str] = None) -> Dict[str, Any]:
         """Generate tests using MCP testing server"""
-        parameters = {"file_path": module_path}
-        return await self.execute_tool("testing_mcp", "discover_tests", parameters)
+        # Use the correct tool name for test generation
+        return await self.execute_tool("testing_mcp", "generate_tests", {"module_path": module_path})
     
     async def run_comprehensive_tests(self, 
                                      test_scope: str = "all") -> Dict[str, Any]:
@@ -303,17 +298,17 @@ class MCPServerIntegration:
                                     commit_message: str, 
                                     files_to_commit: List[str] = None) -> Dict[str, Any]:
         """Commit changes using MCP git server"""
-        # First add files
+        # First add files (use correct parameter names)
         if files_to_commit:
             add_result = await self.execute_tool("git_mcp", "git_add", {"files": files_to_commit})
         else:
-            add_result = await self.execute_tool("git_mcp", "git_add", {})
+            # Add all changes
+            add_result = await self.execute_tool("git_mcp", "git_add", {"files": ["."]})
         
         if add_result.get("success"):
-            # Then commit
+            # Then commit with correct parameter name
             return await self.execute_tool("git_mcp", "git_commit", {
-                "message": commit_message,
-                "author": "AI Agent"
+                "message": commit_message
             })
         else:
             return add_result

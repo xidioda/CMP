@@ -1,7 +1,25 @@
 """
-N8N Workflow Integration for AI Agents
-
-Simple integration that triggers N8N workflows for real automation tasks.
+N8N Workflow Integration for AI             # Perform REAL development work - first try to create actual N8N workflows
+            logger.info(f"🔄 Creating and executing REAL N8N workflow for {task_type}")
+            
+            # First, try to create the workflow in N8N
+            workflow_creation_result = await self._create_n8n_workflow(task_type, workflow_data)
+            if not workflow_creation_result.get('success'):
+                # Fallback to direct execution if N8N workflow creation fails
+                logger.warning(f"⚠️ N8N workflow creation failed, falling back to direct execution")
+                return await self._execute_fallback_workflow(task_type, task_details)
+            
+            workflow_id = workflow_creation_result.get('workflow_id')
+            
+            # Execute the workflow in N8N
+            execution_result = await self._execute_n8n_workflow(workflow_id, workflow_data)
+            if execution_result.get('success'):
+                logger.info(f"✅ N8N workflow {workflow_id} executed successfully for {task_type}")
+                return execution_result
+            else:
+                # Fallback to direct execution if N8N execution fails
+                logger.warning(f"⚠️ N8N workflow execution failed, using fallback")
+                return await self._execute_fallback_workflow(task_type, task_details) integration that triggers N8N workflows for real automation tasks.
 """
 
 import asyncio
@@ -107,6 +125,158 @@ class N8NWorkflowIntegration:
                 "success": False,
                 "error": f"N8N connection failed: {str(e)}"
             }
+
+    async def _create_n8n_workflow(self, task_type: str, workflow_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Create an actual N8N workflow for the task"""
+        try:
+            # Generate N8N workflow definition
+            workflow_definition = self._generate_workflow_definition(task_type, workflow_data)
+            
+            async with aiohttp.ClientSession() as session:
+                # Create workflow in N8N
+                async with session.post(
+                    f"{self.n8n_url}/api/v1/workflows",
+                    json=workflow_definition,
+                    timeout=aiohttp.ClientTimeout(total=30)
+                ) as response:
+                    
+                    if response.status == 200:
+                        created_workflow = await response.json()
+                        workflow_id = created_workflow.get('id')
+                        logger.info(f"✅ Created N8N workflow {workflow_id} for {task_type}")
+                        return {
+                            "success": True,
+                            "workflow_id": workflow_id,
+                            "workflow_name": workflow_definition['name']
+                        }
+                    else:
+                        error_text = await response.text()
+                        logger.error(f"❌ Failed to create N8N workflow: {response.status} - {error_text}")
+                        return {"success": False, "error": f"HTTP {response.status}: {error_text}"}
+                        
+        except Exception as e:
+            logger.error(f"❌ Error creating N8N workflow: {e}")
+            return {"success": False, "error": str(e)}
+
+    async def _execute_n8n_workflow(self, workflow_id: str, workflow_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Execute an N8N workflow"""
+        try:
+            async with aiohttp.ClientSession() as session:
+                # Execute workflow
+                async with session.post(
+                    f"{self.n8n_url}/api/v1/workflows/{workflow_id}/execute",
+                    json={"data": workflow_data},
+                    timeout=aiohttp.ClientTimeout(total=60)
+                ) as response:
+                    
+                    if response.status == 200:
+                        execution_data = await response.json()
+                        logger.info(f"✅ N8N workflow {workflow_id} executed successfully")
+                        return {
+                            "success": True,
+                            "execution_id": execution_data.get('id'),
+                            "workflow_id": workflow_id,
+                            "status": "completed"
+                        }
+                    else:
+                        error_text = await response.text()
+                        return {"success": False, "error": f"HTTP {response.status}: {error_text}"}
+                        
+        except Exception as e:
+            logger.error(f"❌ Error executing N8N workflow: {e}")
+            return {"success": False, "error": str(e)}
+
+    def _generate_workflow_definition(self, task_type: str, workflow_data: Dict[str, Any]) -> Dict[str, Any]:
+        """Generate N8N workflow definition for the task"""
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        
+        # Base workflow structure
+        workflow = {
+            "name": f"AI_{task_type}_{timestamp}",
+            "active": True,
+            "nodes": [
+                {
+                    "id": "start",
+                    "name": "Start",
+                    "type": "n8n-nodes-base.start",
+                    "position": [100, 100],
+                    "parameters": {}
+                }
+            ],
+            "connections": {},
+            "settings": {
+                "executionOrder": "v1"
+            }
+        }
+        
+        # Add task-specific nodes
+        if task_type == "git_operations":
+            workflow["nodes"].extend([
+                {
+                    "id": "git_status",
+                    "name": "Check Git Status",
+                    "type": "n8n-nodes-base.executeCommand",
+                    "position": [300, 100],
+                    "parameters": {
+                        "command": "git status --porcelain"
+                    }
+                },
+                {
+                    "id": "git_commit",
+                    "name": "Git Commit",
+                    "type": "n8n-nodes-base.executeCommand",
+                    "position": [500, 100],
+                    "parameters": {
+                        "command": f"git add . && git commit -m '{workflow_data.get('task_details', {}).get('commit_message', 'AI autonomous development')}'"
+                    }
+                }
+            ])
+            workflow["connections"] = {
+                "Start": {"main": [[{"node": "Check Git Status", "type": "main", "index": 0}]]},
+                "Check Git Status": {"main": [[{"node": "Git Commit", "type": "main", "index": 0}]]}
+            }
+        elif task_type == "system_optimization":
+            workflow["nodes"].extend([
+                {
+                    "id": "cleanup_logs",
+                    "name": "Cleanup Log Files",
+                    "type": "n8n-nodes-base.executeCommand",
+                    "position": [300, 100],
+                    "parameters": {
+                        "command": "find logs/ -name '*.gz' -mtime +7 -delete"
+                    }
+                },
+                {
+                    "id": "optimize_imports",
+                    "name": "Optimize Python Imports",
+                    "type": "n8n-nodes-base.executeCommand",
+                    "position": [500, 100],
+                    "parameters": {
+                        "command": "python -m isort . --profile black"
+                    }
+                }
+            ])
+            workflow["connections"] = {
+                "Start": {"main": [[{"node": "Cleanup Log Files", "type": "main", "index": 0}]]},
+                "Cleanup Log Files": {"main": [[{"node": "Optimize Python Imports", "type": "main", "index": 0}]]}
+            }
+        
+        return workflow
+
+    async def _execute_fallback_workflow(self, task_type: str, task_details: Dict[str, Any]) -> Dict[str, Any]:
+        """Fallback execution when N8N is unavailable"""
+        logger.info(f"🔧 Executing fallback workflow for {task_type}")
+        
+        if task_type == "git_operations":
+            return await self._execute_git_operations(task_details)
+        elif task_type == "system_optimization":
+            return await self._execute_system_optimization(task_details)
+        elif task_type == "testing":
+            return await self._execute_testing(task_details)
+        elif task_type == "completion":
+            return await self._execute_completion(task_details)
+        else:
+            return await self._execute_generic_workflow(task_type, {"task_details": task_details})
 
     async def _execute_git_operations(self, task_details: Dict[str, Any]) -> Dict[str, Any]:
         """Execute real Git operations"""

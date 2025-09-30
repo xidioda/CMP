@@ -398,3 +398,15 @@
 2025-09-30 13:06:04,705 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:06:04 +0400] "POST /execute HTTP/1.1" 200 578 "-" "Python/3.13 aiohttp/3.10.5"
 2025-09-30 13:06:04,738 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:06:04 +0400] "POST /execute HTTP/1.1" 200 338 "-" "Python/3.13 aiohttp/3.10.5"
 2025-09-30 13:06:04,763 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:06:04 +0400] "POST /execute HTTP/1.1" 200 542 "-" "Python/3.13 aiohttp/3.10.5"
+2025-09-30 13:22:58,918 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:22:58 +0400] "GET /capabilities HTTP/1.1" 200 774 "-" "curl/8.7.1"
+2025-09-30 13:23:11,916 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:23:11 +0400] "GET /capabilities HTTP/1.1" 200 818 "-" "curl/8.7.1"
+2025-09-30 13:23:22,153 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:23:22 +0400] "GET /capabilities HTTP/1.1" 200 807 "-" "curl/8.7.1"
+2025-09-30 13:23:38,309 - base_mcp_server - ERROR - Error executing tool: FilesystemMCPServer.list_directory() got an unexpected keyword argument 'path'
+2025-09-30 13:23:38,315 - base_mcp_server - ERROR - Traceback: Traceback (most recent call last):
+  File "/Users/xidioda/Projects/CMP/mcp_servers/base_mcp_server.py", line 92, in execute_tool
+    result = await tool_func(**parameters)
+                   ~~~~~~~~~^^^^^^^^^^^^^^
+TypeError: FilesystemMCPServer.list_directory() got an unexpected keyword argument 'path'
+
+2025-09-30 13:23:38,315 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:23:38 +0400] "POST /execute HTTP/1.1" 500 617 "-" "curl/8.7.1"
+2025-09-30 13:27:16,764 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:27:16 +0400] "POST /execute HTTP/1.1" 200 2644 "-" "curl/8.7.1"
