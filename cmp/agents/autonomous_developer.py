@@ -702,9 +702,9 @@ Please complete the TODO items and incomplete features in the codebase:
                     if successful_tasks:
                         await github_project_manager.update_task_progress(
                             issue_number=issue_number,
-                            progress_percentage=90,
-                            status="completed",
-                            update_message="Real autonomous development work completed"
+                            progress_update="Real autonomous development work completed",
+                            completion_percentage=90,
+                            status="completed"
                         )
                     
                     logger.info(f"✅ Updated GitHub issue #{issue_number} with real development progress")
@@ -762,9 +762,13 @@ async def trigger_agent_manually(agent_name: str, current_user: dict = Depends(g
                 "content": api_code
             })
             
+            logger.info(f"🔧 MCP write_file result: {write_result}")
+            
             if write_result.get('success'):
                 features_created.append("autonomous_status_api")
                 logger.info("✅ Created autonomous status API endpoint")
+            else:
+                logger.error(f"❌ Failed to create autonomous status API: {write_result}")
             
             # 2. Create a utility for automated code documentation
             logger.info("📚 Creating automated documentation generator...")
@@ -843,13 +847,17 @@ auto_doc_generator = AutoDocGenerator("/Users/xidioda/Projects/CMP")
 '''
             
             doc_write_result = await mcp_integration.execute_tool("filesystem_mcp", "write_file", {
-                "file_path": "cmp/utils/auto_doc_generator.py", 
+                "file_path": "cmp/utils/auto_doc_generator.py",
                 "content": doc_generator_code
             })
             
+            logger.info(f"🔧 MCP doc generator result: {doc_write_result}")
+            
             if doc_write_result.get('success'):
-                features_created.append("auto_documentation_generator")
+                features_created.append("documentation_generator")
                 logger.info("✅ Created automated documentation generator")
+            else:
+                logger.error(f"❌ Failed to create documentation generator: {doc_write_result}")
             
             # 3. Create monitoring dashboard data collector
             logger.info("📊 Creating monitoring dashboard collector...")

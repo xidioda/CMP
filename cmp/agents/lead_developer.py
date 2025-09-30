@@ -1082,9 +1082,9 @@ This is REAL work performed by the Lead Developer Agent, not simulation!
                 # Update issue progress
                 await github_project_manager.update_task_progress(
                     issue_number=issue_number,
-                    progress_percentage=85,
-                    status="in_progress" if status != "completed" else "completed",
-                    update_message=f"Autonomous execution: {status}"
+                    progress_update=f"Autonomous execution: {status}",
+                    completion_percentage=85,
+                    status="in_progress" if status != "completed" else "completed"
                 )
                 
                 logger.info(f"✅ Updated GitHub issue #{issue_number} with real progress for {task_type}")

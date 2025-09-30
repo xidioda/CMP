@@ -1,5 +1,26 @@
 """
-N8N Workflow Integration for AI             # Perform REAL development work - first try to create actual N8N workflows
+N8N Workflow Integration for AI             # Perf            # Create and execute REAL N8N workflows
+            logger.info(f"🔄 Creating and executing REAL N8N workflow for {task_type}")
+            
+            # First, try to create and execute the workflow in N8N
+            workflow_creation_result = await self._create_n8n_workflow(task_type, workflow_data)
+            if not workflow_creation_result.get('success'):
+                # Fallback to direct execution if N8N workflow creation fails
+                logger.warning(f"⚠️ N8N workflow creation failed, falling back to direct execution: {workflow_creation_result.get('error')}")
+                return await self._execute_fallback_workflow(task_type, task_details)
+            
+            workflow_id = workflow_creation_result.get('workflow_id')
+            logger.info(f"✅ Created N8N workflow {workflow_id} for {task_type}")
+            
+            # Execute the workflow in N8N
+            execution_result = await self._execute_n8n_workflow(workflow_id, workflow_data)
+            if execution_result.get('success'):
+                logger.info(f"✅ N8N workflow {workflow_id} executed successfully for {task_type}")
+                return execution_result
+            else:
+                # Fallback to direct execution if N8N execution fails
+                logger.warning(f"⚠️ N8N workflow execution failed, using fallback: {execution_result.get('error')}")
+                return await self._execute_fallback_workflow(task_type, task_details)opment work - first try to create actual N8N workflows
             logger.info(f"🔄 Creating and executing REAL N8N workflow for {task_type}")
             
             # First, try to create the workflow in N8N

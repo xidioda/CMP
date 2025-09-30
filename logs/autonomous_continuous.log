@@ -828,3 +828,60 @@ connector: <aiohttp.connector.TCPConnector object at 0x10fdb5350>
 2025-09-30 17:34:28,469 - cmp.agents.autonomous_developer - INFO - 🛡️ Improving error handling in agents...
 2025-09-30 17:34:28,497 - cmp.agents.autonomous_developer - INFO - 🗄️ Analyzing database operations...
 2025-09-30 17:34:28,498 - cmp.agents.autonomous_developer - INFO - 💾 Committing changes via MCP git server...
+2025-09-30 17:34:28,546 - cmp.agents.autonomous_developer - INFO - ✅ Real development work completed: 3/4 tasks successful
+2025-09-30 17:34:43,552 - urllib3.connectionpool - WARNING - Retrying (GithubRetry(total=9, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ReadTimeoutError("HTTPSConnectionPool(host='api.github.com', port=443): Read timed out. (read timeout=15)")': /repos/xidioda/CMP/issues/124
+2025-09-30 17:34:45,092 - cmp.agents.autonomous_developer - ERROR - ❌ Failed to update GitHub issues with progress: GitHubProjectManager.update_task_progress() got an unexpected keyword argument 'progress_percentage'
+2025-09-30 17:34:45,096 - cmp.utils.autonomous_scheduler - INFO - ⚡ autonomous_developer: Completed execution - unknown - Real work: False
+2025-09-30 17:39:45,105 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 17:39:45,107 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 17:39:45,107 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 17:39:45,108 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 17:39:45,108 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 17:39:45,108 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 17:39:45,108 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 17:39:45,108 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 17:39:45,108 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 17:44:45,112 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 17:44:45,113 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 17:44:45,113 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 17:44:45,114 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 17:44:45,114 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 17:44:45,115 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 17:44:45,115 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 17:44:45,115 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 17:44:45,115 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 17:57:26,160 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 17:57:26,165 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 17:57:26,166 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 17:57:26,166 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 17:57:26,166 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 17:57:26,166 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 17:57:26,166 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 17:57:26,166 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 17:57:26,167 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 18:02:26,216 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 18:02:26,219 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 18:02:26,220 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 18:02:26,220 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 18:02:26,220 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 18:02:26,220 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 18:02:26,220 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 18:02:26,220 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 18:02:26,220 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 18:07:26,227 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n_workflow) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n_workflow.json
+2025-09-30 18:07:26,244 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-30T11:15:17.770270
+2025-09-30 18:07:26,244 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(git_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_git_operations.json
+2025-09-30 18:07:26,246 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.042501
+2025-09-30 18:07:26,246 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(file_operations) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_file_operations.json
+2025-09-30 18:07:26,248 - cmp.agents.lead_developer - INFO - 🔍 File exists, timestamp from file: 2025-09-25T08:52:39.043434
+2025-09-30 18:07:26,249 - cmp.agents.lead_developer - INFO - 🔍 _get_last_execution(n8n) -> checking file: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 18:07:26,249 - cmp.agents.lead_developer - INFO - 🔍 File does not exist: /Users/xidioda/Projects/CMP/local_storage/task_progress_n8n.json
+2025-09-30 18:07:26,249 - cmp.agents.lead_developer - INFO - 🔍 Returning 'Never executed' for n8n
+2025-09-30 18:07:26,252 - cmp.utils.autonomous_scheduler - INFO - 🔧 lead_developer: Executing 4 overdue tasks using REAL MCP tools
+2025-09-30 18:07:26,254 - cmp.agents.lead_developer - INFO - 🤖 Lead Developer executing INTELLIGENT autonomous work cycle...
+2025-09-30 18:07:26,256 - cmp.agents.lead_developer - INFO - 🚀 Starting autonomous work cycle...
+2025-09-30 18:07:26,258 - cmp.agents.lead_developer - INFO - 🧠 Lead Developer analyzing project needs...
+2025-09-30 18:07:26,789 - cmp.agents.lead_developer - INFO - ⚡ Executing urgent task: Commit pending changes
+2025-09-30 18:07:26,789 - cmp.utils.task_execution_engine - INFO - 🚀 Executing task git_commit_20250930_1807 (git_operations) with real automation
+2025-09-30 18:07:26,789 - cmp.utils.task_execution_engine - INFO - 📋 Attempting N8N workflow execution for git_operations
+2025-09-30 18:07:26,789 - cmp.integrations.n8n_workflow_integration - INFO - � Executing REAL N8N workflow for git_operations
