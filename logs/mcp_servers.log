@@ -410,3 +410,126 @@ TypeError: FilesystemMCPServer.list_directory() got an unexpected keyword argume
 
 2025-09-30 13:23:38,315 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:23:38 +0400] "POST /execute HTTP/1.1" 500 617 "-" "curl/8.7.1"
 2025-09-30 13:27:16,764 - aiohttp.access - INFO - ::1 [30/Sep/2025:13:27:16 +0400] "POST /execute HTTP/1.1" 200 2644 "-" "curl/8.7.1"
+2025-09-30 14:44:36,709 - __main__ - INFO - Received shutdown signal
+2025-09-30 14:44:42,355 - __main__ - INFO - 🛑 Shutting down MCP servers...
+2025-09-30 14:44:42,367 - __main__ - INFO - ✅ All MCP servers stopped
+2025-09-30 14:44:52,367 - __main__ - INFO - 🛑 Shutting down MCP servers...
+2025-09-30 14:44:52,370 - __main__ - INFO - ✅ All MCP servers stopped
+2025-09-30 14:44:59,552 - __main__ - INFO - 🚀 Starting MCP Server Infrastructure
+2025-09-30 14:44:59,552 - __main__ - INFO - ============================================================
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered tool 'read_file' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered tool 'write_file' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered tool 'list_directory' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered tool 'create_directory' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered tool 'file_exists' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered tool 'get_file_info' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered tool 'search_files' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered tool 'analyze_codebase' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered capability 'file_reading' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered capability 'file_writing' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered capability 'directory_operations' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered capability 'file_analysis' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - Registered capability 'code_search' in filesystem_mcp
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - 🚀 Starting filesystem_mcp on port 8001
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - 📋 Description: Filesystem operations for autonomous development
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - 🔧 Tools: ['read_file', 'write_file', 'list_directory', 'create_directory', 'file_exists', 'get_file_info', 'search_files', 'analyze_codebase']
+2025-09-30 14:44:59,553 - base_mcp_server - INFO - ⚡ Capabilities: ['file_reading', 'file_writing', 'directory_operations', 'file_analysis', 'code_search']
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - ✅ filesystem_mcp running on http://localhost:8001
+2025-09-30 14:44:59,556 - __main__ - INFO - ✅ filesystem_mcp started on port 8001
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_status' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_add' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_commit' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_push' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_pull' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_log' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_diff' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_branch' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'git_stash' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered tool 'analyze_changes' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered capability 'repository_status' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered capability 'commit_operations' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered capability 'branch_management' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered capability 'remote_operations' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - Registered capability 'history_analysis' in git_mcp
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - 🚀 Starting git_mcp on port 8002
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - 📋 Description: Git repository operations for autonomous development
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - 🔧 Tools: ['git_status', 'git_add', 'git_commit', 'git_push', 'git_pull', 'git_log', 'git_diff', 'git_branch', 'git_stash', 'analyze_changes']
+2025-09-30 14:44:59,556 - base_mcp_server - INFO - ⚡ Capabilities: ['repository_status', 'commit_operations', 'branch_management', 'remote_operations', 'history_analysis']
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - ✅ git_mcp running on http://localhost:8002
+2025-09-30 14:44:59,557 - __main__ - INFO - ✅ git_mcp started on port 8002
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered tool 'execute_query' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered tool 'get_schema' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered tool 'get_tables' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered tool 'get_table_info' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered tool 'backup_database' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered tool 'analyze_performance' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered tool 'get_table_stats' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered tool 'validate_data' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered capability 'schema_analysis' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered capability 'data_operations' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered capability 'performance_analysis' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered capability 'backup_operations' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - Registered capability 'migration_support' in database_mcp
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - 🚀 Starting database_mcp on port 8003
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - 📋 Description: Database operations for autonomous development
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - 🔧 Tools: ['execute_query', 'get_schema', 'get_tables', 'get_table_info', 'backup_database', 'analyze_performance', 'get_table_stats', 'validate_data']
+2025-09-30 14:44:59,557 - base_mcp_server - INFO - ⚡ Capabilities: ['schema_analysis', 'data_operations', 'performance_analysis', 'backup_operations', 'migration_support']
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - ✅ database_mcp running on http://localhost:8003
+2025-09-30 14:44:59,558 - __main__ - INFO - ✅ database_mcp started on port 8003
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered tool 'analyze_code' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered tool 'generate_code' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered tool 'suggest_refactoring' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered tool 'generate_tests' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered tool 'generate_docs' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered tool 'detect_bugs' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered tool 'code_review' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered tool 'optimize_code' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered capability 'code_generation' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered capability 'code_analysis' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered capability 'refactoring' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered capability 'documentation' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - Registered capability 'bug_detection' in copilot_mcp
+2025-09-30 14:44:59,558 - base_mcp_server - INFO - 🚀 Starting copilot_mcp on port 8004
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - 📋 Description: AI-powered development assistance for autonomous coding
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - 🔧 Tools: ['analyze_code', 'generate_code', 'suggest_refactoring', 'generate_tests', 'generate_docs', 'detect_bugs', 'code_review', 'optimize_code']
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - ⚡ Capabilities: ['code_generation', 'code_analysis', 'refactoring', 'documentation', 'bug_detection']
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - ✅ copilot_mcp running on http://localhost:8004
+2025-09-30 14:44:59,559 - __main__ - INFO - ✅ copilot_mcp started on port 8004
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered tool 'run_tests' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered tool 'run_specific_test' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered tool 'generate_test_report' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered tool 'check_coverage' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered tool 'discover_tests' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered tool 'validate_test_setup' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered tool 'run_linting' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered tool 'benchmark_code' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered capability 'test_execution' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered capability 'test_generation' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered capability 'coverage_analysis' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered capability 'performance_testing' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - Registered capability 'test_reporting' in testing_mcp
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - 🚀 Starting testing_mcp on port 8005
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - 📋 Description: Testing operations for autonomous development
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - 🔧 Tools: ['run_tests', 'run_specific_test', 'generate_test_report', 'check_coverage', 'discover_tests', 'validate_test_setup', 'run_linting', 'benchmark_code']
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - ⚡ Capabilities: ['test_execution', 'test_generation', 'coverage_analysis', 'performance_testing', 'test_reporting']
+2025-09-30 14:44:59,559 - base_mcp_server - INFO - ✅ testing_mcp running on http://localhost:8005
+2025-09-30 14:44:59,560 - __main__ - INFO - ✅ testing_mcp started on port 8005
+2025-09-30 14:44:59,560 - __main__ - INFO - ============================================================
+2025-09-30 14:44:59,560 - __main__ - INFO - 🎯 MCP Infrastructure Status:
+2025-09-30 14:44:59,560 - __main__ - INFO -    • Total servers: 5
+2025-09-30 14:44:59,560 - __main__ - INFO -    • Successful starts: 5
+2025-09-30 14:44:59,560 - __main__ - INFO -    • Available capabilities:
+2025-09-30 14:44:59,560 - __main__ - INFO -      - filesystem_mcp (8001): Filesystem operations for autonomous development
+2025-09-30 14:44:59,560 - __main__ - INFO -        Tools: read_file, write_file, list_directory, create_directory, file_exists, get_file_info, search_files, analyze_codebase
+2025-09-30 14:44:59,560 - __main__ - INFO -      - git_mcp (8002): Git repository operations for autonomous development
+2025-09-30 14:44:59,560 - __main__ - INFO -        Tools: git_status, git_add, git_commit, git_push, git_pull, git_log, git_diff, git_branch, git_stash, analyze_changes
+2025-09-30 14:44:59,560 - __main__ - INFO -      - database_mcp (8003): Database operations for autonomous development
+2025-09-30 14:44:59,560 - __main__ - INFO -        Tools: execute_query, get_schema, get_tables, get_table_info, backup_database, analyze_performance, get_table_stats, validate_data
+2025-09-30 14:44:59,560 - __main__ - INFO -      - copilot_mcp (8004): AI-powered development assistance for autonomous coding
+2025-09-30 14:44:59,560 - __main__ - INFO -        Tools: analyze_code, generate_code, suggest_refactoring, generate_tests, generate_docs, detect_bugs, code_review, optimize_code
+2025-09-30 14:44:59,560 - __main__ - INFO -      - testing_mcp (8005): Testing operations for autonomous development
+2025-09-30 14:44:59,560 - __main__ - INFO -        Tools: run_tests, run_specific_test, generate_test_report, check_coverage, discover_tests, validate_test_setup, run_linting, benchmark_code
+2025-09-30 14:44:59,560 - __main__ - INFO - ============================================================
+2025-09-30 14:44:59,560 - __main__ - INFO - 🔧 MCP servers ready for autonomous AI development!
+2025-09-30 14:44:59,560 - __main__ - INFO - 💡 Autonomous agents can now use sophisticated development tools
+2025-09-30 14:44:59,560 - __main__ - INFO - 🔄 MCP servers running... Press Ctrl+C to stop
