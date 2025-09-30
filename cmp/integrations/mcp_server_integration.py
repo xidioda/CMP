@@ -51,35 +51,35 @@ class MCPServerIntegration:
             MCPServer(
                 name="filesystem_mcp",
                 type=MCPServerType.FILESYSTEM,
-                url="ws://localhost",
+                url="http://localhost",
                 port=8001,
                 capabilities=["read_file", "write_file", "list_directory", "file_operations"]
             ),
             MCPServer(
                 name="git_mcp", 
                 type=MCPServerType.GIT,
-                url="ws://localhost",
+                url="http://localhost",
                 port=8002,
                 capabilities=["git_status", "git_commit", "git_push", "git_branch", "git_merge"]
             ),
             MCPServer(
                 name="database_mcp",
                 type=MCPServerType.DATABASE,
-                url="ws://localhost", 
+                url="http://localhost", 
                 port=8003,
                 capabilities=["query_database", "update_schema", "backup_data", "migration"]
             ),
             MCPServer(
                 name="copilot_mcp",
                 type=MCPServerType.COPILOT,
-                url="ws://localhost",
+                url="http://localhost",
                 port=8004,
                 capabilities=["code_generation", "code_review", "refactoring", "documentation"]
             ),
             MCPServer(
                 name="testing_mcp",
                 type=MCPServerType.TESTING,
-                url="ws://localhost",
+                url="http://localhost",
                 port=8005,
                 capabilities=["run_tests", "generate_tests", "coverage_analysis", "test_reporting"]
             )

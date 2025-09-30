@@ -561,3 +561,16 @@ TypeError: FilesystemMCPServer.list_directory() got an unexpected keyword argume
 2025-09-30 17:28:25,317 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:28:25 +0400] "POST /execute HTTP/1.1" 200 15121 "-" "Python/3.13 aiohttp/3.10.5"
 2025-09-30 17:28:25,323 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:28:25 +0400] "POST /execute HTTP/1.1" 200 12764 "-" "Python/3.13 aiohttp/3.10.5"
 2025-09-30 17:28:25,324 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:28:25 +0400] "POST /execute HTTP/1.1" 200 664 "-" "Python/3.13 aiohttp/3.10.5"
+2025-09-30 17:28:25,343 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:28:25 +0400] "POST /execute HTTP/1.1" 200 342 "-" "Python/3.13 aiohttp/3.10.5"
+2025-09-30 17:28:25,364 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:28:25 +0400] "POST /execute HTTP/1.1" 200 485 "-" "Python/3.13 aiohttp/3.10.5"
+2025-09-30 17:29:42,915 - base_mcp_server - ERROR - Error executing tool: FilesystemMCPServer.write_file() got an unexpected keyword argument 'filepath'. Did you mean 'file_path'?
+2025-09-30 17:29:42,924 - base_mcp_server - ERROR - Traceback: Traceback (most recent call last):
+  File "/Users/xidioda/Projects/CMP/mcp_servers/base_mcp_server.py", line 92, in execute_tool
+    result = await tool_func(**parameters)
+                   ~~~~~~~~~^^^^^^^^^^^^^^
+TypeError: FilesystemMCPServer.write_file() got an unexpected keyword argument 'filepath'. Did you mean 'file_path'?
+
+2025-09-30 17:29:42,925 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:29:42 +0400] "POST /execute HTTP/1.1" 500 671 "-" "curl/8.7.1"
+2025-09-30 17:30:01,575 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:30:01 +0400] "POST /execute HTTP/1.1" 200 356 "-" "curl/8.7.1"
+2025-09-30 17:32:57,258 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:32:57 +0400] "POST /execute HTTP/1.1" 200 359 "-" "Python/3.13 aiohttp/3.10.5"
+2025-09-30 17:33:27,053 - aiohttp.access - INFO - ::1 [30/Sep/2025:17:33:27 +0400] "POST /execute HTTP/1.1" 200 359 "-" "Python/3.13 aiohttp/3.10.5"
