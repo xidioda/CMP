@@ -1080,7 +1080,7 @@ This is REAL work performed by the Lead Developer Agent, not simulation!
                 await github_project_manager.add_comment_to_issue(issue_number, comment)
                 
                 # Update issue progress
-                await github_project_manager.update_issue_progress(
+                await github_project_manager.update_task_progress(
                     issue_number=issue_number,
                     progress_percentage=85,
                     status="in_progress" if status != "completed" else "completed",

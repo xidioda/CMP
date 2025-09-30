@@ -700,7 +700,7 @@ Please complete the TODO items and incomplete features in the codebase:
                     
                     # Update issue status if tasks were successful
                     if successful_tasks:
-                        await github_project_manager.update_issue_progress(
+                        await github_project_manager.update_task_progress(
                             issue_number=issue_number,
                             progress_percentage=90,
                             status="completed",
