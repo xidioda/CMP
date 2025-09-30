@@ -544,6 +544,89 @@ class GitHubProjectManager:
         except Exception as e:
             logger.error(f"❌ Failed to update labels on issue #{issue_number}: {e}")
             return {"success": False, "error": str(e)}
+    
+    async def get_open_issues(self) -> List[Dict[str, Any]]:
+        """Get all open issues from the repository"""
+        try:
+            if not self.repo:
+                return []
+            
+            open_issues = []
+            issues = self.repo.get_issues(state='open')
+            
+            for issue in issues:
+                if not issue.pull_request:  # Filter out pull requests
+                    open_issues.append({
+                        "number": issue.number,
+                        "title": issue.title,
+                        "body": issue.body,
+                        "created_at": issue.created_at.isoformat(),
+                        "updated_at": issue.updated_at.isoformat(),
+                        "labels": [{"name": label.name, "color": label.color} for label in issue.labels],
+                        "assignees": [{"login": assignee.login} for assignee in issue.assignees],
+                        "state": issue.state,
+                        "url": issue.html_url
+                    })
+            
+            logger.info(f"📊 Found {len(open_issues)} open issues")
+            return open_issues
+            
+        except Exception as e:
+            logger.error(f"❌ Failed to get open issues: {e}")
+            return []
+    
+    async def assign_issue_to_autonomous_agent(
+        self, 
+        issue_number: int, 
+        agent_name: str,
+        work_description: str = "Autonomous development work"
+    ) -> Dict[str, Any]:
+        """Assign an issue to an autonomous agent and start work"""
+        try:
+            if not self.repo:
+                return {"success": False, "error": "GitHub not configured"}
+            
+            issue = self.repo.get_issue(issue_number)
+            
+            # Add autonomous agent label
+            agent_label = f"agent-{agent_name}"
+            try:
+                # Create label if it doesn't exist
+                label = self.repo.get_label(agent_label)
+            except:
+                label = self.repo.create_label(
+                    name=agent_label,
+                    color="00ff00",
+                    description=f"Assigned to {agent_name} autonomous agent"
+                )
+            
+            issue.add_to_labels(label)
+            
+            # Add progress comment
+            comment = f"""🤖 **Autonomous Agent Assignment**
+
+**Agent:** {agent_name}
+**Work Description:** {work_description}
+**Assigned:** {datetime.now().isoformat()}
+
+This issue has been assigned to an autonomous AI agent for development work. Progress will be tracked automatically.
+
+---
+*This assignment was made automatically by the autonomous development system.*
+"""
+            issue.create_comment(comment)
+            
+            logger.info(f"✅ Assigned issue #{issue_number} to agent {agent_name}")
+            return {
+                "success": True,
+                "issue_number": issue_number,
+                "agent": agent_name,
+                "assigned_at": datetime.now().isoformat()
+            }
+            
+        except Exception as e:
+            logger.error(f"❌ Failed to assign issue #{issue_number} to agent {agent_name}: {e}")
+            return {"success": False, "error": str(e)}
 
 # Global instance
 github_project_manager = GitHubProjectManager()

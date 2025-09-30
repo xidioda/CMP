@@ -1194,60 +1194,98 @@ This task is being executed autonomously by the Lead Developer AI agent. Progres
             return {"success": False, "github_tracking": False, "error": str(e)}
 
     async def analyze_project_needs(self) -> Dict[str, Any]:
-        """Analyze the actual project state and determine what real work needs to be done"""
+        """Analyze GitHub issues and determine what real work needs to be done"""
         try:
-            logger.info("🧠 Lead Developer analyzing project needs...")
+            logger.info("🧠 Lead Developer analyzing GitHub issues and project needs...")
+            
+            # Get open GitHub issues
+            open_issues = await github_project_manager.get_open_issues()
             
             issues_identified = []
-            recommendations = []
             urgent_tasks = []
+            routine_tasks = []
             
-            # Check for actual code issues
-            python_files_with_issues = []
+            # Categorize issues by priority and type
+            high_priority_issues = []
+            medium_priority_issues = []
+            low_priority_issues = []
             
-            # Scan for common code issues
-            import os
-            import ast
+            for issue in open_issues:
+                labels = [label["name"] for label in issue.get("labels", [])]
+                
+                # Check if already assigned to an agent
+                agent_assigned = any(label.startswith("agent-") for label in labels)
+                
+                # Determine priority
+                if any(priority in labels for priority in ["priority-high", "urgent", "critical"]):
+                    if not agent_assigned:
+                        high_priority_issues.append(issue)
+                        urgent_tasks.append({
+                            "id": f"github_issue_{issue['number']}",
+                            "title": f"Work on Issue #{issue['number']}: {issue['title']}",
+                            "description": issue['body'] or "No description provided",
+                            "type": "github_issue_resolution",
+                            "github_issue_number": issue['number'],
+                            "priority": "high",
+                            "agent": "lead_developer"
+                        })
+                elif any(priority in labels for priority in ["priority-medium", "enhancement"]):
+                    if not agent_assigned:
+                        medium_priority_issues.append(issue)
+                        routine_tasks.append({
+                            "id": f"github_issue_{issue['number']}",
+                            "title": f"Work on Issue #{issue['number']}: {issue['title']}",
+                            "description": issue['body'] or "No description provided", 
+                            "type": "github_issue_resolution",
+                            "github_issue_number": issue['number'],
+                            "priority": "medium",
+                            "agent": "lead_developer"
+                        })
+                else:
+                    if not agent_assigned:
+                        low_priority_issues.append(issue)
             
-            workspace_path = "/Users/xidioda/Projects/CMP"
+            # Assign issues to autonomous agents if not already assigned
+            newly_assigned = 0
+            for issue in high_priority_issues[:3]:  # Assign up to 3 high priority issues
+                assign_result = await github_project_manager.assign_issue_to_autonomous_agent(
+                    issue['number'],
+                    'autonomous_developer',
+                    f"High priority issue auto-assigned for autonomous development work"
+                )
+                if assign_result.get('success'):
+                    newly_assigned += 1
+                    logger.info(f"✅ Auto-assigned high priority issue #{issue['number']} to autonomous agent")
             
-            # Check for Python files with potential issues
-            for root, dirs, files in os.walk(workspace_path):
-                # Skip unnecessary directories
-                if any(skip in root for skip in ['__pycache__', '.git', 'node_modules', '.venv', 'venv']):
-                    continue
-                    
-                for file in files:
-                    if file.endswith('.py'):
-                        file_path = os.path.join(root, file)
-                        try:
-                            with open(file_path, 'r', encoding='utf-8') as f:
-                                content = f.read()
-                            
-                            # Check for potential issues
-                            lines = content.split('\n')
-                            
-                            # Look for TODO comments
-                            todos = [i+1 for i, line in enumerate(lines) if 'TODO' in line.upper() or 'FIXME' in line.upper()]
-                            if todos:
-                                issues_identified.append(f"TODO/FIXME comments in {file} (lines: {todos[:3]})")
-                            
-                            # Check for long functions (basic heuristic)
-                            try:
-                                tree = ast.parse(content)
-                                for node in ast.walk(tree):
-                                    if isinstance(node, ast.FunctionDef):
-                                        func_lines = node.end_lineno - node.lineno if hasattr(node, 'end_lineno') else 0
-                                        if func_lines > 50:
-                                            issues_identified.append(f"Long function '{node.name}' in {file} ({func_lines} lines)")
-                            except:
-                                pass
-                                
-                        except Exception as e:
-                            continue
+            # Create summary
+            project_health_score = min(100, max(0, 100 - (len(high_priority_issues) * 20) - (len(medium_priority_issues) * 5)))
             
-            # Check for outdated dependencies
-            requirements_file = os.path.join(workspace_path, 'requirements.txt')
+            logger.info(f"📊 Analysis complete: {len(open_issues)} total issues, {len(high_priority_issues)} high priority, {newly_assigned} newly assigned")
+            
+            return {
+                "success": True,
+                "total_issues": len(open_issues),
+                "high_priority_issues": len(high_priority_issues),
+                "medium_priority_issues": len(medium_priority_issues),
+                "low_priority_issues": len(low_priority_issues),
+                "newly_assigned_issues": newly_assigned,
+                "urgent_tasks": urgent_tasks[:2],  # Limit to 2 urgent tasks per cycle
+                "routine_tasks": routine_tasks[:3],  # Limit to 3 routine tasks
+                "project_health_score": project_health_score,
+                "issues_identified": [f"GitHub Issue #{issue['number']}: {issue['title']}" for issue in high_priority_issues[:5]],
+                "analysis_timestamp": datetime.now().isoformat(),
+                "real_github_analysis": True
+            }
+            
+        except Exception as e:
+            logger.error(f"❌ Error analyzing project needs: {e}")
+            return {
+                "success": False,
+                "error": str(e),
+                "urgent_tasks": [],
+                "routine_tasks": [],
+                "project_health_score": 50
+            }
             if os.path.exists(requirements_file):
                 issues_identified.append("Should check for outdated dependencies in requirements.txt")
                 recommendations.append("Run dependency security audit")
