@@ -16169,3 +16169,39 @@ github.GithubException.GithubException: 422 {"message": "Validation Failed", "er
 2025-09-30 19:10:41,056 - cmp.agent_zoho_tools - INFO - AI:Sales_Manager: Retrieved 5 customers from Zoho Books
 2025-09-30 19:10:41,770 - cmp.agent_zoho_tools - INFO - AI:Customer_Success_Manager: Retrieved 5 customers from Zoho Books
 2025-09-30 19:10:42,193 - cmp.monitoring - INFO - Request completed [request_id=1759245035782 | endpoint=/admin/api/organization-status | method=GET | duration=6.411 | status_code=200]
+2025-09-30 19:11:51,839 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 19:11:51,841 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 19:11:54,150 - cmp.main - INFO - CMP application starting up...
+2025-09-30 19:11:54,152 - cmp.main - INFO - Database initialized successfully
+2025-09-30 19:11:54,152 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 19:11:54,152 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 19:11:54,156 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 19:11:54,156 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 19:11:54,157 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 19:11:54,157 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 19:11:54,157 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 19:11:54,157 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 19:11:54,157 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 19:11:56,204 - cmp.main - INFO - CMP application starting up...
+2025-09-30 19:11:56,206 - cmp.main - INFO - Database initialized successfully
+2025-09-30 19:11:56,206 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 19:11:56,206 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 19:11:56,211 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 19:11:56,211 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 19:11:56,212 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 19:11:56,212 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 19:11:56,212 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 19:11:56,212 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 19:11:56,212 - cmp.main - INFO - CMP application startup completed successfully
+2025-09-30 19:12:56,214 - cmp.admin_dashboard - ERROR - Error sending WebSocket update: 
+2025-09-30 19:12:58,717 - cmp.main - INFO - CMP application starting up...
+2025-09-30 19:12:58,719 - cmp.main - INFO - Database initialized successfully
+2025-09-30 19:12:58,719 - cmp.zoho_scheduler - INFO - Starting sync scheduler loop...
+2025-09-30 19:12:58,719 - cmp.zoho_scheduler - INFO - Zoho sync scheduler started with 300s interval
+2025-09-30 19:12:58,723 - cmp.main - INFO - Zoho sync scheduler started successfully
+2025-09-30 19:12:58,723 - cmp.zoho_scheduler - DEBUG - Sync check completed: no updates needed
+2025-09-30 19:12:58,723 - cmp.main - ERROR - Failed to start autonomous task scheduler: cannot import name 'task_engine' from 'cmp.utils.task_execution_engine' (/Users/xidioda/Projects/CMP/cmp/utils/task_execution_engine.py)
+2025-09-30 19:12:58,723 - cmp.monitoring - INFO - Enhanced error handling system activated
+2025-09-30 19:12:58,723 - cmp.monitoring - INFO - Performance monitoring system activated
+2025-09-30 19:12:58,723 - cmp.monitoring - INFO - System health monitoring initialized
+2025-09-30 19:12:58,723 - cmp.main - INFO - CMP application startup completed successfully
