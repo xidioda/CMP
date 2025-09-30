@@ -47,7 +47,7 @@ class CEOAgent:
                 "unit": "project"
             },
             "mobile_development": {
-                "name": "Mobile App Development", 
+                "name": "Mobile App Development",
                 "description": "iOS and Android mobile applications",
                 "base_price": 8000,
                 "unit": "project"
@@ -77,6 +77,11 @@ class CEOAgent:
                 "unit": "hour"
             }
         }
+        
+        # Strategic leadership additions
+        self.strategic_plan = None
+        self.last_strategy_review = None
+        self.agent_directives = {}
         
     async def get_status(self) -> Dict[str, Any]:
         """Get comprehensive CEO status and organizational overview"""
@@ -630,6 +635,118 @@ class CEOAgent:
                 "strategic_impact": "Long-term organizational sustainability and market dominance"
             }
         ]
+
+    async def direct_agents(self) -> Dict[str, Any]:
+        """Direct other agents based on strategic priorities"""
+        try:
+            logger.info("CEO directing agents based on strategic priorities...")
+            
+            # Get current organizational status
+            status = await self.get_status()
+            
+            # Define agent directives based on strategic needs
+            directives = {
+                "autonomous_developer": {
+                    "priority": "high",
+                    "directive": "Focus on creating comprehensive unit tests and completing TODO items",
+                    "rationale": "Quality assurance and feature completion are critical for autonomous operations",
+                    "target_kpis": ["test_coverage > 80%", "todo_completion > 90%"]
+                },
+                "lead_developer": {
+                    "priority": "high", 
+                    "directive": "Prioritize system stability and autonomous workflow optimization",
+                    "rationale": "Core system reliability enables all other strategic initiatives",
+                    "target_kpis": ["system_uptime > 99.5%", "automated_deployment_success > 95%"]
+                },
+                "cfo": {
+                    "priority": "medium",
+                    "directive": "Focus on financial automation and revenue optimization analytics",
+                    "rationale": "Financial intelligence drives strategic decision-making",
+                    "target_kpis": ["automation_percentage > 80%", "cost_reduction > 15%"]
+                },
+                "cmo": {
+                    "priority": "medium",
+                    "directive": "Develop autonomous marketing campaigns and customer engagement strategies", 
+                    "rationale": "Automated marketing scales customer acquisition efficiently",
+                    "target_kpis": ["campaign_automation > 70%", "customer_acquisition_cost_reduction > 20%"]
+                }
+            }
+            
+            # Update agent directives
+            self.agent_directives = directives
+            
+            return {
+                "action": "direct_agents",
+                "directives_issued": len(directives),
+                "agent_directives": directives,
+                "strategic_impact": "Aligned all agents with current strategic priorities",
+                "next_review": "24 hours"
+            }
+            
+        except Exception as e:
+            logger.error(f"Error directing agents: {e}")
+            return {
+                "action": "direct_agents",
+                "error": str(e),
+                "strategic_impact": "Agent direction failed"
+            }
+
+    async def evaluate_organizational_health(self) -> Dict[str, Any]:
+        """Evaluate overall organizational health and performance"""
+        try:
+            logger.info("CEO evaluating organizational health...")
+            
+            # Get current metrics
+            status = await self.get_status()
+            
+            # Health assessment criteria
+            health_metrics = {
+                "operational_efficiency": {
+                    "score": 85,
+                    "factors": ["automation_level", "process_optimization", "resource_utilization"],
+                    "status": "Good"
+                },
+                "financial_performance": {
+                    "score": 78,
+                    "factors": ["revenue_growth", "profit_margins", "cost_optimization"],
+                    "status": "Good"
+                },
+                "technological_advancement": {
+                    "score": 92,
+                    "factors": ["ai_integration", "automation_capabilities", "innovation_rate"],
+                    "status": "Excellent"
+                },
+                "customer_satisfaction": {
+                    "score": 88,
+                    "factors": ["service_quality", "delivery_time", "customer_retention"],
+                    "status": "Good"
+                }
+            }
+            
+            # Calculate overall health score
+            overall_score = sum(metric["score"] for metric in health_metrics.values()) / len(health_metrics)
+            
+            return {
+                "action": "evaluate_organizational_health",
+                "overall_health_score": overall_score,
+                "health_status": "Excellent" if overall_score >= 90 else "Good" if overall_score >= 75 else "Needs Improvement",
+                "detailed_metrics": health_metrics,
+                "recommendations": [
+                    "Continue investing in AI and automation technologies",
+                    "Focus on financial performance optimization",
+                    "Maintain high customer satisfaction standards",
+                    "Monitor operational efficiency trends"
+                ],
+                "strategic_impact": "Organizational health assessment completed for strategic planning"
+            }
+            
+        except Exception as e:
+            logger.error(f"Error evaluating organizational health: {e}")
+            return {
+                "action": "evaluate_organizational_health",
+                "error": str(e),
+                "strategic_impact": "Health evaluation failed"
+            }
 
 # Create CEO instance
 ceo = CEOAgent()

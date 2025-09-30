@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.exceptions import RequestValidationError
 
 from .db import init_db
-from .routers import health, dashboard, auth, settings, agents, admin_dashboard, zoho_sync
+from .routers import health, dashboard, auth, settings, agents, admin_dashboard, zoho_sync, autonomous_dev
 from .logging_config import setup_logging, get_logger
 from .utils.error_handling import (
     validation_exception_handler,
@@ -50,6 +50,7 @@ def create_app() -> FastAPI:
     app.include_router(agents.router)  # AI Agents control panels and interactions
     app.include_router(admin_dashboard.router)  # Enhanced admin dashboard with CEO chat
     app.include_router(zoho_sync.router)  # Zoho Books synchronization management
+    app.include_router(autonomous_dev.router)  # Autonomous development requests from AI agents
 
     @app.on_event("startup")
     async def _startup():
@@ -70,8 +71,24 @@ def create_app() -> FastAPI:
         # Start autonomous task scheduler for REAL agent task execution
         try:
             from .utils.autonomous_scheduler import autonomous_scheduler
+            from .utils.log_rotation import rotate_logs_if_needed
+            from .utils.github_project_manager import github_project_manager
+            from .utils.task_execution_engine import task_engine
+            
+            # Rotate logs if needed before starting
+            rotate_logs_if_needed()
+            
+            # Connect GitHub project manager to task execution engine
+            task_engine.set_github_manager(github_project_manager)
+            logger.info("✅ GitHub project manager connected to task execution engine")
+            
             # Import agents to register them with the scheduler
             from .agents.lead_developer import lead_developer  # This will register the agent
+            from .agents.autonomous_developer import autonomous_developer  # The agent that instructs Copilot
+            
+            # Register the autonomous developer agent
+            autonomous_scheduler.register_agent("autonomous_developer", autonomous_developer)
+            logger.info("✅ Autonomous Developer agent registered - will instruct Copilot to develop features")
             
             # Start the scheduler in the background
             import asyncio

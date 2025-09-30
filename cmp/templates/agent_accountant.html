@@ -628,9 +628,17 @@
                 typingIndicator.remove();
                 
                 if (data.success) {
-                    addAgentResponse(data.response);
+                    // Ensure response is properly structured
+                    const response = data.response;
+                    if (typeof response === 'string') {
+                        addMessageToChat(response, 'agent');
+                    } else if (response && response.message) {
+                        addAgentResponse(response);
+                    } else {
+                        addMessageToChat('I received your message and am processing it.', 'agent');
+                    }
                 } else {
-                    addMessageToChat('Sorry, I encountered an error: ' + data.error, 'agent');
+                    addMessageToChat('Sorry, I encountered an error: ' + (data.error || 'Unknown error'), 'agent');
                 }
             })
             .catch(error => {
@@ -660,7 +668,19 @@
         }
         
         function addAgentResponse(response) {
-            const messageDiv = addMessageToChat(response.message, 'agent');
+            // Ensure we have a valid message to display
+            let messageContent = '';
+            if (typeof response === 'string') {
+                messageContent = response;
+            } else if (response && response.message) {
+                messageContent = response.message;
+            } else if (typeof response === 'object') {
+                messageContent = JSON.stringify(response);
+            } else {
+                messageContent = 'I apologize, but I encountered an issue processing your request.';
+            }
+            
+            const messageDiv = addMessageToChat(messageContent, 'agent');
             
             // Add suggestions if available
             if (response.suggestions && response.suggestions.length > 0) {

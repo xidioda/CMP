@@ -23,6 +23,9 @@ from ..agents.ceo import ceo
 # Import inter-department coordinator
 from ..utils.inter_department_coordinator import inter_dept_coordinator, CoordinationPriority, CoordinationStatus
 
+# Import log rotation utilities
+from ..utils.log_rotation import log_rotator, get_logs_info, rotate_logs_if_needed
+
 logger = get_logger("admin_dashboard")
 
 TEMPLATES_DIR = Path(__file__).resolve().parent.parent / "templates"
@@ -791,6 +794,45 @@ def _identify_coordination_opportunities(department_tasks: Dict) -> List[Dict[st
             })
     
     return opportunities[:3]  # Return top 3 opportunities
+
+# Log Management Endpoints
+
+@router.get("/api/logs/status")
+async def get_logs_status():
+    """Get current log files status and sizes"""
+    try:
+        logs_info = get_logs_info()
+        
+        return {
+            "success": True,
+            "logs_info": logs_info,
+            "rotation_settings": {
+                "max_size_mb": log_rotator.max_log_size_bytes / (1024 * 1024),
+                "max_files": log_rotator.max_log_files,
+                "compress_enabled": log_rotator.compress_old_logs
+            },
+            "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        logger.error(f"Error getting logs status: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+@router.post("/api/logs/rotate")
+async def rotate_logs_manually():
+    """Manually trigger log rotation"""
+    try:
+        rotate_logs_if_needed()
+        logs_info = get_logs_info()
+        
+        return {
+            "success": True,
+            "message": "Log rotation completed",
+            "logs_info": logs_info,
+            "timestamp": datetime.now().isoformat()
+        }
+    except Exception as e:
+        logger.error(f"Error rotating logs: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
 
 def _calculate_department_efficiency(metrics: Dict) -> int:
     """Calculate department efficiency score based on metrics"""

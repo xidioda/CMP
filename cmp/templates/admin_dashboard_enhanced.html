@@ -437,9 +437,14 @@
 
                         if (response.ok) {
                             const data = await response.json();
+                            // Ensure response is a string, not an object
+                            const responseContent = typeof data.response === 'string' 
+                                ? data.response 
+                                : JSON.stringify(data.response) || 'I apologize, but I encountered an issue processing your request.';
+                            
                             this.chatMessages.push({
                                 id: Date.now() + Math.random(),
-                                content: data.response,
+                                content: responseContent,
                                 isUser: false,
                                 timestamp: new Date()
                             });
@@ -471,8 +476,14 @@
                 },
 
                 formatCEOResponse(content) {
+                    // Ensure content is a string
+                    if (typeof content !== 'string') {
+                        content = typeof content === 'object' ? JSON.stringify(content) : String(content);
+                    }
+                    
                     return content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                                 .replace(/\n/g, '<br>');
+                                 .replace(/\n/g, '<br>')
+                                 .replace(/\r/g, '');
                 },
 
                 scrollChatToBottom() {

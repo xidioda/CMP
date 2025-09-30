@@ -566,27 +566,81 @@
                     <div class="card-header">
                         <div class="card-title">
                             <div class="card-icon icon-analytics">
-                                <i class="fas fa-chart-pie"></i>
+                                <i class="fas fa-cogs"></i>
                             </div>
-                            Transaction Categories
+                            Agent Tasks Progress
                         </div>
                     </div>
-                    <div id="category-display">
-                        <div class="metric">
-                            <span class="metric-label">Office Supplies</span>
-                            <span class="metric-value">35%</span>
+                    <div id="category-display" x-data="{ 
+                        agentTasks: { 
+                            autonomous_tasks: [], 
+                            traditional_tasks: [], 
+                            total_tasks: 0, 
+                            active_count: 0 
+                        },
+                        loading: false,
+                        lastUpdate: null
+                    }" x-init="
+                        // Function to fetch agent tasks
+                        const fetchAgentTasks = async () => {
+                            loading = true;
+                            try {
+                                const response = await fetch('/dashboard/agent-tasks');
+                                const data = await response.json();
+                                if (data.success) {
+                                    agentTasks = data.agent_tasks;
+                                    lastUpdate = new Date().toLocaleTimeString();
+                                    console.log('Agent tasks updated:', agentTasks);
+                                }
+                            } catch (error) {
+                                console.error('Error fetching agent tasks:', error);
+                            }
+                            loading = false;
+                        };
+                        
+                        // Initial load
+                        fetchAgentTasks();
+                        
+                        // Update every 10 seconds for real-time progress
+                        setInterval(fetchAgentTasks, 10000);
+                    ">
+                        <!-- Active Tasks Display -->
+                        <template x-for="task in [...(agentTasks.traditional_tasks || []), ...(agentTasks.autonomous_tasks || [])]" :key="task.id">
+                            <div class="metric">
+                                <span class="metric-label" x-text="task.title.length > 25 ? task.title.substring(0, 25) + '...' : task.title"></span>
+                                <span class="metric-value" 
+                                      :class="{
+                                          'text-green-600': task.status === 'executing',
+                                          'text-blue-600': task.status === 'active', 
+                                          'text-yellow-600': task.status === 'planning',
+                                          'text-gray-600': task.status === 'unknown'
+                                      }"
+                                      x-text="task.progress + '%'">
+                                </span>
+                            </div>
+                        </template>
+                        
+                        <!-- Loading State -->
+                        <div x-show="loading && agentTasks.total_tasks === 0" class="metric">
+                            <span class="metric-label">Loading Tasks...</span>
+                            <span class="metric-value">...</span>
                         </div>
-                        <div class="metric">
-                            <span class="metric-label">Marketing</span>
-                            <span class="metric-value">25%</span>
+                        
+                        <!-- No Tasks State -->
+                        <div x-show="!loading && agentTasks.total_tasks === 0" class="metric">
+                            <span class="metric-label">No Active Tasks</span>
+                            <span class="metric-value">0%</span>
                         </div>
-                        <div class="metric">
-                            <span class="metric-label">Travel</span>
-                            <span class="metric-value">20%</span>
+                        
+                        <!-- Task Summary -->
+                        <div x-show="agentTasks.total_tasks > 0" class="metric" style="border-top: 1px solid #e5e7eb; margin-top: 10px; padding-top: 10px;">
+                            <span class="metric-label">Total Active</span>
+                            <span class="metric-value text-green-600" x-text="agentTasks.active_count + '/' + agentTasks.total_tasks"></span>
                         </div>
-                        <div class="metric">
-                            <span class="metric-label">Other</span>
-                            <span class="metric-value">20%</span>
+                        
+                        <div x-show="lastUpdate" class="metric" style="font-size: 0.75rem; opacity: 0.7;">
+                            <span class="metric-label">Last Update</span>
+                            <span class="metric-value" x-text="lastUpdate"></span>
                         </div>
                     </div>
                 </div>

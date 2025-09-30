@@ -48,6 +48,12 @@ class Settings(BaseSettings):
     # WIO Bank Configuration (File Import)
     wio_account_number: Optional[str] = None
     wio_account_name: Optional[str] = None
+    
+    # GitHub Integration Configuration
+    github_token: Optional[str] = None
+    github_owner: str = "xidioda"
+    github_repo: str = "CMP"
+    github_project_management: bool = True
     bank_import_directory: str = "local_storage/bank_statements"
     
     # File Storage Configuration

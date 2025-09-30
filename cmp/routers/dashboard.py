@@ -266,3 +266,70 @@ async def agent_status():
             ]
         }
     }
+
+
+@router.get("/dashboard/agent-tasks")
+async def get_agent_tasks():
+    """Get real-time agent task progress for live dashboard updates"""
+    
+    from ..agents.lead_developer import lead_developer
+    from datetime import datetime
+    
+    try:
+        # Get current autonomous tasks from lead_developer
+        tasks = lead_developer.get_current_proactive_tasks()
+        
+        # Filter for autonomous learning tasks
+        autonomous_tasks = []
+        traditional_tasks = []
+        
+        for task in tasks:
+            task_info = {
+                "id": task["id"],
+                "title": task["title"],
+                "description": task.get("description", ""),
+                "type": task["type"],
+                "status": task.get("status", "unknown"),
+                "priority": task.get("priority", "medium"),
+                "progress": task.get("progress", 0),
+                "department": task.get("department", "Unknown"),
+                "real_actions": task.get("real_actions", []),
+                "execution_engine": task.get("execution_engine", "system"),
+                "last_executed": task.get("last_executed", "Never executed")
+            }
+            
+            if task["type"] in ["autonomous_learning", "automation_infrastructure", "self_improvement"]:
+                autonomous_tasks.append(task_info)
+            else:
+                traditional_tasks.append(task_info)
+        
+        return {
+            "success": True,
+            "timestamp": datetime.now().isoformat(),
+            "agent_tasks": {
+                "autonomous_tasks": autonomous_tasks,
+                "traditional_tasks": traditional_tasks,
+                "total_tasks": len(tasks),
+                "autonomous_count": len(autonomous_tasks),
+                "active_count": len([t for t in tasks if t.get("status") in ["executing", "active", "learning", "building"]]),
+            },
+            "agent_info": {
+                "name": "Lead Developer", 
+                "status": "operational",
+                "capabilities": ["N8N Integration", "Autonomous Learning", "Code Optimization", "System Management"]
+            }
+        }
+        
+    except Exception as e:
+        logger.error(f"Error getting agent tasks: {e}")
+        return {
+            "success": False,
+            "error": str(e),
+            "agent_tasks": {
+                "autonomous_tasks": [],
+                "traditional_tasks": [],
+                "total_tasks": 0,
+                "autonomous_count": 0,
+                "active_count": 0
+            }
+        }

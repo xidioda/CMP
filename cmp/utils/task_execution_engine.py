@@ -1,16 +1,11 @@
 """
 Real Task Execution Engine for AI Agents
 
-This module provides agents with the ability to perform actual work:
-- File operations (create, read, modify, delete)
-- System commands execution
-- Git operations (commit, push, pull)
-- API calls to external services
-- N8N workflow triggers
-- Code generation and modification
-- Database operations
-
-No more mock/simulated tasks - agents will perform real work!
+This module provides agents with the ability to perform actual work through:
+- N8N workflow execution for real automation
+- MCP server integration for enhanced development capabilities
+- Task completion validation before GitHub issue closure
+- Real file operations, git operations, and system commands
 """
 
 import asyncio
@@ -24,16 +19,167 @@ import logging
 import tempfile
 import shutil
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Import our new integrations
+from cmp.integrations.n8n_workflow_integration import n8n_integration
+from cmp.integrations.mcp_server_integration import mcp_integration
+from cmp.utils.task_completion_validator import task_completion_validator
+
+# Load environment variables
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
 class TaskExecutionEngine:
-    """Real task execution engine for AI agents"""
+    """Real task execution engine for AI agents with N8N and MCP integration"""
     
     def __init__(self, workspace_path: str = "/Users/xidioda/Projects/CMP"):
         self.workspace_path = workspace_path
-        self.n8n_webhook_url = os.getenv("N8N_WEBHOOK_URL", "http://localhost:5678/webhook")
         self.execution_log = []
+        self.github_project_manager = None
+        
+    def set_github_manager(self, github_manager):
+        """Set GitHub project manager for issue tracking"""
+        self.github_project_manager = github_manager
+        
+    async def _create_github_issue_for_task(self, task: Dict[str, Any]) -> Dict[str, Any]:
+        """Create GitHub issue for autonomous task tracking (with deduplication)"""
+        try:
+            task_id = task.get('id', 'unknown')
+            task_title = task.get('title', f"Autonomous Task: {task.get('type', 'Unknown')}")
+            
+            # DEDUPLICATION: Check if we already created an issue for this task recently
+            issue_cache_file = f"{self.workspace_path}/local_storage/created_github_issues.json"
+            os.makedirs(os.path.dirname(issue_cache_file), exist_ok=True)
+            
+            created_issues = {}
+            if os.path.exists(issue_cache_file):
+                try:
+                    with open(issue_cache_file, 'r') as f:
+                        created_issues = json.load(f)
+                except:
+                    created_issues = {}
+            
+            # Check if we already created an issue for this task in the last 24 hours
+            now = datetime.now()
+            if task_id in created_issues:
+                last_created = datetime.fromisoformat(created_issues[task_id]['created_at'])
+                hours_since_created = (now - last_created).total_seconds() / 3600
+                
+                if hours_since_created < 24:  # Don't create duplicate issues within 24 hours
+                    logger.info(f"⏭️ Skipping GitHub issue creation for {task_id} - already created {hours_since_created:.1f} hours ago")
+                    return {
+                        "success": True,
+                        "issue_number": created_issues[task_id]['issue_number'],
+                        "issue_url": created_issues[task_id]['issue_url'],
+                        "status": "duplicate_prevented",
+                        "reason": f"Issue already created {hours_since_created:.1f} hours ago"
+                    }
+            
+            task_description = task.get('description', 'Autonomous AI agent task execution')
+            task_type = task.get('type', 'general')
+            task_priority = task.get('priority', 'medium')
+            
+            # Create detailed description for GitHub issue
+            github_description = f"""
+## 🤖 Autonomous AI Agent Task Execution
+
+**Task Type:** {task_type}  
+**Priority:** {task_priority.upper()}  
+**Agent:** Lead Developer  
+**Execution Mode:** Autonomous Real Work  
+
+### Task Details
+{task_description}
+
+### Real Actions Being Executed
+{chr(10).join(f'- {action}' for action in task.get('real_actions', ['Autonomous execution in progress']))}
+
+### Technical Information
+- **Task ID:** {task.get('id', 'unknown')}
+- **Execution Engine:** {task.get('execution_engine', 'task_execution_engine')}
+- **Department:** {task.get('department', 'Development')}
+- **Estimated Completion:** {task.get('estimated_completion', 'Variable')}
+- **Target Progress:** {task.get('progress', 0)}%
+
+### Autonomous Execution Status
+⚡ This task is being executed RIGHT NOW by autonomous AI agents.  
+📊 Progress updates will be posted automatically as work progresses.  
+🔧 Real changes to code, files, and systems are being made.
+
+### Execution Timeline
+- **Started:** {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
+- **Engine:** Task Execution Engine v2.0
+- **Mode:** Autonomous Real Work (No Simulation)
+            """
+            
+            # Use the main GitHub project manager's create_agent_task_issue method
+            # This method has proper label handling and validation
+            issue_result = await self.github_project_manager.create_agent_task_issue(
+                agent_id="task-execution-engine",
+                task_type=task_type,
+                title=task_title,
+                description=github_description,
+                priority=task_priority,
+                labels=["autonomous-execution", "real-work", "active-task"]
+            )
+            
+            # Cache the created issue to prevent duplicates
+            if issue_result.get('success'):
+                created_issues[task_id] = {
+                    "issue_number": issue_result.get('issue_number'),
+                    "issue_url": issue_result.get('issue_url'),
+                    "created_at": now.isoformat(),
+                    "task_title": task_title,
+                    "task_type": task_type
+                }
+                
+                with open(issue_cache_file, 'w') as f:
+                    json.dump(created_issues, f, indent=2)
+                
+                logger.info(f"✅ Created GitHub issue #{issue_result.get('issue_number')} for task {task_id}")
+            
+            return issue_result
+            
+        except Exception as e:
+            logger.error(f"❌ Error creating GitHub issue for task: {e}")
+            return {"success": False, "error": str(e)}
+        
+    async def _save_github_issue_tracking(self, task: Dict[str, Any], github_result: Dict[str, Any]) -> None:
+        """Save GitHub issue tracking information to local storage"""
+        try:
+            task_id = task.get('id', 'unknown')
+            tracking_file = f"{self.workspace_path}/local_storage/task_github_issues.json"
+            os.makedirs(os.path.dirname(tracking_file), exist_ok=True)
+            
+            # Load existing tracking data
+            tracking_data = {}
+            if os.path.exists(tracking_file):
+                try:
+                    with open(tracking_file, 'r') as f:
+                        tracking_data = json.load(f)
+                except:
+                    tracking_data = {}
+            
+            # Add new issue tracking
+            tracking_data[task_id] = {
+                "issue_number": github_result['issue_number'],
+                "issue_url": github_result['issue_url'],
+                "created_at": datetime.now().isoformat(),
+                "task_title": task.get('title', 'Unknown Task'),
+                "task_type": task.get('type', 'unknown'),
+                "status": "open"
+            }
+            
+            # Save tracking data
+            with open(tracking_file, 'w') as f:
+                json.dump(tracking_data, f, indent=2)
+                
+            logger.info(f"📝 GitHub issue tracking saved for task {task_id}")
+            
+        except Exception as e:
+            logger.error(f"❌ Failed to save GitHub issue tracking: {e}")
         
     async def execute_task(self, task: Dict[str, Any]) -> Dict[str, Any]:
         """Execute a real task and return actual results"""
@@ -42,31 +188,242 @@ class TaskExecutionEngine:
         
         logger.info(f"Executing REAL task: {task_id} of type: {task_type}")
         
+        # Create GitHub issue for task tracking BEFORE execution
+        github_result = None
+        issue_number = None
+        if self.github_project_manager:
+            try:
+                logger.info(f"🔄 Creating GitHub issue for task {task_id}...")
+                github_result = await self._create_github_issue_for_task(task)
+                if github_result.get('success'):
+                    issue_number = github_result.get('issue_number')
+                    logger.info(f"✅ GitHub issue #{issue_number} created for task {task_id}")
+                    
+                    # Save GitHub issue tracking information
+                    await self._save_github_issue_tracking(task, github_result)
+                    
+                else:
+                    logger.warning(f"⚠️ GitHub issue creation failed: {github_result.get('error')}")
+            except Exception as e:
+                logger.warning(f"⚠️ Failed to create GitHub issue for task {task_id}: {e}")
+        else:
+            logger.warning(f"⚠️ No GitHub project manager available for task {task_id}")
+        
+        # Execute the actual task using N8N workflows and MCP servers
+        execution_result = None
         try:
-            if task_type == "code_generation":
-                return await self._execute_code_generation(task)
-            elif task_type == "file_operations":
-                return await self._execute_file_operations(task)
-            elif task_type == "system_optimization":
-                return await self._execute_system_optimization(task)
-            elif task_type == "git_operations":
-                return await self._execute_git_operations(task)
-            elif task_type == "n8n_workflow":
-                return await self._execute_n8n_workflow(task)
-            elif task_type == "api_integration":
-                return await self._execute_api_integration(task)
-            elif task_type == "database_operations":
-                return await self._execute_database_operations(task)
+            # Determine task execution method based on type
+            task_type = task.get('type', 'generic')
+            
+            # First try to execute via N8N workflow (preferred for automation)
+            n8n_result = await n8n_integration.trigger_development_workflow(task_type, task)
+            
+            if n8n_result.get("success"):
+                logger.info(f"✅ Task executed via N8N workflow: {task_type}")
+                execution_result = {
+                    'status': 'completed',
+                    'execution_method': 'n8n_workflow',
+                    'n8n_result': n8n_result,
+                    'completed_at': datetime.now().isoformat()
+                }
             else:
-                return await self._execute_generic_task(task)
+                # Fallback to MCP server execution
+                logger.info(f"⚠️ N8N workflow failed, trying MCP server: {n8n_result.get('error')}")
+                mcp_result = await self._execute_via_mcp_server(task)
+                
+                if mcp_result.get("success"):
+                    logger.info(f"✅ Task executed via MCP server: {task_type}")
+                    execution_result = {
+                        'status': 'completed',
+                        'execution_method': 'mcp_server',
+                        'mcp_result': mcp_result,
+                        'completed_at': datetime.now().isoformat()
+                    }
+                else:
+                    # Last resort: direct execution
+                    logger.info(f"⚠️ MCP server failed, using direct execution: {mcp_result.get('error')}")
+                    execution_result = await self._execute_task_directly(task)
+            
+            # Validate task completion before closing GitHub issue
+            if issue_number and self.github_project_manager and execution_result.get('status') == 'completed':
+                validation_result = await task_completion_validator.validate_task_completion(task, execution_result)
+                
+                if validation_result.get("allow_closure", False):
+                    # Task validation passed - close the issue
+                    completion_comment = f"""## ✅ Task Completed Successfully
+
+**Execution Method:** {execution_result.get('execution_method', 'unknown')}
+**Completion Time:** {execution_result.get('completed_at')}
+**Validation Score:** {validation_result.get('completion_score', 0):.1f}%
+
+**Validation Checks:**
+{chr(10).join(f'• {check.get("check", "Unknown")}: {"✅ PASSED" if check.get("passed", False) else "❌ FAILED"} - {check.get("message", "No details")}' for check in validation_result.get("validation_checks", []))}
+
+**Task completed and validated - closing issue automatically.**
+"""
+                    
+                    await self.github_project_manager.add_comment_to_issue(issue_number, completion_comment)
+                    await self.github_project_manager.close_issue(issue_number)
+                    await self.github_project_manager.update_issue_labels(
+                        issue_number,
+                        labels_to_add=["completed", "validated"],
+                        labels_to_remove=["active-task", "in-progress"]
+                    )
+                    
+                    logger.info(f"✅ Task {task_id} completed and validated - GitHub issue #{issue_number} closed")
+                    execution_result['github_issue_closed'] = True
+                    execution_result['validation_passed'] = True
+                    
+                else:
+                    # Task validation failed - don't close the issue yet
+                    validation_score = validation_result.get("completion_score", 0)
+                    validation_errors = validation_result.get("validation_errors", [])
+                    
+                    validation_comment = f"""## ⚠️ Task Completion Validation Failed
+
+**Validation Score:** {validation_score:.1f}% (80% required for closure)
+
+**Validation Checks:**
+{chr(10).join(f'• {check.get("check", "Unknown")}: {"✅ PASSED" if check.get("passed", False) else "❌ FAILED"} - {check.get("message", "No details")}' for check in validation_result.get("validation_checks", []))}
+
+**Validation Errors:**
+{chr(10).join(f'• {error.get("message", "Unknown error")}' for error in validation_errors)}
+
+**Actions Required:**
+1. Complete the actual work described in the issue
+2. Ensure all validation checks pass  
+3. Re-run the task to trigger validation again
+
+**Status:** Issue remains OPEN until validation passes ⚠️
+"""
+                    
+                    await self.github_project_manager.add_comment_to_issue(issue_number, validation_comment)
+                    await self.github_project_manager.update_issue_labels(
+                        issue_number,
+                        labels_to_add=["validation-failed", "requires-work"],
+                        labels_to_remove=["active-task"]
+                    )
+                    
+                    logger.warning(f"⚠️ Task validation FAILED for issue #{issue_number}. Issue remains open.")
+                    execution_result['github_issue_closed'] = False
+                    execution_result['validation_failed'] = True
+                        execution_result['validation_score'] = validation_score
+                        
+                        return execution_result
+                    
+                    # Validation passed - proceed with closure
+                    validation_score = validation_result.get("completion_score", 0)
+                    validation_checks = validation_result.get("validation_checks", [])
+                    
+                    completion_comment = f"""## ✅ Task Completed and Validated Successfully
+
+**Agent:** {task.get('agent', 'Unknown')}
+**Task Type:** {task.get('type', 'Unknown')}
+**Completion Time:** {datetime.now().isoformat()}
+
+**Validation Results:**
+- **Validation Score:** {validation_score:.1f}% ✅
+- **Checks Passed:** {sum(1 for check in validation_checks if check.get('passed', False))}/{len(validation_checks)}
+
+**Validation Details:**
+{chr(10).join(f'• {check.get("check", "Unknown")}: {"✅ PASSED" if check.get("passed", False) else "❌ FAILED"} - {check.get("message", "No details")}' for check in validation_checks)}
+
+**Execution Results:**
+{chr(10).join(f'• {result}' for result in execution_result.get('results', ['Task completed']))}
+
+**Technical Details:**
+- **Task ID:** {task_id}
+- **Execution Time:** {execution_result.get('timestamp', 'Unknown')}
+- **Files Affected:** {execution_result.get('files_affected', 'N/A')}
+- **Operations Performed:** {execution_result.get('optimizations_performed', execution_result.get('git_operations', execution_result.get('api_calls_made', 'Multiple')))}
+
+**Status:** Task completed autonomously by AI agents and validated ✅
+"""
+                    
+                    # Close the GitHub issue with validated completion details
+                    close_result = await self.github_project_manager.close_agent_task_issue(
+                        issue_number=issue_number,
+                        completion_comment=completion_comment,
+                        labels_to_add=["completed", "autonomous-success", "validated"],
+                        labels_to_remove=["active-task", "validation-failed", "requires-work"]
+                    )
+                    
+                    if close_result.get('success'):
+                        logger.info(f"✅ GitHub issue #{issue_number} closed successfully after validation")
+                        execution_result['github_issue_closed'] = True
+                        execution_result['github_issue_number'] = issue_number
+                        execution_result['validation_passed'] = True
+                        execution_result['validation_score'] = validation_score
+                    else:
+                        logger.warning(f"⚠️ Failed to close GitHub issue #{issue_number}: {close_result.get('error')}")
+                        execution_result['github_issue_closed'] = False
+                        
+                except Exception as e:
+                    logger.error(f"❌ Error in task validation/closure for issue #{issue_number}: {e}")
+                    execution_result['github_issue_closed'] = False
+                    execution_result['validation_error'] = str(e)
+"""
+                    
+                    # Close the GitHub issue with completion details
+                    close_result = await self.github_project_manager.close_agent_task_issue(
+                        issue_number=issue_number,
+                        completion_comment=completion_comment,
+                        labels_to_add=["completed", "autonomous-success"],
+                        labels_to_remove=["active-task"]
+                    )
+                    
+                    if close_result.get('success'):
+                        logger.info(f"✅ GitHub issue #{issue_number} closed successfully")
+                        execution_result['github_issue_closed'] = True
+                        execution_result['github_issue_number'] = issue_number
+                    else:
+                        logger.warning(f"⚠️ Failed to close GitHub issue #{issue_number}: {close_result.get('error')}")
+                        execution_result['github_issue_closed'] = False
+                        
+                except Exception as e:
+                    logger.error(f"❌ Error closing GitHub issue #{issue_number}: {e}")
+                    execution_result['github_issue_closed'] = False
+                    
+            return execution_result
                 
         except Exception as e:
             logger.error(f"Task execution failed for {task_id}: {e}")
+            
+            # If task failed, update GitHub issue with error
+            if issue_number and self.github_project_manager:
+                try:
+                    error_comment = f"""## ❌ Task Execution Failed
+
+**Error Details:**
+{str(e)}
+
+**Task ID:** {task_id}
+**Failure Time:** {datetime.now().isoformat()}
+
+The task will be retried automatically or requires manual intervention.
+"""
+                    await self.github_project_manager.add_comment_to_issue(
+                        issue_number=issue_number,
+                        comment=error_comment
+                    )
+                    
+                    # Add failure labels
+                    await self.github_project_manager.update_issue_labels(
+                        issue_number=issue_number,
+                        labels_to_add=["failed", "needs-review"],
+                        labels_to_remove=["active-task"]
+                    )
+                    
+                except Exception as label_error:
+                    logger.error(f"Failed to update failed issue #{issue_number}: {label_error}")
+            
             return {
                 "task_id": task_id,
                 "status": "failed",
                 "error": str(e),
-                "timestamp": datetime.now().isoformat()
+                "timestamp": datetime.now().isoformat(),
+                "github_issue_number": issue_number,
+                "github_issue_closed": False
             }
     
     async def _execute_code_generation(self, task: Dict[str, Any]) -> Dict[str, Any]:
@@ -208,7 +565,7 @@ class TaskExecutionEngine:
                     result = subprocess.run(["git", "status", "--porcelain"], 
                                           capture_output=True, text=True)
                     if result.stdout.strip():
-                        results.append(f"Git changes detected: {len(result.stdout.strip().split(newline))} files")
+                        results.append(f"Git changes detected: {len(result.stdout.strip().split(chr(10)))} files")
                     else:
                         results.append("Git working directory clean")
                         
